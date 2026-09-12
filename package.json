@@ -1,0 +1,22 @@
+{
+  "name": "bundle-lab",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "gen": "node scripts/gen-orders.mjs",
+    "test:rules": "node scripts/test-rules.mjs",
+    "recall": "node scripts/recall.mjs",
+    "robustness": "node scripts/robustness.mjs",
+    "playbook:samples": "node scripts/playbook-samples.mjs"
+  },
+  "dependencies": {
+    "next": "15.5.3",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "recharts": "3.1.2"
+  },
+  "type": "module"
+}
