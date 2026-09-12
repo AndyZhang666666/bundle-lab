@@ -1,0 +1,211 @@
+{
+  "generatedAt": "2026-09-12T17:33:29.318Z",
+  "dataset": {
+    "orders": 4000,
+    "lines": 12054,
+    "seed": 20260913
+  },
+  "thresholds": {
+    "minSupport": 0.01,
+    "minLift": 1.2,
+    "minConfidence": 0.1,
+    "maxLen": 3
+  },
+  "totalCandidates": 58,
+  "recall": {
+    "found": 5,
+    "total": 5,
+    "rate": 1
+  },
+  "falsePositivesInTop10": 2,
+  "planted": [
+    {
+      "id": "P1",
+      "items": [
+        "牛肉面",
+        "卤蛋"
+      ],
+      "key": "卤蛋 + 牛肉面",
+      "plantedProb": 0.55,
+      "note": "经典搭配，全时段",
+      "found": true,
+      "rank": 2,
+      "lift": 4.183427192276749,
+      "support": 0.078,
+      "confidence": 0.5909090909090908,
+      "hitOrders": 312,
+      "dominantDaypart": "lunch",
+      "dominantDaypartShare": 0.5032051282051282,
+      "groupShare": 0.36538461538461536
+    },
+    {
+      "id": "P2",
+      "items": [
+        "麻辣香锅（单人）",
+        "酸梅汤"
+      ],
+      "key": "酸梅汤 + 麻辣香锅（单人）",
+      "plantedProb": 0.5,
+      "note": "辣配解辣，单人为主",
+      "found": true,
+      "rank": 7,
+      "lift": 3.6644450456211106,
+      "support": 0.0745,
+      "confidence": 0.5350089766606821,
+      "hitOrders": 298,
+      "dominantDaypart": "lunch",
+      "dominantDaypartShare": 0.5033557046979866,
+      "groupShare": 0.3221476510067114
+    },
+    {
+      "id": "P3",
+      "items": [
+        "烤鱼（双人）",
+        "啤酒"
+      ],
+      "key": "啤酒 + 烤鱼（双人）",
+      "plantedProb": 0.6,
+      "note": "多人 + 晚餐倾向",
+      "found": true,
+      "rank": 6,
+      "lift": 4.157980409515378,
+      "support": 0.0455,
+      "confidence": 0.5041551246537396,
+      "hitOrders": 182,
+      "dominantDaypart": "dinner",
+      "dominantDaypartShare": 0.532967032967033,
+      "groupShare": 1
+    },
+    {
+      "id": "P4",
+      "items": [
+        "酸菜鱼（双人）",
+        "大瓶可乐（1.25L）"
+      ],
+      "key": "大瓶可乐（1.25L） + 酸菜鱼（双人）",
+      "plantedProb": 0.5,
+      "note": "多人分享装饮料",
+      "found": true,
+      "rank": 3,
+      "lift": 4.183534545716836,
+      "support": 0.058,
+      "confidence": 0.5888324873096447,
+      "hitOrders": 232,
+      "dominantDaypart": "lunch",
+      "dominantDaypartShare": 0.47413793103448276,
+      "groupShare": 1
+    },
+    {
+      "id": "P5",
+      "items": [
+        "鸡腿饭",
+        "薯条",
+        "可乐"
+      ],
+      "key": "可乐 + 薯条 + 鸡腿饭",
+      "plantedProb": 0.4,
+      "note": "三元组，快餐式套餐",
+      "found": true,
+      "rank": 1,
+      "lift": 8.70870870870871,
+      "support": 0.05075,
+      "confidence": 0.9144144144144145,
+      "hitOrders": 203,
+      "dominantDaypart": "lunch",
+      "dominantDaypartShare": 0.4876847290640394,
+      "groupShare": 0.3842364532019704
+    }
+  ],
+  "top10": [
+    {
+      "rank": 1,
+      "key": "可乐 + 薯条 + 鸡腿饭",
+      "lift": 8.70870870870871,
+      "support": 0.05075,
+      "hitOrders": 203,
+      "isPlanted": true,
+      "isDerived": false
+    },
+    {
+      "rank": 2,
+      "key": "卤蛋 + 牛肉面",
+      "lift": 4.183427192276749,
+      "support": 0.078,
+      "hitOrders": 312,
+      "isPlanted": true,
+      "isDerived": false
+    },
+    {
+      "rank": 3,
+      "key": "大瓶可乐（1.25L） + 酸菜鱼（双人）",
+      "lift": 4.183534545716836,
+      "support": 0.058,
+      "hitOrders": 232,
+      "isPlanted": true,
+      "isDerived": false
+    },
+    {
+      "rank": 4,
+      "key": "可乐 + 薯条",
+      "lift": 4.147169465088541,
+      "support": 0.0565,
+      "hitOrders": 226,
+      "isPlanted": false,
+      "isDerived": true
+    },
+    {
+      "rank": 5,
+      "key": "薯条 + 鸡腿饭",
+      "lift": 4.137545429130556,
+      "support": 0.0555,
+      "hitOrders": 222,
+      "isPlanted": false,
+      "isDerived": true
+    },
+    {
+      "rank": 6,
+      "key": "啤酒 + 烤鱼（双人）",
+      "lift": 4.157980409515378,
+      "support": 0.0455,
+      "hitOrders": 182,
+      "isPlanted": true,
+      "isDerived": false
+    },
+    {
+      "rank": 7,
+      "key": "酸梅汤 + 麻辣香锅（单人）",
+      "lift": 3.6644450456211106,
+      "support": 0.0745,
+      "hitOrders": 298,
+      "isPlanted": true,
+      "isDerived": false
+    },
+    {
+      "rank": 8,
+      "key": "可乐 + 鸡腿饭",
+      "lift": 3.3483026594120107,
+      "support": 0.0555,
+      "hitOrders": 222,
+      "isPlanted": false,
+      "isDerived": true
+    },
+    {
+      "rank": 9,
+      "key": "卤蛋 + 大瓶可乐（1.25L） + 牛肉面",
+      "lift": 4.721124286341676,
+      "support": 0.01075,
+      "hitOrders": 43,
+      "isPlanted": false,
+      "isDerived": false
+    },
+    {
+      "rank": 10,
+      "key": "啤酒 + 大瓶可乐（1.25L） + 烤鱼（双人）",
+      "lift": 4.639175257731959,
+      "support": 0.01125,
+      "hitOrders": 45,
+      "isPlanted": false,
+      "isDerived": false
+    }
+  ]
+}

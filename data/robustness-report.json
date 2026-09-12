@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-09-12T17:36:54.466Z",
+  "bySize": [
+    {
+      "orders": 200,
+      "candidates": 200,
+      "recalled": 5,
+      "rate": 1,
+      "inTop10": 1,
+      "buriedBelowTop10": [
+        "P1(#15)",
+        "P2(#13)",
+        "P3(#69)",
+        "P4(#14)"
+      ],
+      "missing": [],
+      "worstRank": 69
+    },
+    {
+      "orders": 500,
+      "candidates": 117,
+      "recalled": 5,
+      "rate": 1,
+      "inTop10": 4,
+      "buriedBelowTop10": [
+        "P3(#17)"
+      ],
+      "missing": [],
+      "worstRank": 17
+    },
+    {
+      "orders": 1000,
+      "candidates": 79,
+      "recalled": 5,
+      "rate": 1,
+      "inTop10": 3,
+      "buriedBelowTop10": [
+        "P2(#12)",
+        "P3(#11)"
+      ],
+      "missing": [],
+      "worstRank": 12
+    },
+    {
+      "orders": 2000,
+      "candidates": 65,
+      "recalled": 5,
+      "rate": 1,
+      "inTop10": 5,
+      "buriedBelowTop10": [],
+      "missing": [],
+      "worstRank": 8
+    },
+    {
+      "orders": 3000,
+      "candidates": 60,
+      "recalled": 5,
+      "rate": 1,
+      "inTop10": 5,
+      "buriedBelowTop10": [],
+      "missing": [],
+      "worstRank": 7
+    },
+    {
+      "orders": 4000,
+      "candidates": 58,
+      "recalled": 5,
+      "rate": 1,
+      "inTop10": 5,
+      "buriedBelowTop10": [],
+      "missing": [],
+      "worstRank": 7
+    }
+  ],
+  "byThreshold": [
+    {
+      "label": "宽松 lift≥1.0 supp≥0.5%",
+      "minSupport": 0.005,
+      "minLift": 1,
+      "candidates": 200,
+      "recalled": 5,
+      "rate": 1,
+      "inTop10": 3,
+      "buriedBelowTop10": [
+        "P2(#13)",
+        "P3(#12)"
+      ],
+      "missing": [],
+      "worstRank": 13
+    },
+    {
+      "label": "默认 lift≥1.2 supp≥1%",
+      "minSupport": 0.01,
+      "minLift": 1.2,
+      "candidates": 58,
+      "recalled": 5,
+      "rate": 1,
+      "inTop10": 5,
+      "buriedBelowTop10": [],
+      "missing": [],
+      "worstRank": 7
+    },
+    {
+      "label": "偏严 lift≥1.5 supp≥2%",
+      "minSupport": 0.02,
+      "minLift": 1.5,
+      "candidates": 11,
+      "recalled": 5,
+      "rate": 1,
+      "inTop10": 5,
+      "buriedBelowTop10": [],
+      "missing": [],
+      "worstRank": 7
+    },
+    {
+      "label": "严格 lift≥2.0 supp≥3%",
+      "minSupport": 0.03,
+      "minLift": 2,
+      "candidates": 8,
+      "recalled": 5,
+      "rate": 1,
+      "inTop10": 5,
+      "buriedBelowTop10": [],
+      "missing": [],
+      "worstRank": 7
+    },
+    {
+      "label": "极严 lift≥3.0 supp≥5%",
+      "minSupport": 0.05,
+      "minLift": 3,
+      "candidates": 7,
+      "recalled": 4,
+      "rate": 0.8,
+      "inTop10": 4,
+      "buriedBelowTop10": [],
+      "missing": [
+        "P3"
+      ],
+      "worstRank": 6
+    }
+  ]
+}
