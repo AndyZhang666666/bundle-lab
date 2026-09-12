@@ -3,7 +3,7 @@
 // 目的是给出使用边界 —— 一个工具敢说自己能用，得先说清什么情况下不能用。
 // 用法：node scripts/robustness.mjs
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { parseCSV, groupOrders } from '../lib/orders.js';
 import { toTransactions, mineBundles, comboKey } from '../lib/rules.js';
 
@@ -57,8 +57,15 @@ const byThreshold = THRESHOLDS.map((t) => {
   return { label: t.label, minSupport: t.minSupport, minLift: t.minLift, ...r };
 });
 
-const report = { generatedAt: new Date().toISOString(), bySize, byThreshold };
-writeFileSync('data/robustness-report.json', JSON.stringify(report, null, 2));
+const report = {
+  generatedAt: new Date().toISOString(),
+  visibleTopN: VISIBLE,
+  note: 'inTop10 才是可用性指标：进候选但排在第 69 名等于没找到',
+  bySize,
+  byThreshold,
+};
+mkdirSync('results', { recursive: true });
+writeFileSync('results/robustness.json', JSON.stringify(report, null, 2));
 
 console.log('\n实验一：样本量阶梯（阈值固定为默认）');
 console.log('订单数   候选数  进候选  进前10  最差排名  沉在10名外');
@@ -78,4 +85,4 @@ for (const r of byThreshold) {
     `${r.label.padEnd(27)} ${String(r.candidates).padEnd(7)} ${r.recalled}/5    ${r.inTop10}/5    ${miss}`,
   );
 }
-console.log('\n报告已写入 data/robustness-report.json');
+console.log('\n报告已写入 results/robustness.json');

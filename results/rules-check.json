@@ -1,0 +1,236 @@
+{
+  "generatedAt": "2026-09-12T17:43:17.800Z",
+  "fixture": [
+    {
+      "orderId": "T01",
+      "items": [
+        "A",
+        "B"
+      ],
+      "total": 100,
+      "partySize": 1,
+      "daypart": "lunch"
+    },
+    {
+      "orderId": "T02",
+      "items": [
+        "A",
+        "B"
+      ],
+      "total": 120,
+      "partySize": 1,
+      "daypart": "lunch"
+    },
+    {
+      "orderId": "T03",
+      "items": [
+        "A",
+        "B",
+        "C"
+      ],
+      "total": 200,
+      "partySize": 4,
+      "daypart": "dinner"
+    },
+    {
+      "orderId": "T04",
+      "items": [
+        "A",
+        "B"
+      ],
+      "total": 110,
+      "partySize": 1,
+      "daypart": "dinner"
+    },
+    {
+      "orderId": "T05",
+      "items": [
+        "A",
+        "C"
+      ],
+      "total": 90,
+      "partySize": 1,
+      "daypart": "lunch"
+    },
+    {
+      "orderId": "T06",
+      "items": [
+        "A",
+        "C"
+      ],
+      "total": 95,
+      "partySize": 1,
+      "daypart": "lunch"
+    },
+    {
+      "orderId": "T07",
+      "items": [
+        "A",
+        "D"
+      ],
+      "total": 80,
+      "partySize": 1,
+      "daypart": "dinner"
+    },
+    {
+      "orderId": "T08",
+      "items": [
+        "B",
+        "C"
+      ],
+      "total": 150,
+      "partySize": 3,
+      "daypart": "dinner"
+    },
+    {
+      "orderId": "T09",
+      "items": [
+        "C"
+      ],
+      "total": 60,
+      "partySize": 1,
+      "daypart": "lunch"
+    },
+    {
+      "orderId": "T10",
+      "items": [
+        "D"
+      ],
+      "total": 50,
+      "partySize": 1,
+      "daypart": "dinner"
+    }
+  ],
+  "fixtureNote": "10 条手工订单，所有期望值均为笔算得出，见脚本内注释",
+  "totalChecks": 21,
+  "passed": 21,
+  "failed": 0,
+  "checks": [
+    {
+      "label": "supp(A)",
+      "actual": 0.7,
+      "expected": 0.7,
+      "pass": true
+    },
+    {
+      "label": "supp(B)",
+      "actual": 0.5,
+      "expected": 0.5,
+      "pass": true
+    },
+    {
+      "label": "supp(C)",
+      "actual": 0.5,
+      "expected": 0.5,
+      "pass": true
+    },
+    {
+      "label": "supp(D)",
+      "actual": 0.2,
+      "expected": 0.2,
+      "pass": true
+    },
+    {
+      "label": "supp(A∪B)",
+      "actual": 0.4,
+      "expected": 0.4,
+      "pass": true
+    },
+    {
+      "label": "supp(A∪C)",
+      "actual": 0.3,
+      "expected": 0.3,
+      "pass": true
+    },
+    {
+      "label": "supp(B∪C)",
+      "actual": 0.2,
+      "expected": 0.2,
+      "pass": true
+    },
+    {
+      "label": "supp(A∪B∪C)",
+      "actual": 0.1,
+      "expected": 0.1,
+      "pass": true
+    },
+    {
+      "label": "conf(A,B) 取最强方向 B→A",
+      "actual": 0.8,
+      "expected": 0.8,
+      "pass": true
+    },
+    {
+      "label": "lift(A,B)",
+      "actual": 1.142857142857143,
+      "expected": 1.142857142857143,
+      "pass": true
+    },
+    {
+      "label": "A,B 最强方向是 B→A",
+      "actual": "B→A",
+      "expected": "B→A",
+      "pass": true
+    },
+    {
+      "label": "conf(B,C)",
+      "actual": 0.4,
+      "expected": 0.4,
+      "pass": true
+    },
+    {
+      "label": "lift(B,C) 小于 1 表示负相关",
+      "actual": 0.8,
+      "expected": 0.8,
+      "pass": true
+    },
+    {
+      "label": "conf(A,B,C) 取最强方向 {B,C}→A",
+      "actual": 0.5,
+      "expected": 0.5,
+      "pass": true
+    },
+    {
+      "label": "lift(A,B,C)",
+      "actual": 0.7142857142857143,
+      "expected": 0.7142857142857143,
+      "pass": true
+    },
+    {
+      "label": "matchedOrders(A,B) 含至少一件",
+      "actual": 8,
+      "expected": 8,
+      "pass": true
+    },
+    {
+      "label": "containingOrders(A,B) 含全部",
+      "actual": 4,
+      "expected": 4,
+      "pass": true
+    },
+    {
+      "label": "全体客单价",
+      "actual": 105.5,
+      "expected": 105.5,
+      "pass": true
+    },
+    {
+      "label": "A,B 命中订单客单价",
+      "actual": 132.5,
+      "expected": 132.5,
+      "pass": true
+    },
+    {
+      "label": "客单差额",
+      "actual": 27,
+      "expected": 27,
+      "pass": true
+    },
+    {
+      "label": "lift≥1.2 过滤后应为空",
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    }
+  ]
+}

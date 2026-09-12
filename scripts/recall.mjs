@@ -75,8 +75,8 @@ const report = {
   top10,
 };
 
-mkdirSync('data', { recursive: true });
-writeFileSync('data/recall-report.json', JSON.stringify(report, null, 2));
+mkdirSync('results', { recursive: true });
+writeFileSync('results/recall.json', JSON.stringify(report, null, 2));
 
 console.log(`\n数据集：${orders.length} 单 / ${rows.length} 行 / seed=${planted.seed}`);
 console.log(`挖出候选组合：${bundles.length} 个\n`);
@@ -99,4 +99,4 @@ for (const t of top10) {
   const tag = t.isPlanted ? '[植入]' : t.isDerived ? '[植入衍生]' : '[其他]';
   console.log(`  #${t.rank} ${tag} ${t.key}  lift=${t.lift.toFixed(2)}  命中${t.hitOrders}单`);
 }
-console.log('\n报告已写入 data/recall-report.json');
+console.log('\n报告已写入 results/recall.json');

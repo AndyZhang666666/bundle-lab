@@ -1,5 +1,7 @@
 {
-  "generatedAt": "2026-09-12T17:36:54.466Z",
+  "generatedAt": "2026-09-12T17:43:21.632Z",
+  "visibleTopN": 10,
+  "note": "inTop10 才是可用性指标：进候选但排在第 69 名等于没找到",
   "bySize": [
     {
       "orders": 200,
