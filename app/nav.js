@@ -4,10 +4,10 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 const LINKS = [
-  ['/', '概览'],
+  ['/', '订单画像'],
   ['/bundles', '组合发现'],
   ['/simulate', '收益推演'],
-  ['/segments', '分场景'],
+  ['/playbook', '建议输出'],
   ['/validation', '校验'],
   ['/method', '方法与假设'],
 ];
