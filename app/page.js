@@ -79,7 +79,7 @@ export default function OverviewPage() {
             fmt="yuan"
           />
           <div className="note" style={{ marginTop: 6 }}>
-            多人客单是单人的 {(prof.groupAOV / prof.singleAOV).toFixed(2)} 倍。人多一倍以上，钱只多这么点。
+            多人客单是单人的 {(prof.groupAOV / prof.singleAOV).toFixed(2)} 倍。单看这个数没问题 —— 分享型主食本来就贵。问题在右边两格。
           </div>
         </div>
         <div className="card">
