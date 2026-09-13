@@ -1,0 +1,216 @@
+{
+  "meta": {
+    "orderCount": 4000,
+    "source": "内置合成数据集",
+    "candidateCount": 50,
+    "feasibleCount": 49,
+    "adoption": {
+      "conservative": 0.05,
+      "neutral": 0.12,
+      "optimistic": 0.25
+    },
+    "discount": 0.12,
+    "costRatio": 0.4
+  },
+  "actions": [
+    {
+      "bundle": "大瓶可乐（1.25L） + 牛肉炖锅（三人） + 酸菜鱼（双人）",
+      "items": [
+        "大瓶可乐（1.25L）",
+        "牛肉炖锅（三人）",
+        "酸菜鱼（双人）"
+      ],
+      "lift": 4.6335624372538415,
+      "support": 0.01125,
+      "audience": {
+        "who": "多人和单人都有，不区分",
+        "when": "全时段"
+      },
+      "matchedCount": 981,
+      "listPrice": 178,
+      "bundlePrice": 156.64000000000001,
+      "discount": 0.12,
+      "partialSpend": 71.25993883792049,
+      "hitRate": 0.045871559633027525,
+      "aovLift": 10.245607339449544,
+      "marginLift": 5.122084403669726,
+      "breakEven": 0.02405871506968537,
+      "expectedValue": 10050.940800000002,
+      "risks": [
+        {
+          "level": "ok",
+          "text": "没有触发已知的风险规则（时段集中、高命中率、样本过小、命中客单偏低）。"
+        }
+      ],
+      "adoption": 0.12
+    },
+    {
+      "bundle": "啤酒 + 大瓶可乐（1.25L） + 烤鱼（双人）",
+      "items": [
+        "啤酒",
+        "大瓶可乐（1.25L）",
+        "烤鱼（双人）"
+      ],
+      "lift": 4.639175257731959,
+      "support": 0.01125,
+      "audience": {
+        "who": "多人和单人都有，不区分",
+        "when": "全时段"
+      },
+      "matchedCount": 1104,
+      "listPrice": 100,
+      "bundlePrice": 88,
+      "discount": 0.12,
+      "partialSpend": 36.018115942028984,
+      "hitRate": 0.04076086956521739,
+      "aovLift": 6.237826086956522,
+      "marginLift": 3.1666956521739134,
+      "breakEven": 0.0193229184047764,
+      "expectedValue": 6886.56,
+      "risks": [
+        {
+          "level": "ok",
+          "text": "没有触发已知的风险规则（时段集中、高命中率、样本过小、命中客单偏低）。"
+        }
+      ],
+      "adoption": 0.12
+    },
+    {
+      "bundle": "可乐 + 牛肉炖锅（三人）",
+      "items": [
+        "可乐",
+        "牛肉炖锅（三人）"
+      ],
+      "lift": 1.2464359721421558,
+      "support": 0.015,
+      "audience": {
+        "who": "多人和单人都有，不区分",
+        "when": "全时段"
+      },
+      "matchedCount": 830,
+      "listPrice": 103,
+      "bundlePrice": 90.64,
+      "discount": 0.12,
+      "partialSpend": 46.93132530120482,
+      "hitRate": 0.07228915662650602,
+      "aovLift": 5.245040963855422,
+      "marginLift": 2.5537445783132524,
+      "breakEven": 0.045256689707927865,
+      "expectedValue": 4353.384,
+      "risks": [
+        {
+          "level": "ok",
+          "text": "没有触发已知的风险规则（时段集中、高命中率、样本过小、命中客单偏低）。"
+        }
+      ],
+      "adoption": 0.12
+    },
+    {
+      "bundle": "烤鱼（双人） + 酸菜鱼（双人）",
+      "items": [
+        "烤鱼（双人）",
+        "酸菜鱼（双人）"
+      ],
+      "lift": 1.4623788967476128,
+      "support": 0.013,
+      "audience": {
+        "who": "多人和单人都有，不区分",
+        "when": "全时段"
+      },
+      "matchedCount": 703,
+      "listPrice": 146,
+      "bundlePrice": 128.48,
+      "discount": 0.12,
+      "partialSpend": 78.16500711237553,
+      "hitRate": 0.07396870554765292,
+      "aovLift": 6.037799146514934,
+      "marginLift": 2.7817194879089597,
+      "breakEven": 0.0603704439944203,
+      "expectedValue": 4244.572799999999,
+      "risks": [
+        {
+          "level": "ok",
+          "text": "没有触发已知的风险规则（时段集中、高命中率、样本过小、命中客单偏低）。"
+        }
+      ],
+      "adoption": 0.12
+    },
+    {
+      "bundle": "啤酒 + 牛肉炖锅（三人）",
+      "items": [
+        "啤酒",
+        "牛肉炖锅（三人）"
+      ],
+      "lift": 1.46719648762053,
+      "support": 0.0165,
+      "audience": {
+        "who": "多人和单人都有，不区分",
+        "when": "全时段"
+      },
+      "matchedCount": 790,
+      "listPrice": 108,
+      "bundlePrice": 95.04,
+      "discount": 0.12,
+      "partialSpend": 52.1620253164557,
+      "hitRate": 0.08354430379746836,
+      "aovLift": 5.145356962025317,
+      "marginLift": 2.4651341772151905,
+      "breakEven": 0.05751101785898119,
+      "expectedValue": 4064.8320000000003,
+      "risks": [
+        {
+          "level": "ok",
+          "text": "没有触发已知的风险规则（时段集中、高命中率、样本过小、命中客单偏低）。"
+        }
+      ],
+      "adoption": 0.12
+    }
+  ],
+  "rejected": [
+    {
+      "items": [
+        "卤蛋",
+        "牛肉面"
+      ],
+      "hitRate": 0.3994878361075544,
+      "reason": "需要的采纳率超过 100%，现实中不可达"
+    }
+  ],
+  "narrow": [],
+  "dropped": [
+    {
+      "items": [
+        "啤酒",
+        "大瓶可乐（1.25L）",
+        "酸菜鱼（双人）"
+      ],
+      "overlapsWith": [
+        "大瓶可乐（1.25L）",
+        "牛肉炖锅（三人）",
+        "酸菜鱼（双人）"
+      ]
+    },
+    {
+      "items": [
+        "牛肉炖锅（三人）",
+        "酸菜鱼（双人）"
+      ],
+      "overlapsWith": [
+        "大瓶可乐（1.25L）",
+        "牛肉炖锅（三人）",
+        "酸菜鱼（双人）"
+      ]
+    },
+    {
+      "items": [
+        "大瓶可乐（1.25L）",
+        "牛肉炖锅（三人）"
+      ],
+      "overlapsWith": [
+        "大瓶可乐（1.25L）",
+        "牛肉炖锅（三人）",
+        "酸菜鱼（双人）"
+      ]
+    }
+  ]
+}
