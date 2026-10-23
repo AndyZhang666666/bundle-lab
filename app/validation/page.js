@@ -1,4 +1,5 @@
 import { loadResult, dataset } from '@/lib/dataset';
+import Link from 'next/link';
 
 const pct = (v, d = 0) => `${(Number(v) * 100).toFixed(d)}%`;
 
@@ -247,8 +248,8 @@ export default function ValidationPage() {
       <h2 className="sec">这份数据本身的画像</h2>
       <div className="note">
         合成数据里多人订单占 {pct(prof.groupShare, 1)}，但人均商品数只有单人订单的 {pct(prof.headRatio)} ——
-        这个错位是刻意植入的，用来验证工具能不能自己发现「用户想多买却凑不成套」。
-        答案是能：<a href="/">订单画像页</a>顶部那句话就是它自己判断出来的。
+        该结构差异是刻意植入的，只验证工具能否识别预设信号，不验证真实用户的购买动机。
+        <Link href="/">订单画像页</Link>将其作为待验证机会；是否缺少套餐，需要另做用户研究或实验。
       </div>
       <div className="note note-warn" style={{ marginTop: 10 }}>
         <b>全部数据是合成的。</b>生成规则、参数、随机种子写在 data/GENERATION.md。

@@ -1,5 +1,6 @@
 import './globals.css';
 import Nav from './nav';
+import Link from 'next/link';
 
 export const metadata = {
   title: '套餐实验室 · Bundle Lab',
@@ -12,9 +13,9 @@ export default function RootLayout({ children }) {
       <body>
         <header className="site-head">
           <div className="wrap site-head-inner">
-            <a className="brand" href="/">
+            <Link className="brand" href="/">
               套餐实验室<span>Bundle Lab</span>
-            </a>
+            </Link>
             <Nav />
           </div>
         </header>

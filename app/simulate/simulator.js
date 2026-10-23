@@ -11,7 +11,7 @@ import {
 import { ScenarioBars, CompareBars } from '@/components/charts';
 
 const yuan = (v) => `¥${Number(v).toFixed(1)}`;
-const pct = (v, d = 1) => `${(Number(v) * 100).toFixed(d)}%`;
+const pct = (v, d = 1) => v == null || !Number.isFinite(Number(v)) ? '未提供' : `${(Number(v) * 100).toFixed(d)}%`;
 
 const DAYPART_LABEL = { lunch: '午餐', dinner: '晚餐', tea: '下午茶', breakfast: '早餐' };
 
@@ -234,7 +234,7 @@ export default function Simulator({ bundles }) {
                     <div style={{ fontWeight: 550 }}>{b.items.join(' + ')}</div>
                     <div style={{ fontSize: 12, color: 'var(--ink-3)' }}>
                       {b.dominantDaypart ? `${DAYPART_LABEL[b.dominantDaypart] || b.dominantDaypart}为主 ` : ''}
-                      多人占比 {pct(b.groupShare, 0)}
+                      全套订单多人占比 {pct(b.groupShare, 0)}
                     </div>
                   </td>
                   <td className="num">{b.lift.toFixed(2)}</td>

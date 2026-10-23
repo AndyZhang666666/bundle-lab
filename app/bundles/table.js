@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState, Fragment } from 'react';
+import Link from 'next/link';
 
 const yuan = (v) => `¥${Number(v).toFixed(1)}`;
 const pct = (v, d = 2) => `${(Number(v) * 100).toFixed(d)}%`;
@@ -176,7 +177,7 @@ export default function BundleTable({ segments }) {
         <b>为什么 lift 下限是 1.2</b>：lift 是「共现比随机高多少倍」。1.0 是纯巧合，1.2 以下意味着
         就算有提升也太小，做成套餐的运营成本都不一定盖得住。这个阈值是取舍的结果 ——
         调到 1.5 会漏掉支持度高但提升温和的组合，调到 1.0 会放进大量巧合。取舍理由见
-        <a href="/method/"> 方法与假设</a>，边界影响见 <a href="/validation/">校验</a>。
+        <Link href="/method/"> 方法与假设</Link>，边界影响见 <Link href="/validation/">校验</Link>。
       </div>
     </>
   );

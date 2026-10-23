@@ -1,5 +1,6 @@
 import { dataset, rankedBundles } from '@/lib/dataset';
 import { Histogram, CompareBars } from '@/components/charts';
+import Link from 'next/link';
 
 const yuan = (v) => `¥${Number(v).toFixed(1)}`;
 const pct = (v, d = 1) => `${(v * 100).toFixed(d)}%`;
@@ -14,7 +15,7 @@ export default function OverviewPage() {
   const mismatchTag =
     prof.mismatch.level === 'high' ? 'tag-bad' : prof.mismatch.level === 'medium' ? 'tag-warn' : 'tag-good';
   const mismatchLabel =
-    prof.mismatch.level === 'high' ? '错位信号：强' : prof.mismatch.level === 'medium' ? '错位信号：中' : '错位信号：弱';
+    prof.mismatch.level === 'high' ? '优先核查' : prof.mismatch.level === 'medium' ? '值得核查' : '信号有限';
 
   const dayparts = Object.entries(prof.daypartCounts)
     .map(([k, v]) => ({ label: DAYPART_LABEL[k] || k, count: v }))
@@ -23,11 +24,9 @@ export default function OverviewPage() {
   return (
     <>
       <div className="page-head">
-        <div className="eyebrow">Overview</div>
         <h1>这批订单里，套餐机会在哪</h1>
         <p>
-          先看订单的整体结构：客单价、商品数、多人和单人的差别。目的是判断一件事 ——
-          客单价低，是因为用户不想多买，还是因为菜单没给他们凑单的方式。
+          从订单结构提出套餐假设，再比较折扣与毛利。先发现值得验证的机会，不把共购关系当成套餐有效的证明。
         </p>
       </div>
 
@@ -39,6 +38,7 @@ export default function OverviewPage() {
           </span>
         </div>
         <div style={{ fontSize: 15.5, lineHeight: 1.7 }}>{prof.mismatch.text}</div>
+        <p className="note" style={{ marginTop: 10 }}>先核对大份菜与共享份量、用餐人数口径，再通过访谈或小流量实验判断是否真的存在凑单障碍。</p>
       </div>
 
       <h2 className="sec">整体</h2>
@@ -105,7 +105,7 @@ export default function OverviewPage() {
             fmt="num2"
           />
           <div className="note note-accent" style={{ marginTop: 6 }}>
-            多人的人均只有单人的 {pct(prof.headRatio, 0)}。这就是「凑不成套就少点」的直接证据。
+            多人的人均商品数为少人订单的 {pct(prof.headRatio, 0)}。共享大份菜也会产生这个差异，不能据此确认缺少套餐导致少点。
           </div>
         </div>
       </div>
@@ -145,7 +145,7 @@ export default function OverviewPage() {
         </div>
       </div>
       <p style={{ color: 'var(--ink-2)', fontSize: 13.5, marginTop: 10 }}>
-        去 <a href="/bundles/">组合发现</a> 看完整列表，去 <a href="/simulate/">收益推演</a> 调参数。
+        去 <Link href="/bundles/">组合发现</Link> 看完整列表，去 <Link href="/simulate/">收益推演</Link> 调参数。
       </p>
     </>
   );
