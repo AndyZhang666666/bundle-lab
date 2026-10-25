@@ -52,6 +52,7 @@ try {
   await page.locator(".combo-disclosure").first().focus();
   await page.keyboard.press("Enter");
   await page.getByRole("link", { name: "带入收益推演 →", exact: true }).click();
+  await page.waitForURL(u=>u.pathname.replace(/\/$/,'').endsWith('/simulate')&&u.searchParams.has('bundle'));
   await page.waitForLoadState("networkidle");
   const key = new URL(page.url()).searchParams.get("bundle");
   assert.equal(
