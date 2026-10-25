@@ -1,11 +1,11 @@
 :root {
-  --bg: #fbfaf8;
+  --bg: #f8f8f7;
   --surface: #ffffff;
   --line: #e6e2db;
   --line-soft: #f0ede7;
   --ink: #1c1a17;
   --ink-2: #55504a;
-  --ink-3: #8a837a;
+  --ink-3: #68625b;
   --accent: #b4441f;
   --accent-soft: #fdf1ec;
   --good: #2f6d4f;
@@ -30,7 +30,13 @@ body {
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: ui-sans-serif, -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-family:
+    ui-sans-serif,
+    -apple-system,
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Microsoft YaHei",
+    sans-serif;
   font-size: 15px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -99,9 +105,9 @@ a {
   background: var(--line-soft);
   color: var(--ink);
 }
-.nav a[data-active='true'] {
-  background: var(--accent-soft);
-  color: var(--accent);
+.nav a[data-active="true"] {
+  background: var(--line-soft);
+  color: var(--ink);
   font-weight: 550;
 }
 
@@ -118,14 +124,6 @@ a {
   margin: 0;
   color: var(--ink-2);
   max-width: 74ch;
-}
-.eyebrow {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--ink-3);
-  font-weight: 600;
-  margin-bottom: 6px;
 }
 
 .card {
@@ -208,8 +206,8 @@ h3.sub {
 }
 .tbl th {
   font-size: 11.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  text-transform: none;
+  letter-spacing: 0;
   color: var(--ink-3);
   font-weight: 600;
   white-space: nowrap;
@@ -284,13 +282,13 @@ label.fld {
   margin-bottom: 5px;
   font-weight: 550;
 }
-input[type='range'] {
+input[type="range"] {
   width: 100%;
   accent-color: var(--accent);
 }
 select,
-input[type='number'],
-input[type='text'] {
+input[type="number"],
+input[type="text"] {
   width: 100%;
   padding: 7px 9px;
   border: 1px solid var(--line);
@@ -315,17 +313,276 @@ button {
 .btn:hover {
   background: var(--line-soft);
 }
-.btn[data-on='true'] {
-  background: var(--accent);
-  border-color: var(--accent);
+.btn[data-on="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
   color: #fff;
   font-weight: 550;
 }
 
 .foot {
   margin-top: 52px;
-  padding: 22px 0 40px;
+  padding: 22px 28px 40px;
   border-top: 1px solid var(--line);
   color: var(--ink-3);
   font-size: 12.5px;
+}
+
+/* A working ledger: assumptions beside reconciled contributions. */
+.grid > *,
+.sim-work > *,
+.card {
+  min-width: 0;
+}
+.sim-work {
+  align-items: start;
+}
+.sim-work h2.sub {
+  margin: 0 0 14px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.scenario-summary {
+  display: none;
+}
+@media (max-width: 900px) {
+  .scenario-summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 0;
+    font-size: 14px;
+  }
+  .scenario-summary b {
+    font-variant-numeric: tabular-nums;
+  }
+}
+.scenario-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+}
+.scenario-actions p {
+  flex: 1 1 260px;
+  font-size: 13px;
+  color: var(--ink-2);
+  margin: 0;
+}
+.scenario-actions a {
+  text-decoration: none;
+}
+.field-stack {
+  display: block;
+  font-size: 13px;
+  margin: 12px 0;
+}
+.field-stack b {
+  float: right;
+  font-weight: 550;
+}
+.field-stack input {
+  display: block;
+  margin-top: 8px;
+}
+.sim-work .g3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.small {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.sim-value {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 8px 0;
+}
+.sim-value small {
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-2);
+}
+.ledger p {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: baseline;
+  border-bottom: 1px solid var(--line-soft);
+  padding: 8px 0;
+  margin: 0;
+  font-size: 13px;
+}
+.ledger b {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  font-weight: 550;
+}
+.compare-picks {
+  max-height: 260px;
+  overflow: auto;
+  margin-top: 12px;
+}
+.compare-picks label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 44px;
+  font-size: 13px;
+}
+.compare-picks input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.tbl-scroll {
+  max-width: 100%;
+}
+.tbl-scroll table {
+  min-width: 640px;
+}
+.combo-disclosure {
+  padding: 6px 0;
+  text-align: left;
+  font-size: inherit;
+  background: none;
+  border: 0;
+  color: var(--ink);
+  font-weight: 550;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.action-card {
+  margin-bottom: 12px;
+}
+.action-card h3 {
+  margin: 0;
+  font-size: 17px;
+}
+.action-card ul {
+  font-size: 13px;
+  color: var(--ink-2);
+  padding-left: 20px;
+}
+.export-preview {
+  white-space: pre-wrap;
+  overflow: auto;
+  max-height: 420px;
+  font: 13px/1.7 var(--mono);
+  overflow-wrap: anywhere;
+}
+.plan {
+  padding-left: 40px;
+}
+.plan li {
+  margin: 8px 0;
+  font-size: 14px;
+}
+summary {
+  cursor: pointer;
+  font-weight: 550;
+  font-size: 14px;
+  min-height: 30px;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+input[type="password"],
+input[type="url"] {
+  width: 100%;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  font: inherit;
+}
+:is(a, button, input, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+input[type="range"] {
+  min-height: 28px;
+}
+.btn {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+@media (max-width: 900px) {
+  .site-head-inner {
+    height: auto;
+    min-height: 58px;
+    flex-wrap: wrap;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    gap: 8px;
+  }
+  .nav {
+    margin: 0;
+    flex: 1 1 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .nav a {
+    text-align: center;
+    padding: 8px 4px;
+  }
+  .sim-work {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 620px) {
+  .wrap {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .site-head {
+    position: static;
+  }
+  .page-head {
+    padding-top: 24px;
+  }
+  .page-head h1 {
+    font-size: 23px;
+  }
+  .card {
+    padding: 14px;
+  }
+  .scenario-actions .btn {
+    min-height: 44px;
+  }
+  .field-stack {
+    font-size: 14px;
+  }
+  .sim-value {
+    font-size: 28px;
+  }
+  .tbl-scroll {
+    padding: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (max-width: 620px) {
+  .sim-work .g3 {
+    grid-template-columns: 1fr;
+  }
+  .foot {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }

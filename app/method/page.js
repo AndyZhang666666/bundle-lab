@@ -2,111 +2,82 @@ export default function MethodPage() {
   return (
     <>
       <div className="page-head">
-        <div className="eyebrow">Method</div>
         <h1>方法与假设</h1>
-        <p>这一页把公式写清楚、把假设标出来。看不懂的地方是我没写好，不是你的问题。</p>
+        <p>
+          先区分观察与干预，再核对两类人群的成本。当前模型
+          two-population-v2-2026-10-25。
+        </p>
       </div>
-
-      <h2 className="sec">一、组合发现：关联规则</h2>
-      <div className="card">
-        <p style={{ marginTop: 0 }}>从订单里找「经常一起买」的商品组合。三个指标：</p>
-        <pre className="mono" style={{ background: '#fcfbf9', padding: 14, borderRadius: 8, fontSize: 13, lineHeight: 1.7 }}>
-{`支持度  supp(A∪B) = 同时含 A、B 的订单数 / 总订单数
-置信度  conf(A→B) = supp(A∪B) / supp(A)        买了 A 的人里多少也买了 B
-提升度  lift(A→B) = conf(A→B) / supp(B)        这个概率是随机水平的几倍`}
+      <section className="card">
+        <h2 className="sub">组合发现：相关性产生候选</h2>
+        <pre className="mono">
+          {
+            "支持度 = 含全部商品的订单数 / 总订单数\n置信度 A→B = 同时含A、B的订单数 / 含A的订单数\nlift A→B = 置信度 / B在全体订单的出现比例"
+          }
         </pre>
         <p>
-          lift = 1 是纯巧合；lift 越大，「一起买」越不是偶然。lift 对 A、B 对称，所以一个组合只算一次；
-          置信度不对称，页面上展示的是置信度更高的那个方向（「买了 A 的人更可能买 B」比反过来更有用）。
+          默认 lift ≥ 1.2、支持度 ≥ 1%、置信度 ≥ 10%，是演示筛选值。按 lift ×
+          log(1 + 命中单数)
+          排序，并列显示样本规模。三元组合展示最强分割方向；不能把 lift
+          解读为“买任一件就会买齐”。
         </p>
         <p>
-          实现是标准 Apriori：先找频繁单品，再两两组合，再三三组合，每层用支持度剪枝。
-          数据量只有几千单、几十个 SKU，不需要更快的算法。代码在 <span className="mono">lib/rules.js</span>，
-          有 21 条手算断言（<span className="mono">scripts/test-rules.mjs</span>）。
+          lift=1
+          表示样本与独立基线相同，不证明总体独立。没有显著性、置信区间或多重比较校正；排序不是概率校准。
         </p>
-        <p style={{ marginBottom: 0 }}>
-          <b>排序不是纯按 lift。</b>用 lift × log(1 + 命中订单数)。原因：支持度低的组合容易刷出虚高 lift
-          —— 40 单里出现 30 次共现和 400 单里出现 300 次共现，lift 一样，可信度差十倍。
+      </section>
+      <h2 className="sec">收益：把两类人群分开</h2>
+      <section className="card">
+        <p>
+          覆盖订单至少包含一件，已买齐者包含全部。按每 SKU
+          一件建模，以组合涉及商品的历史花费为基线，套餐外商品假设不变。
         </p>
-      </div>
-
-      <h2 className="sec">二、收益估算：套餐推出去会怎样</h2>
-      <div className="card">
-        <p style={{ marginTop: 0 }}>
-          口径只在「组合涉及的这几件商品」上比较。一个人采纳套餐，变化的只是这几件的花费，整单其余的菜照点。
-        </p>
-        <pre className="mono" style={{ background: '#fcfbf9', padding: 14, borderRadius: 8, fontSize: 13, lineHeight: 1.7 }}>
-{`匹配订单     = 含组合中至少一件商品的订单（套餐能推给谁）
-partialSpend = 匹配订单原本在这几件上的平均花费
-套餐价       = 组合原价 × (1 − 折扣率)
-
-Δ客单/单  = 采纳率 × (套餐价 − partialSpend)
-原毛利    = partialSpend × (1 − 成本率)
-套餐毛利  = 套餐价 − 原价 × 成本率
-Δ毛利/单  = 采纳率 × (套餐毛利 − 原毛利)`}
+        <pre className="mono">
+          {
+            "L = 组合原价，B = L × (1 − 折扣率)\nP = 所有覆盖订单的平均组合内花费\nh = 已买齐者占覆盖订单比例\nS部分 = (P − h × L) / (1 − h)\na = 未买齐者采纳率；r = 已买齐者领折扣率；c = 食材成本率\ng = B − cL − (1 − c) × S部分\n\nΔ组合收入 = (1 − h) × a × (B − S部分) − h × r × (L − B)\nΔ毛利 = (1 − h) × a × g − h × r × (L − B)"
+          }
         </pre>
         <p>
-          三档采纳率（保守 5% / 中性 12% / 乐观 25%）给的是区间，不是点估计。这三个数是经验估计，没有数据支撑，
-          详见 <span className="mono">docs/ASSUMPTIONS.md</span>。
+          账本中的新增贡献减让利损失，与三档图和导出同源。采纳率为零也可能亏：老顾客仍可能领取折扣。折扣改变不会自动改变采纳率或其他购买行为。
         </p>
-        <p style={{ marginBottom: 0 }}>
-          <b>第一版把基线用成了整单客单价</b>（含套餐外的菜），结果 50 个组合 49 个算成「亏」。
-          不是假设太保守，是量纲错了。修正后只剩 1 个不可行，而且它是对的。
-        </p>
-      </div>
-
-      <h2 className="sec">三、盈亏平衡：至少多少人接才不亏</h2>
-      <div className="card">
-        <pre className="mono" style={{ background: '#fcfbf9', padding: 14, borderRadius: 8, fontSize: 13, lineHeight: 1.7 }}>
-{`h = 命中率：匹配订单里本来就买齐全套的比例（这些人吃折扣不产生增量）
-d = 每单让利 = 原价 × 折扣率
-g = 每单增量毛利 = 套餐毛利 − 未命中者原本的毛利
-
-平衡条件  (1 − h) · a · g = h · d
-平衡采纳率  a = h · d / ((1 − h) · g)`}
+      </section>
+      <h2 className="sec">平衡点：与收益同一公式</h2>
+      <section className="card">
+        <pre className="mono">
+          {"g > 0 且 h < 1：\n平衡采纳率 = h × r × (L − B) / [(1 − h) × g]"}
         </pre>
         <p>
-          含义：h 越高，本来就成套买的人越多，白让的折扣越多，门槛越高。h 超过三成的组合（本数据里的「牛肉面+卤蛋」），
-          做折扣套餐是纯让利，更适合加价购。
+          需要的采纳率超过 100% 则不可达；g
+          不为正时不能靠提高采纳率改善；全部已买齐时没有新增购买人群。零损失、零增量可以持平，但不会成为正向收益推荐。
         </p>
-        <p style={{ marginBottom: 0 }}>
-          已知弱点：假设未命中者「不采纳就什么都不多买」。如果他们本来也会加购，g 被高估、平衡点被低估。
-          这是全项目最该被人复核的公式。
+        <p>
+          建议按当前中档 Δ毛利 ×
+          覆盖单数排序，并要求中档毛利为正、覆盖至少100单；商品重合超过50%的机会去重。这些是演示规则。组合可能覆盖同一订单，不可把各条收益加总。
         </p>
-      </div>
-
-      <h2 className="sec">四、默认参数一览</h2>
-      <div className="card" style={{ padding: 0 }}>
-        <table className="tbl">
-          <thead>
-            <tr>
-              <th>参数</th>
-              <th className="num">默认值</th>
-              <th>来源</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>lift 下限</td><td className="num">1.2</td><td>经验估计；阈值敏感度实测见校验页</td></tr>
-            <tr><td>支持度下限</td><td className="num">1%</td><td>经验估计；与订单量绑定，2000 单以上才稳</td></tr>
-            <tr><td>置信度下限</td><td className="num">10%</td><td>随手定的兜底，未做敏感性测试</td></tr>
-            <tr><td>套餐折扣率</td><td className="num">12%</td><td>演示默认值，应按品类毛利结构调</td></tr>
-            <tr><td>成本率</td><td className="num">40%</td><td>中式快餐通行区间 30-45% 取中位；对结果最敏感</td></tr>
-            <tr><td>采纳率 保守/中性/乐观</td><td className="num">5 / 12 / 25%</td><td>经验估计；三个前提都偏乐观，当上限看</td></tr>
-            <tr><td>建议入选最低覆盖</td><td className="num">100 单</td><td>经验估计；再小落地成本摊不平</td></tr>
-            <tr><td>建议去重重合度</td><td className="num">50%</td><td>随手定；去重动作本身是必须的</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2 className="sec">五、不做什么</h2>
-      <div className="card">
-        <ul style={{ margin: 0, paddingLeft: 20, lineHeight: 1.9 }}>
-          <li>不接真实平台 API，不做在线推荐服务。这是分析工具，不是系统。</li>
-          <li>不做定价优化。套餐价 = 原价 × 折扣，折扣是手动滑杆，工具不搜最优解 —— 没有真实 A/B 数据，寻优出来的是假精度。</li>
-          <li>不做库存、不做蚕食建模、不做显著性检验。</li>
-          <li>不用任何真实业务数据。全部合成，生成规则在 <span className="mono">data/GENERATION.md</span>。</li>
+      </section>
+      <h2 className="sec">默认值与证据边界</h2>
+      <section className="card">
+        <ul>
+          <li>
+            折扣12%、成本40%、未买齐者采纳5%/12%/25%、既有整套者领折扣100%：均为未校准的情景输入，无行业基准背书。
+          </li>
+          <li>
+            4000笔合成订单、32个SKU、固定种子20260913。合成结构用于检查算法，不代表真实市场分布。
+          </li>
+          <li>
+            21项手算检验关联规则；收益侧另有两类人群手算、平衡点和边界测试。合成召回结果不能确定真实业务所需样本量。
+          </li>
+          <li>
+            没有价格弹性、份量变化、履约费用、曝光选择、退款、库存或跨订单蚕食模型；毛利不是净利润。
+          </li>
+          <li>
+            当前不支持上传CSV，不接平台搜索或真实交易。所有默认分析在构建期计算，推演与草稿在访客浏览器内完成。
+          </li>
+          <li>
+            可选模型仅润色措辞，可能改写或遗漏数字。规则版是正式导出；模型草稿单独下载，标记未核对。
+          </li>
         </ul>
-      </div>
+      </section>
     </>
   );
 }

@@ -1,5 +1,5 @@
-import { dataset, rankedBundles } from '@/lib/dataset';
-import Simulator from './simulator';
+import { dataset, rankedBundles } from "@/lib/dataset";
+import Simulator from "./simulator";
 
 export default function SimulatePage() {
   const { categoryOf, priceOf } = dataset();
@@ -13,7 +13,7 @@ export default function SimulatePage() {
   const payload = ranked.map((b) => ({
     key: b.key,
     items: b.items,
-    cats: b.items.map((i) => categoryOf[i] || '未分类'),
+    cats: b.items.map((i) => categoryOf[i] || "未分类"),
     prices: b.items.map((i) => priceOf[i] || 0),
     lift: b.lift,
     support: b.support,
@@ -23,6 +23,7 @@ export default function SimulatePage() {
     partialSpend: b.partialSpend,
     hitCount: b.hitCount,
     hitRate: b.hitRate,
+    listPrice: b.listPrice,
     dominantDaypart: b.dominantDaypart,
     dominantDaypartShare: b.dominantDaypartShare,
     groupShare: b.groupShare,
@@ -31,11 +32,10 @@ export default function SimulatePage() {
   return (
     <>
       <div className="page-head">
-        <div className="eyebrow">Simulate</div>
         <h1>这个套餐推出去，会怎样</h1>
         <p>
-          选定组合，调折扣率、采纳率、成本率，看客单和毛利怎么变。三档采纳率对应保守、中性、乐观三种假设；
-          盈亏平衡点回答「至少多少人接才不亏」。所有数字是参数化估算，不是预测 —— 参数来源见「方法与假设」。
+          把未买齐者的增量和既有整套者的让利分开。调折扣、成本与两类人群行为，核对净毛利变化，再把同组假设带入建议。
+          数据为合成订单，结果是条件计算，不是业务预测。
         </p>
       </div>
       <Simulator bundles={payload} />

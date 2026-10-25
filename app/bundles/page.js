@@ -1,5 +1,5 @@
-import { dataset, segments } from '@/lib/dataset';
-import BundleTable from './table';
+import { dataset, segments } from "@/lib/dataset";
+import BundleTable from "./table";
 
 export default function BundlesPage() {
   const { categoryOf, priceOf } = dataset();
@@ -13,7 +13,7 @@ export default function BundlesPage() {
     bundles: s.bundles.map((b) => ({
       key: b.key,
       items: b.items,
-      cats: b.items.map((i) => categoryOf[i] || '未分类'),
+      cats: b.items.map((i) => categoryOf[i] || "未分类"),
       listPrice: b.items.reduce((sum, i) => sum + (priceOf[i] || 0), 0),
       support: b.support,
       confidence: b.confidence,
@@ -34,11 +34,11 @@ export default function BundlesPage() {
   return (
     <>
       <div className="page-head">
-        <div className="eyebrow">Bundles</div>
         <h1>经常一起买的组合</h1>
         <p>
-          用关联规则从订单里挖出共现显著高于随机的商品对和三元组。lift 是核心指标：买了 A 的人买 B 的概率，
-          是所有人买 B 概率的几倍。lift = 1 是巧合，lift &lt; 1.2 的直接不显示。
+          用关联规则挖掘商品对和三元组的共购信号，未做统计显著性或因果检验。lift
+          表示样本里买了 A 的人买 B 的比例， 是所有人买 B 概率的几倍。lift = 1
+          是巧合，lift &lt; 1.2 的直接不显示。
         </p>
       </div>
       <BundleTable segments={payload} />
