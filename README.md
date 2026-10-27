@@ -1,6 +1,6 @@
 # 套餐实验室 · Bundle Lab
 
-> 2026-10-27 本地界面打磨版，未上传；仅调整展示层，模型和订单不变。详见 [本轮说明](docs/FRONTEND-20261027.md)。
+2026-10-27 界面更新：仅调整展示层，模型和订单不变。详见 [本轮说明](docs/FRONTEND-20261027.md)。
 
 [在线体验](https://andyzhang666666.github.io/bundle-lab/) · [假设与公式](docs/ASSUMPTIONS.md) · [产品取舍](docs/DECISIONS.md) · [验收](docs/VALIDATION.md)
 
