@@ -1,5 +1,7 @@
 # 套餐实验室 · Bundle Lab
 
+> 2026-10-27 本地界面打磨版，未上传；仅调整展示层，模型和订单不变。详见 [本轮说明](docs/FRONTEND-20261027.md)。
+
 [在线体验](https://andyzhang666666.github.io/bundle-lab/) · [假设与公式](docs/ASSUMPTIONS.md) · [产品取舍](docs/DECISIONS.md) · [验收](docs/VALIDATION.md)
 
 从合成订单发现共购信号，把“原本没买齐者的新增购买”和“既有整套顾客领取折扣”分开核算，再生成一份有验证计划的运营假设。共购不是因果，算得出增量不等于已经赚到钱。
