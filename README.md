@@ -1,4 +1,27 @@
-# 套餐实验室 · Bundle Lab
+# Bundle Lab · 套餐实验室
+
+[在线体验](https://andyzhang666666.github.io/bundle-lab/) · [English](README.en.md) · [作品索引](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.md)
+
+经常一起买的组合，为什么打折后反而可能少赚？
+
+![Bundle Lab · 套餐实验室的实际产品界面](https://andyzhang666666.github.io/assets/work/showcase/bundle-crop.jpg)
+
+## 值得看的设计
+
+- 共购信号用于发现候选，不能直接证明打折有效。
+- 把未买齐者的新增贡献与原本买齐者的让利分开算。
+- 候选、推演、建议与导出共用假设，负收益也照常呈现。
+
+## 建议体验路径
+
+1. 在候选发现页选择一个组合，查看规则方向与覆盖订单。
+2. 带入推演，调整采纳率与折扣，核对新增贡献、让利和平衡点。
+3. 比较方案，带着当前假设生成规则建议和验证清单。
+
+**运行方式：** 使用 4,000 笔合成订单和未校准的采纳假设。浏览器可完成主流程；可选模型仅做单独标注的草稿润色。
+
+<details>
+<summary>展开实现、模型与验证记录</summary>
 
 2026-10-27 界面更新：仅调整展示层，模型和订单不变。详见 [本轮说明](docs/FRONTEND-20261027.md)。
 
@@ -63,3 +86,5 @@ npm run build
 `results/playbook-samples/` 为旧版本历史样本，不代表新模型验收。本轮没有执行付费模型脚本。
 
 MIT，沿用既有许可。真实分阶段修改见 [CHANGELOG](CHANGELOG.md) 和提交历史。
+
+</details>
