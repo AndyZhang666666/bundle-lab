@@ -1,0 +1,13 @@
+[
+  {
+    "file": "bundle-preview.jpg",
+    "source": "https://andyzhang666666.github.io/bundle-lab/simulate/",
+    "captured": "2026-10-31",
+    "viewport": [
+      1280,
+      720
+    ],
+    "mode": "Synthetic orders and conditional margin calculation. Incremental contribution and discounts for existing complete-basket buyers are separate; not a forecast.",
+    "sha256": "291d0138ed11121130f09c24e9ac8cc8e8820286a6c2471c559cd985875582b8"
+  }
+]

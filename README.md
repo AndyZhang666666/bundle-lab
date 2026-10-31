@@ -4,9 +4,13 @@
 
 经常一起买的组合，为什么打折后反而可能少赚？
 
-![Bundle Lab · 套餐实验室的实际产品界面](https://andyzhang666666.github.io/assets/work/showcase/bundle-crop.jpg)
+![Bundle Lab · 套餐实验室的实际产品界面](docs/assets/bundle-preview.jpg)
 
-## 值得看的设计
+<!-- github-evidence-20261031 -->
+
+[设计取舍](docs/DECISIONS.md) · [验证说明](docs/VALIDATION.md) · [PR 核心检查](https://github.com/AndyZhang666666/bundle-lab/actions/workflows/checks.yml)
+
+## 同一个折扣，两类人群
 
 - 共购信号用于发现候选，不能直接证明打折有效。
 - 把未买齐者的新增贡献与原本买齐者的让利分开算。
@@ -19,6 +23,26 @@
 3. 比较方案，带着当前假设生成规则建议和验证清单。
 
 **运行方式：** 使用 4,000 笔合成订单和未校准的采纳假设。浏览器可完成主流程；可选模型仅做单独标注的草稿润色。
+
+## 本地启动与检查
+
+在完整仓库根目录运行，按 CI 使用 Node.js 22：
+
+```sh
+npm ci
+npm run dev
+```
+
+打开 `http://localhost:3000/bundle-lab/`，保留仓库路径。选择候选组合进入推演，调整折扣或采纳率，新增贡献、既有让利和净变化会一起更新。 默认体验无需模型密钥。
+
+已有的确定性检查可以单独运行：
+
+```sh
+npm run test:rules
+npm run test:simulation
+```
+
+PR 工作流复用这些检查并完成静态构建；部署仍只由 `main` 的 Pages 工作流执行。上述检查不调用付费模型，也不代表模型效果评测。
 
 <details>
 <summary>展开实现、模型与验证记录</summary>

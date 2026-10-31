@@ -4,9 +4,13 @@
 
 Why can a frequently bought combination earn less after a discount?
 
-![Actual Bundle Lab interface](https://andyzhang666666.github.io/assets/work/showcase/bundle-crop.jpg)
+![Actual Bundle Lab interface](docs/assets/bundle-preview.jpg)
 
-## Product decisions
+<!-- github-evidence-20261031 -->
+
+[Design decisions](docs/DECISIONS.md) · [Validation records](docs/VALIDATION.md) · [PR core checks](https://github.com/AndyZhang666666/bundle-lab/actions/workflows/checks.yml)
+
+## One discount, two customer groups
 
 - Use basket association to propose a candidate, not establish discount impact.
 - Separate incremental contribution from discounts to customers who already buy the full basket.
@@ -33,7 +37,7 @@ npm run dev
 
 Open `http://localhost:3000/bundle-lab/`. The repository base path is part of the URL.
 
-## Lightweight checks
+## Reproduce the core checks
 
 ```sh
 npm run test:rules
@@ -52,3 +56,5 @@ These commands are provided for reproduction; this documentation update did not 
 - [Implementation details and original records, Chinese](README.md)
 
 Use the repository’s existing licence and notices. This update does not change usage rights.
+
+[PR core checks](https://github.com/AndyZhang666666/bundle-lab/actions/workflows/checks.yml) reuse the deterministic checks and static build. Only the main-branch Pages workflow deploys.
