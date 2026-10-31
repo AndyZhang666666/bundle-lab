@@ -24,6 +24,7 @@ export default function useScenario(bundles) {
   useEffect(() => {
     if (!ready) return;
     try {
+      decodeScenario(JSON.stringify(scenario), bundles);
       localStorage.setItem(SCENARIO_KEY, JSON.stringify(scenario));
     } catch {
       setNotice("本地保存不可用，当前计算和导出仍可使用。");

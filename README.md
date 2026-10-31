@@ -4,6 +4,8 @@
 
 经常一起买的组合，为什么打折后反而可能少赚？
 
+开发分支更新（2026-10-31，尚未发布）：从[收益推演](https://andyzhang666666.github.io/bundle-lab/simulate/)进入。新增“我的算例”，支持 2–3 件商品、两类人群与独立假设草稿；每100个覆盖订单展示增量账本，可复制或导出 Markdown 假设卡。沿用原计算模型，不把归一单位当成观测订单量。[改动与验证](docs/USABLE-SCENARIOS.md)。
+
 ![Bundle Lab · 套餐实验室的实际产品界面](https://andyzhang666666.github.io/assets/work/showcase/bundle-crop.jpg)
 
 ## 值得看的设计

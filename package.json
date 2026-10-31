@@ -10,7 +10,7 @@
     "start": "next start",
     "gen": "node scripts/gen-orders.mjs",
     "test:rules": "node scripts/test-rules.mjs",
-    "test:simulation": "node --test scripts/test-simulation.mjs",
+    "test:simulation": "node --test scripts/test-simulation.mjs scripts/test-manual.mjs",
     "recall": "node scripts/recall.mjs",
     "robustness": "node scripts/robustness.mjs",
     "playbook:samples": "node scripts/playbook-samples.mjs"

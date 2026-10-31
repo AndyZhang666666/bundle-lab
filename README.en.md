@@ -52,3 +52,7 @@ These commands are provided for reproduction; this documentation update did not 
 - [Implementation details and original records, Chinese](README.md)
 
 Use the repository’s existing licence and notices. This update does not change usage rights.
+
+## Unreleased: a usable personal workflow
+
+The `feat/usable-four-20261030` branch adds personal inputs and a portable result. It remains a local-review development branch; the public version is unchanged until review. The main flow works in the browser without a model key. Original calculation models and historical evidence are preserved. Tests cover the new task, boundaries and affected paths; no production outcome is claimed.
