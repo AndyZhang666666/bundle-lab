@@ -596,3 +596,4 @@ button:disabled {
 @media(max-width:480px){.manual-item{grid-template-columns:minmax(0,1fr) 96px}.manual-item>.btn{grid-column:1/-1;justify-self:start}.manual-population{grid-template-columns:1fr}.rate-field{font-size:12px}.rate-value input{font-size:16px;width:72px}.manual-item input,.manual-population input{font-size:16px}.grid.g3:has(.rate-field){grid-template-columns:1fr}.source-tabs .btn{flex:1}.scenario-output .tnum{font-size:38px}.ledger b{font-size:14px}.ledger p{gap:12px}}
 @media(prefers-reduced-motion:reduce){.scenario-output .margin-total strong{animation:none}}
 .manual-item input{border:1px solid #bcc3b7;border-radius:3px;padding:9px 10px;background:#fff;color:var(--ink)}
+.tbl :is(td,th):not(:first-child){text-align:right;font-variant-numeric:tabular-nums}.margin-total,.ledger,.recharts-wrapper,.trade-grid{font-variant-numeric:tabular-nums}
