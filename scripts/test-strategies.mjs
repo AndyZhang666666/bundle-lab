@@ -9,6 +9,8 @@ test('snapshots are independent, max three, and duplicate input is not saved twi
   const d = initialManual(), b = manualBundle(d), s = createStrategy(b, d, source);
   d.adoption.neutral = .8; b.items[0] = 'modified'; assert.equal(s.assumptions.adoption.neutral, .12); assert.equal(s.bundle.items[0], '商品 A');
   let state = addStrategy(emptyStrategies(), make()); assert.throws(() => addStrategy(state, make(.12, 'duplicate')), /已经保留/);
+  const copied = strategyToManual(state.snapshots[0]), same = createStrategy(manualBundle(copied), copied, source, { id: 'copy' });
+  assert.throws(() => addStrategy(state, same), /已经保留/);
   state = addStrategy(addStrategy(state, make(.1, 'b')), make(.2, 'c')); assert.throws(() => addStrategy(state, make(.3, 'd')), /最多/);
 });
 test('selection, removal, reload and reports preserve provenance and exact source model results', () => {
@@ -22,7 +24,8 @@ test('selection, removal, reload and reports preserve provenance and exact sourc
 });
 test('corrupt, oversized, version-drifted and untrusted snapshots reject without altering valid state', () => {
   const state = addStrategy(emptyStrategies(), make()), raw = JSON.stringify(state);
-  for (const bad of ['{', 'x'.repeat(60001), JSON.stringify({ ...state, selectedId: 'missing' }), raw.replace('two-population-v2-2026-10-25', 'old-model'), raw.replace('"prices":[20,8]', '"prices":[2,8]')]) assert.throws(() => decodeStrategies(bad));
+  const incomplete = JSON.parse(raw); delete incomplete.snapshots[0].assumptions.discount;
+  for (const bad of ['{', 'x'.repeat(60001), JSON.stringify({ ...state, selectedId: 'missing' }), JSON.stringify(incomplete), raw.replace('two-population-v2-2026-10-25', 'old-model'), raw.replace('"prices":[20,8]', '"prices":[2,8]')]) assert.throws(() => decodeStrategies(bad));
   assert.equal(JSON.stringify(state), raw);
 });
 test('every sensitivity cell uses canonical model, exact current input is included, preview does not mutate assumptions', () => {
