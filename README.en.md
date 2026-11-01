@@ -58,3 +58,7 @@ These commands are provided for reproduction; this documentation update did not 
 Use the repository’s existing licence and notices. This update does not change usage rights.
 
 [PR core checks](https://github.com/AndyZhang666666/bundle-lab/actions/workflows/checks.yml) reuse the deterministic checks and static build. Only the main-branch Pages workflow deploys.
+
+## Personal inputs and portable results · 2026-11-01
+
+This update adds personal inputs and a portable result, with the reviewed implementation integrated through a release branch. Manual scenarios share the existing two-population contribution model. Outputs use 100 covered orders as a normalised comparison unit, not an observed sample size or a business forecast. Built-in and manual drafts are stored separately.

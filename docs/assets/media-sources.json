@@ -1,13 +1,28 @@
 [
   {
     "file": "bundle-preview.jpg",
-    "source": "https://andyzhang666666.github.io/bundle-lab/simulate/",
-    "captured": "2026-10-31",
-    "viewport": [
-      1280,
-      720
-    ],
-    "mode": "Synthetic orders and conditional margin calculation. Incremental contribution and discounts for existing complete-basket buyers are separate; not a forecast.",
-    "sha256": "291d0138ed11121130f09c24e9ac8cc8e8820286a6c2471c559cd985875582b8"
+    "copiedAt": "2026-11-01",
+    "sourceCommit": "6940fa0055c0f6003f7d4ebf147a53c1cd432a88",
+    "sourceRepository": "AndyZhang666666/AndyZhang666666.github.io",
+    "sourceCapture": {
+      "id": "bundle",
+      "route": "/bundle-lab/simulate/",
+      "full": "assets/work/showcase/bundle.jpg",
+      "crop": "assets/work/showcase/bundle-crop.jpg",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "capturedAt": "2026-10-31T02:12:02.399Z",
+      "state": "Actual cola + chicken rice candidate, default canonical assumptions; negative middle-case contribution, two-population ledger and break-even gate.",
+      "fullPage": true,
+      "cropSize": {
+        "width": 1208,
+        "height": 720
+      },
+      "fullSha256": "08b9be13a13156df062de3613a5659c6e9b0e2d9c37ec3ebf1bfe7ea9cf3dee8",
+      "cropSha256": "44f2eaf13be3a96dff5f54bfb32adad370642287052a5eb195736ad627fc3315"
+    },
+    "sha256": "44f2eaf13be3a96dff5f54bfb32adad370642287052a5eb195736ad627fc3315"
   }
 ]
