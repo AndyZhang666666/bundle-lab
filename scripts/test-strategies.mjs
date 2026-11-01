@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { initialManual, manualBundle } from '../lib/manual-scenario.js';
 import { simulateStats } from '../lib/simulate.js';
-import { emptyStrategies, createStrategy, addStrategy, removeStrategy, chooseStrategy, decodeStrategies, strategyToManual, strategyResult, differences, strategiesMarkdown, sensitivityGrid, sensitivityPoint } from '../lib/strategies.js';
+import { emptyStrategies, createStrategy, addStrategy, removeStrategy, chooseStrategy, decodeStrategies, strategyToManual, strategyResult, differences, strategiesMarkdown, sensitivityGrid, sensitivityPoint, createSensitivityPreview, sensitivityPreviewIsCurrent, confirmSensitivityPreview } from '../lib/strategies.js';
 const source = { kind: 'manual', label: '用户自建假设；未经观测验证' };
 const make = (discount = .12, id = 'a') => { const d = initialManual(); return createStrategy(manualBundle(d), { ...d, discount }, source, { id, name: `方案 ${id.toUpperCase()}`, createdAt: '2026-11-01T10:00:00.000Z' }); };
 test('snapshots are independent, max three, and duplicate input is not saved twice', () => {
@@ -38,4 +38,15 @@ test('every sensitivity cell uses canonical model, exact current input is includ
   assert.equal(JSON.stringify(d), before);
   assert.ok(sensitivityPoint(b, d, .1, 0).marginLift < 0);
   const allFull = manualBundle({ ...d, fullShare: '100' }); assert.equal(sensitivityPoint(allFull, d, .1, 1).breakEven.rate, null);
+});
+test('sensitivity preview freezes its result and requires the full baseline to stay current through confirmation', () => {
+  const d = initialManual(), b = manualBundle(d), preview = createSensitivityPreview(b, d, .2, .4), frozen = JSON.stringify(preview);
+  assert.equal(sensitivityPreviewIsCurrent(preview, b, d), true);
+  const changedBundles = [{ ...b, prices: [25, 8], listPrice: 33 }, { ...b, hitRate: .4 }, { ...b, partialSpend: b.partialSpend + 1 }];
+  for (const changed of changedBundles) {assert.equal(sensitivityPreviewIsCurrent(preview, changed, d), false);assert.throws(() => confirmSensitivityPreview(preview, changed, d), /失效/);}
+  for (const changed of [{ ...d, costRatio: .5 }, { ...d, existingRedemption: .5 }, { ...d, discount: .1 }, { ...d, adoption: { ...d.adoption, conservative: .04 } }]) {assert.equal(sensitivityPreviewIsCurrent(preview, b, changed), false);assert.throws(() => confirmSensitivityPreview(preview, b, changed), /失效/);}
+  assert.equal(JSON.stringify(preview), frozen, 'old preview must not silently recalculate');
+  const changed = { ...d, costRatio: .5 }, fresh = createSensitivityPreview(b, changed, .2, .4);
+  assert.equal(sensitivityPreviewIsCurrent(fresh, b, changed), true);assert.equal(confirmSensitivityPreview(fresh, b, changed).marginLift, sensitivityPoint(b, changed, .2, .4).marginLift);
+  const confirmation = confirmSensitivityPreview(preview, b, d);confirmation.assumptions.costRatio = .9;assert.equal(JSON.stringify(preview), frozen);
 });

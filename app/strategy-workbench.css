@@ -2,6 +2,7 @@
 .desk-eyebrow{margin:0 0 8px!important;font-size:11px!important;font-weight:600;letter-spacing:.09em;color:var(--ink-3);line-height:1.6}
 .page-head .desk-eyebrow{padding-top:0}.page-head h1{font-size:clamp(28px,3.2vw,40px);font-weight:600;line-height:1.25}
 .scenario-feedback{margin:0 0 16px;font-size:13px;line-height:1.7;color:var(--ink-2)}.scenario-feedback:empty{display:none}
+.draft-recovery{padding:15px 18px;margin:0 0 20px;border:1px solid #d4baa8;background:#f8ede5;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.draft-recovery p{margin:0;font-size:12px;line-height:1.8;flex:1 1 320px;color:var(--ink-2)}.draft-recovery .btn{font-size:11px;white-space:normal;line-height:1.7;text-align:left}.sensitivity-preview[data-stale=true]{border:1px solid #d4baa8;background:#faf0e8}.sensitivity-preview[data-stale=true] .desk-eyebrow{color:var(--bad)}.sensitivity-preview[data-stale=true] strong{color:var(--ink-3)}
 .sim-work{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)}
 .scenario-input{scroll-margin-top:92px}.scenario-input .section-title{align-items:start;gap:14px}.scenario-input h2.sub,.scenario-output h2.sub{font-size:20px;line-height:1.5;margin:0}
 .scenario-input .section-title>.btn{padding:5px 8px;background:transparent;border-color:transparent;text-decoration:underline;text-underline-offset:4px;white-space:nowrap;font-size:11px;min-height:34px}

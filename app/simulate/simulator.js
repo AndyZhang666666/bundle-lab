@@ -5,6 +5,7 @@ import { simulateStats, validateAssumptions } from '@/lib/simulate';
 import { setAdoption, downloadText } from '@/lib/scenario';
 import { MANUAL_KEY, SOURCE_KEY, initialManual, manualBundle, decodeManual, copyToManual, assumptionReport, assumptionMarkdown } from '@/lib/manual-scenario';
 import { strategyToManual } from '@/lib/strategies';
+import { readProtectedDraft, writeProtectedDraft } from '@/lib/draft-guard';
 import useScenario from '@/components/use-scenario';
 import { ScenarioBars } from '@/components/charts';
 import BreakEvenMeter from './break-even-meter';
@@ -20,9 +21,9 @@ function Slider({ label, value, onChange, onInvalid }) {
 }
 
 export default function Simulator({ bundles }) {
-  const builtin = useScenario(bundles), [source, setSource] = useState('builtin'), [manual, setManual] = useState(initialManual), [ready, setReady] = useState(false), [storage, setStorage] = useState(''), [feedback, setFeedback] = useState(''), [invalid, setInvalid] = useState({}), [inputEpoch, setInputEpoch] = useState(0);
-  useEffect(() => { try { const saved = decodeManual(localStorage.getItem(MANUAL_KEY)); if (saved) setManual(saved); if (localStorage.getItem(SOURCE_KEY) === 'manual') setSource('manual'); } catch { setStorage('自建草稿无法恢复；当前仍可计算和导出。'); } setReady(true); }, []);
-  useEffect(() => { if (!ready) return; try { localStorage.setItem(SOURCE_KEY, source); manualBundle(manual); validateAssumptions(manual); localStorage.setItem(MANUAL_KEY, JSON.stringify(manual)); setStorage(''); } catch { setStorage('输入待补全或本机保存不可用，上一份有效草稿保留；有效输入仍可计算与导出。'); } }, [manual, source, ready]);
+  const builtin = useScenario(bundles), [source, setSource] = useState('builtin'), [manual, setManual] = useState(initialManual), [ready, setReady] = useState(false), [manualWriteLocked, setManualWriteLocked] = useState(false), [storage, setStorage] = useState(''), [feedback, setFeedback] = useState(''), [invalid, setInvalid] = useState({}), [inputEpoch, setInputEpoch] = useState(0);
+  useEffect(() => { const loaded = readProtectedDraft(()=>globalThis.localStorage, MANUAL_KEY, decodeManual, initialManual);setManual(loaded.value);setManualWriteLocked(loaded.writeLocked);if(loaded.writeLocked)setStorage('自建草稿无法恢复，已暂停自动保存；旧值未被覆盖，当前仍可计算与导出。');try { if(localStorage.getItem(SOURCE_KEY)==='manual')setSource('manual'); }catch { setManualWriteLocked(true);setStorage('自建草稿或来源选择无法读取，已暂停自动保存；当前仍可计算与导出。'); }setReady(true); }, []);
+  useEffect(() => { if (!ready) return;const outcome = writeProtectedDraft(()=>globalThis.localStorage, MANUAL_KEY, manual, decodeManual, manualWriteLocked);if(outcome.reason==='locked'){setStorage('自建草稿自动保存已暂停；旧值未被覆盖，当前仍可计算与导出。');return;}if(!outcome.saved){setStorage(outcome.reason==='invalid'?'自建输入待补全，上一份有效草稿保留；请核实人群与参数。':'本机保存不可用，当前仍可计算与导出。');return;}try{localStorage.setItem(SOURCE_KEY,source);setStorage('');}catch{setStorage('来源选择无法保存，当前仍可计算与导出。');} }, [manual, source, ready, manualWriteLocked]);
   const isManual = source === 'manual', s = isManual ? manual : builtin.scenario, set = isManual ? setManual : builtin.setScenario;
   const pickedBuiltin = bundles.find(b => b.key === builtin.scenario.pickKey) || bundles[0];
   const state = useMemo(() => { try { if (Object.values(invalid).some(Boolean)) throw Error('请补全 0–100% 范围内的参数数值'); const picked = isManual ? manualBundle(manual) : pickedBuiltin; return { picked, sim: simulateStats(picked, s), error: null }; } catch (e) { return { picked: null, sim: null, error: e.message }; } }, [isManual, manual, pickedBuiltin, s, invalid]);
@@ -38,6 +39,7 @@ export default function Simulator({ bundles }) {
 
   return <>
     <p className="scenario-feedback" role="status">{feedback || storage || builtin.notice}</p>
+    {(builtin.writeLocked||manualWriteLocked)&&<div className="draft-recovery" role="group" aria-label="恢复草稿自动保存"><p>检测到无法恢复的旧草稿，当前计算和导出可用。只有点击对应按钮，才会用本页输入替换该来源的旧值。</p>{builtin.writeLocked&&<button className="btn" onClick={()=>builtin.resumeSaving()}>用当前内置输入替换旧草稿并恢复保存</button>}{manualWriteLocked&&<button className="btn" onClick={()=>{setManualWriteLocked(false);setStorage('已选择用当前有效自建输入替换旧草稿。');}}>用当前自建输入替换旧草稿并恢复保存</button>}</div>}
     <a className="scenario-result-jump" href="#scenario-result">{n ? <>当前中档增量毛利 <strong>{yuan(n.marginLift * 100)}</strong> / 100覆盖单</> : '输入补全后可查看增量账本'}<span>查看账本 ↓</span></a>
     <div className="grid g2 sim-work">
       <section className="card scenario-input" id="scenario-input" aria-labelledby="scenario-input-title">
