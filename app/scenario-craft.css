@@ -1,0 +1,51 @@
+/* Keep the merchandising worksheet; put the consequence beside the assumption. */
+.page-head{padding:28px 0 18px}.page-head h1{font-size:30px}.page-head p{max-width:74ch}
+.source-tabs{padding-top:4px;margin-bottom:0}.source-tabs+.small{min-height:20px;margin:8px 0 16px}
+.sim-work{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:24px;align-items:start}
+.sim-work>.card{padding:24px;min-width:0}
+.scenario-input{border-top:3px solid var(--ink)}
+.sim-work .section-title{margin-bottom:16px;align-items:center}
+.sim-work h2.sub{font-size:18px;font-weight:600}
+.scenario-input .section-title .btn{font-size:12px;min-height:40px}
+.scenario-input select{min-height:44px}
+.scenario-input .small{font-size:13px;line-height:1.85}
+.scenario-input .assumption-divider{margin-block:24px}
+.rate-field{gap:12px;margin-top:18px;padding-bottom:8px;font-size:13px}
+.rate-value input{font-size:15px;min-height:40px;width:76px;border-color:#bcc6b3;background:#fff}
+.rate-field input[type=range]{appearance:none;height:4px;min-height:4px;margin:7px 0 12px;padding:0;border:0;background:#dbe0d3;border-radius:2px;accent-color:var(--accent);cursor:pointer}
+.rate-field input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 1px 5px #3b261b30;transition:box-shadow .15s}
+.rate-field input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 1px 7px #3b261b50}
+.rate-field input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--accent);border:3px solid #fff}
+.scenario-output{border-top:3px solid var(--accent);scroll-margin-top:95px}
+.scenario-output .unit-note{margin:0 0 12px;padding:10px 12px;background:#eef1e7;font-size:12px;line-height:1.7}
+.scenario-output .margin-total{padding:14px 0 20px}.scenario-output .margin-total strong{font-size:52px;line-height:1.25;margin-block:10px;font-variant-numeric:tabular-nums}
+.margin-total>span{font-size:13px}.margin-total small{line-height:1.8;font-size:12px}
+.scenario-output .ledger{margin-block:18px}
+.scenario-output .ledger p{padding:12px 0;margin:0;line-height:1.7}
+.scenario-output .ledger b{font-size:16px;font-weight:550;font-variant-numeric:tabular-nums}
+.scenario-output .ledger-balance{color:var(--ink-3)}
+.scenario-output .ledger-balance b{color:var(--ink);font-size:15px}
+.break-even-meter{padding:20px 0 18px;border-block:1px solid var(--line);margin:22px 0}
+.threshold-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.threshold-title h3{margin:0;font-size:15px;font-weight:600}
+.threshold-title strong{font-size:22px;font-weight:550;letter-spacing:-.02em;color:var(--accent);white-space:nowrap;font-variant-numeric:tabular-nums}
+.threshold-legend{display:flex;gap:12px 22px;flex-wrap:wrap;margin:16px 0 22px;font-size:12px;color:var(--ink-3)}
+.threshold-legend>span{display:flex;align-items:center;gap:7px}
+.threshold-legend i{width:8px;height:8px;display:inline-block;border-radius:50%;background:var(--ink)}
+.threshold-legend .balance-key{background:var(--accent)}
+.threshold-track{height:8px;position:relative;background:#e5e8de;margin-inline:5px;border-radius:1px}
+.threshold-feasible{position:absolute;height:100%;background:#d5dfca;top:0;transition:left .22s,width .22s}
+.threshold-track>i{position:absolute;top:50%;transform:translate(-50%,-50%);transition:left .22s;display:block}
+.threshold-balance{height:24px;width:2px;background:var(--accent)}
+.threshold-current{width:13px;height:13px;background:var(--ink);border-radius:50%;box-shadow:0 0 0 3px white}
+.threshold-axis{display:flex;justify-content:space-between;margin-top:10px;font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.break-even-meter>p{font-size:13px;line-height:1.85;margin:15px 0 0;max-width:65ch;color:var(--ink-2)}
+.assumption-export{padding-top:22px}.assumption-export h3{font-weight:600}
+.assumption-export .scenario-actions .btn{min-height:44px}
+.assumption-export .scenario-actions .btn:nth-child(2){background:var(--ink);color:white;border-color:var(--ink)}
+.scenario-result-jump{display:none}
+.math-detail summary{cursor:pointer}.math-detail pre{font-family:inherit;font-size:13px;line-height:1.8;background:#f0f2ea;padding:14px}
+@media(max-width:1050px){.sim-work{gap:18px}.sim-work>.card{padding:20px}.scenario-output .margin-total strong{font-size:44px}.sim-work .g3{grid-template-columns:1fr}.sim-work .g3 .rate-field{margin-top:10px}}
+@media(max-width:800px){.sim-work{grid-template-columns:1fr}.scenario-output{position:static}.scenario-result-jump{display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap;padding:13px 16px;background:#e6ecdD;color:var(--ink);font-size:12px;text-decoration:none;margin:0 0 18px;min-height:48px}.scenario-result-jump strong{font-variant-numeric:tabular-nums;font-size:17px}.scenario-result-jump>span{margin-left:auto;text-decoration:underline;text-underline-offset:4px}.sim-work .g3{grid-template-columns:repeat(3,minmax(0,1fr))}.scenario-output{scroll-margin-top:126px}}
+@media(max-width:600px){.page-head{padding-block:22px 14px}.page-head h1{font-size:25px}.page-head p{font-size:14px}.source-tabs .btn{min-height:44px}.source-tabs>span{font-size:12px}.sim-work>.card{padding:18px}.sim-work .g3{grid-template-columns:1fr}.sim-work h2.sub{font-size:17px}.rate-field{font-size:14px}.rate-value input{min-height:44px;font-size:16px}.scenario-output .margin-total strong{font-size:46px}.threshold-title h3{font-size:14px}.threshold-title strong{font-size:20px}.threshold-legend{gap:12px;font-size:12px}.break-even-meter>p{font-size:13px}.assumption-export .scenario-actions .btn{font-size:13px}.scenario-input .section-title .btn{min-height:44px}.scenario-result-jump{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.threshold-track>i,.threshold-feasible{transition:none}}

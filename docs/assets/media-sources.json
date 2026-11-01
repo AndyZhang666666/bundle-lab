@@ -2,27 +2,31 @@
   {
     "file": "bundle-preview.jpg",
     "copiedAt": "2026-11-01",
-    "sourceCommit": "6940fa0055c0f6003f7d4ebf147a53c1cd432a88",
-    "sourceRepository": "AndyZhang666666/AndyZhang666666.github.io",
+    "sourceCommit": "05eb729e0b14c6499015508f706e091247dae7d2",
+    "sourceRepository": "AndyZhang666666/bundle-lab",
     "sourceCapture": {
       "id": "bundle",
       "route": "/bundle-lab/simulate/",
       "full": "assets/work/showcase/bundle.jpg",
       "crop": "assets/work/showcase/bundle-crop.jpg",
       "viewport": {
-        "width": 1280,
-        "height": 1000
+        "width": 1440,
+        "height": 900
       },
-      "capturedAt": "2026-10-31T02:12:02.399Z",
-      "state": "Actual cola + chicken rice candidate, default canonical assumptions; negative middle-case contribution, two-population ledger and break-even gate.",
-      "fullPage": true,
+      "capturedAt": "2026-11-01T10:23:08.721Z",
+      "state": "Built-in cola and chicken-rice scenario with default 5/12/25 adoption assumptions, negative incremental margin and the existing model break-even value. Synthetic orders only.",
+      "fullPage": false,
       "cropSize": {
-        "width": 1208,
-        "height": 720
+        "width": 1440,
+        "height": 900
       },
-      "fullSha256": "08b9be13a13156df062de3613a5659c6e9b0e2d9c37ec3ebf1bfe7ea9cf3dee8",
-      "cropSha256": "44f2eaf13be3a96dff5f54bfb32adad370642287052a5eb195736ad627fc3315"
+      "fullSha256": "f2169a67526055424933d5e76334897a075c995f344d57b82932c254b413537d",
+      "cropSha256": "f2169a67526055424933d5e76334897a075c995f344d57b82932c254b413537d",
+      "source": "http://127.0.0.1:8822",
+      "sourceCommit": "05eb729e0b14c6499015508f706e091247dae7d2",
+      "sourceRepository": "AndyZhang666666/bundle-lab",
+      "captureMethod": "Unedited current viewport screenshot, identical full and library-preview files; no compositing or model-generated mockup."
     },
-    "sha256": "44f2eaf13be3a96dff5f54bfb32adad370642287052a5eb195736ad627fc3315"
+    "sha256": "f2169a67526055424933d5e76334897a075c995f344d57b82932c254b413537d"
   }
 ]
