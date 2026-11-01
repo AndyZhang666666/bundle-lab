@@ -6,6 +6,7 @@ import { setAdoption, downloadText } from "@/lib/scenario";
 import { MANUAL_KEY, SOURCE_KEY, initialManual, manualBundle, decodeManual, copyToManual, assumptionReport, assumptionMarkdown } from "@/lib/manual-scenario";
 import useScenario from "@/components/use-scenario";
 import { ScenarioBars } from "@/components/charts";
+import BreakEvenMeter from "./break-even-meter";
 const yuan=v=>"¥"+v.toFixed(2),pct=v=>v==null?"不适用":(v*100).toFixed(1)+"%";
 function Slider({label,value,onChange,onInvalid}){
  const [draft,setDraft]=useState(String(Math.round(value*10000)/100));
@@ -30,6 +31,7 @@ export default function Simulator({bundles}){
  return <>
  <div className="source-tabs" role="group" aria-label="算例来源"><button className="btn" aria-pressed={!isManual} onClick={()=>changeSource('builtin')}>内置订单</button><button className="btn" aria-pressed={isManual} onClick={()=>changeSource('manual')}>我的算例</button><span>{isManual?'待核实假设 · 无订单挖掘数据':'合成订单 · 非真实经营记录'}</span></div>
  <p className="small" role="status">{feedback||storage||builtin.notice}</p>
+ <a className="scenario-result-jump" href="#scenario-result">{n?<>当前中档增量毛利 <strong>{yuan(n.marginLift*100)}</strong> / 100覆盖单</>:'输入补全后可查看增量账本'}<span>查看账本 ↓</span></a>
  <div className="grid g2 sim-work">
  <section className="card scenario-input"><div className="section-title"><h2 className="sub">{isManual?'搭一组自己的套餐':'选择演示组合'}</h2><button className="btn" onClick={()=>{setInvalid({});if(isManual)setManual(initialManual());else builtin.reset();}}>恢复本来源默认</button></div>
  {isManual?<>
@@ -50,7 +52,8 @@ export default function Simulator({bundles}){
  {error?<div className="input-error" role="alert"><h3>这组算例还不能计算</h3><p>{error}</p><p>请补全输入，旧结果不作为当前结果展示或导出。</p></div>:<>
  <div className="margin-total"><span>增量毛利</span><strong className="tnum" data-negative={n.marginLift<0}>{yuan(n.marginLift*100)}</strong><small>{n.marginLift>0?'条件下为正，尚需验证':n.marginLift<0?'新增贡献未抵消让利或采纳本身损失':'当前收支相抵'}</small></div>
  <div className="ledger"><p><span>新增毛利贡献</span><b>{yuan(n.addedMargin*100)}</b></p><p><span>既有顾客让利损失</span><b>{yuan(n.existingLoss*100)}</b></p><p className="ledger-balance"><span>平衡采纳率</span><b>{be.rate==null?'不可达':pct(be.rate)}</b></p></div>
- <p className="small">{be.reason||'平衡点仅在当前成本、人群与领券假设下成立。'}毛利未扣除履约、库存与运营成本。</p>
+ <p className="small">毛利未扣除履约、库存与运营成本。</p>
+ <BreakEvenMeter current={s.adoption.neutral} threshold={be.rate} reason={be.reason}/>
  <ScenarioBars data={['conservative','neutral','optimistic'].map((k,i)=>({name:['低档','中档','高档'][i]+' '+pct(s.adoption[k]),value:sim.scenarios[k].marginLift*100}))} fmt="yuan2" height={190}/>
  <details className="math-detail"><summary>核对人群与计算依据</summary><p>原价 {yuan(sim.listPrice)} → 套餐价 {yuan(sim.bundleP)}；原本已买齐 {pct(picked.hitRate)}。{picked.hitRate===1?"没有未买齐者，原有平均消费不适用。":<>未买齐者原有平均消费 {yuan(n.incompleteSpend)}。</>}</p><pre>新增毛利 − 既有顾客让利 = 增量毛利{'\n'}{yuan(n.addedMargin*100)} − {yuan(n.existingLoss*100)} = {yuan(n.marginLift*100)}</pre><p className="small">采用既有 two-population 模型；未买齐者基线平均消费先换算为覆盖人群均值后进入同一计算函数。模型不含价格弹性或因果效果。</p>{!isManual&&<p className="small">合成订单原始统计：已买齐 {picked.hitCount} / 覆盖 {picked.matchedCount}。以上账本始终按100单归一。</p>}</details>
  </>}
