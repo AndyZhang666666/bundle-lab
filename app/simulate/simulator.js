@@ -43,7 +43,7 @@ export default function Simulator({ bundles }) {
     <a className="scenario-result-jump" href="#scenario-result">{n ? <>当前中档增量毛利 <strong>{yuan(n.marginLift * 100)}</strong> / 100覆盖单</> : '输入补全后可查看增量账本'}<span>查看账本 ↓</span></a>
     <div className="grid g2 sim-work">
       <section className="card scenario-input" id="scenario-input" aria-labelledby="scenario-input-title">
-        <div className="section-title"><div><p className="desk-eyebrow">搭一组条件</p><h2 id="scenario-input-title" className="sub">卖什么，优惠多少？</h2></div><button className="btn" onClick={() => { setInvalid({}); setInputEpoch(v => v + 1); if (isManual) setManual(initialManual()); else builtin.reset(); }}>恢复本来源默认</button></div>
+        <div className="section-title"><div><p className="desk-eyebrow">搭一组条件</p><h2 id="scenario-input-title" className="sub">卖什么，优惠多少？</h2></div><button className="btn" onClick={() => { setFeedback(''); setInvalid({}); setInputEpoch(v => v + 1); if (isManual) setManual(initialManual()); else builtin.reset(); }}>恢复本来源默认</button></div>
         <fieldset className="scenario-source"><legend>从哪里开始</legend><label><input type="radio" name="scenario-source" value="builtin" checked={!isManual} onChange={() => changeSource('builtin')} />内置订单</label><label><input type="radio" name="scenario-source" value="manual" checked={isManual} onChange={() => changeSource('manual')} />我的算例</label></fieldset>
         <p className="small source-origin">{isManual ? sourceLabel : '合成订单 · 非真实经营记录'}。本页结果均为条件推演。</p>
         {isManual ? <>
