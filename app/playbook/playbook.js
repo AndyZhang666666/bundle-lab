@@ -11,7 +11,7 @@ import { downloadText } from "@/lib/scenario";
 const yuan = (v) => "¥" + Number(v).toFixed(2),
   pct = (v) => (v * 100).toFixed(1) + "%";
 export default function Playbook({ bundles, meta }) {
-  const { scenario, notice, reset } = useScenario(bundles);
+  const { scenario, notice, reset, writeLocked, resumeSaving } = useScenario(bundles);
   const structured = useMemo(
     () => buildScenarioReport(bundles, meta, scenario),
     [bundles, meta, scenario],
@@ -128,6 +128,7 @@ export default function Playbook({ bundles, meta }) {
         <button className="btn" onClick={reset}>
           恢复默认假设
         </button>
+        {writeLocked && <button className="btn" onClick={resumeSaving}>用当前内置输入替换旧草稿并恢复保存</button>}
         <button className="btn" onClick={copy}>
           复制规则建议
         </button>

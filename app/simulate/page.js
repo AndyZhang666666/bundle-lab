@@ -32,10 +32,11 @@ export default function SimulatePage() {
   return (
     <>
       <div className="page-head">
-        <h1>这个套餐推出去，会怎样</h1>
+        <p className="desk-eyebrow">Bundle Lab / 收益推演</p>
+        <h1>多卖一些，也可能少赚。</h1>
         <p>
-          把未买齐者的增量和既有整套者的让利分开。调折扣、成本与两类人群行为，核对净毛利变化，再把同组假设带入建议。
-          数据为合成订单，结果是条件计算，不是业务预测。
+          搭一组商品，算清新增贡献与既有顾客让利。保留不同方案，找到盈亏边界，再决定先验证什么。
+          内置数据为合成订单；你的输入是经营假设，结果不是业务预测。
         </p>
       </div>
       <Simulator bundles={payload} />

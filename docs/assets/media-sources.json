@@ -2,7 +2,7 @@
   {
     "file": "bundle-preview.jpg",
     "copiedAt": "2026-11-01",
-    "sourceCommit": "05eb729e0b14c6499015508f706e091247dae7d2",
+    "sourceCommit": "d5463642cc37d8e1bbc21f8b347882d53affe2b0",
     "sourceRepository": "AndyZhang666666/bundle-lab",
     "sourceCapture": {
       "id": "bundle",
@@ -13,20 +13,20 @@
         "width": 1440,
         "height": 900
       },
-      "capturedAt": "2026-11-01T10:23:08.721Z",
-      "state": "Built-in cola and chicken-rice scenario with default 5/12/25 adoption assumptions, negative incremental margin and the existing model break-even value. Synthetic orders only.",
+      "capturedAt": "2026-11-01T14:32:34.793274+00:00",
+      "state": "Built-in synthetic cola/chicken-rice scenario, discount 12%, cost 40%, neutral adoption 12%, loss -49.51 per100 covered orders. Fixed QA strategy snapshots exist below the viewport. No observed business outcome.",
       "fullPage": false,
       "cropSize": {
         "width": 1440,
         "height": 900
       },
-      "fullSha256": "f2169a67526055424933d5e76334897a075c995f344d57b82932c254b413537d",
-      "cropSha256": "f2169a67526055424933d5e76334897a075c995f344d57b82932c254b413537d",
-      "source": "http://127.0.0.1:8822",
-      "sourceCommit": "05eb729e0b14c6499015508f706e091247dae7d2",
+      "fullSha256": "1c8748020ddec95c9306e9331a5afd5f59d4cd44a86441df05a38bca8c57b8c5",
+      "cropSha256": "1c8748020ddec95c9306e9331a5afd5f59d4cd44a86441df05a38bca8c57b8c5",
+      "source": "http://127.0.0.1:8830",
+      "sourceCommit": "d5463642cc37d8e1bbc21f8b347882d53affe2b0",
       "sourceRepository": "AndyZhang666666/bundle-lab",
-      "captureMethod": "Unedited current viewport screenshot, identical full and library-preview files; no compositing or model-generated mockup."
+      "captureMethod": "Unedited actual browser viewport screenshot; full and preview files identical. No compositing, model-generated mockup or invented business results."
     },
-    "sha256": "f2169a67526055424933d5e76334897a075c995f344d57b82932c254b413537d"
+    "sha256": "1c8748020ddec95c9306e9331a5afd5f59d4cd44a86441df05a38bca8c57b8c5"
   }
 ]

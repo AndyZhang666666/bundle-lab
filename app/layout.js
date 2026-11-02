@@ -1,6 +1,7 @@
 import "./globals.css";
 import "./worksheet.css";
 import "./scenario-craft.css";
+import "./strategy-workbench.css";
 import Nav from "./nav";
 import Link from "next/link";
 

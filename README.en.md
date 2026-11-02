@@ -4,6 +4,8 @@
 
 Why can a frequently bought combination earn less after a discount?
 
+Approved release, 2026-11-02: Keep up to three immutable scenario snapshots, inspect changes relative to baseline A, record a choice reason and export comparison cards. Every discount-by-adoption cell uses the existing model; preview first, apply explicitly. Restoring defaults clears stale feedback without changing saved scenarios. Model checks, a static build and integrated browser review are complete; this release ships with the portfolio. [Implementation and checks](docs/STRATEGY-WORKBENCH.md).
+
 ![Actual Bundle Lab interface](docs/assets/bundle-preview.jpg)
 
 <!-- github-evidence-20261031 -->
@@ -18,9 +20,10 @@ Why can a frequently bought combination earn less after a discount?
 
 ## Walkthrough
 
-1. Choose a candidate and inspect its association direction and covered orders.
-2. Adjust adoption and discounts; reconcile contribution, discount leakage and break-even.
-3. Compare candidates and export a rule-based proposal with a validation plan.
+1. Pick an illustrative basket or enter your own 2–3 products. Set discount and middle adoption, then inspect population and cost assumptions.
+2. Keep baseline A, copy its inputs, adjust and keep B. Compare changed assumptions, new contribution, discount leakage and break-even per 100 covered orders.
+3. Preview other discount/adoption conditions in the map before applying them. Select a scenario, record why and export the comparison.
+4. Inspect the synthetic orders and basket associations as supporting evidence; built-in proposals and validation plans remain available.
 
 ## Run mode and limits
 
