@@ -4,7 +4,7 @@
 
 Why can a frequently bought combination earn less after a discount?
 
-Development branch `feat/product-depth-20261101` adds up to three immutable scenario snapshots, changes relative to baseline A, a choice reason and portable comparison cards. The discount-by-adoption map calls the existing calculation for every cell; clicking previews, explicit confirmation applies. Product, discount and middle adoption lead the worksheet, with population/cost inputs disclosed on demand. [Implementation and checks](docs/STRATEGY-WORKBENCH.md). This local iteration awaits the combined portfolio review; live links still show the previous release.
+Approved release, 2026-11-02: Keep up to three immutable scenario snapshots, inspect changes relative to baseline A, record a choice reason and export comparison cards. Every discount-by-adoption cell uses the existing model; preview first, apply explicitly. Restoring defaults clears stale feedback without changing saved scenarios. Model checks, a static build and integrated browser review are complete; this release ships with the portfolio. [Implementation and checks](docs/STRATEGY-WORKBENCH.md).
 
 ![Actual Bundle Lab interface](docs/assets/bundle-preview.jpg)
 
