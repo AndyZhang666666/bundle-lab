@@ -1,5 +1,8 @@
 # Bundle Lab · 套餐实验室
 
+本轮新视觉尚未发布：[设计取舍、官方参考与前后截图](docs/VISUAL-CRAFT-20261102.md)。当前线上版本保留。
+
+
 [在线体验](https://andyzhang666666.github.io/bundle-lab/) · [English](README.en.md) · [作品索引](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.md)
 
 经常一起买的组合，为什么打折后反而可能少赚？

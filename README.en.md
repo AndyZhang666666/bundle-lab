@@ -1,5 +1,8 @@
 # Bundle Lab
 
+Visual candidate (not released): [design, references and before/after screenshots](docs/VISUAL-CRAFT-20261102.md). Existing product behavior is preserved.
+
+
 [中文](README.md) · [Project index](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.en.md) · [Live demo](https://andyzhang666666.github.io/bundle-lab/)
 
 Why can a frequently bought combination earn less after a discount?
