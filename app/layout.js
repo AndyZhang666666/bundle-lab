@@ -2,6 +2,7 @@ import "./globals.css";
 import "./worksheet.css";
 import "./scenario-craft.css";
 import "./strategy-workbench.css";
+import "./craft.css";
 import Nav from "./nav";
 import Link from "next/link";
 
@@ -17,7 +18,7 @@ export default function RootLayout({ children }) {
         <header className="site-head">
           <div className="wrap site-head-inner">
             <Link className="brand" href="/">
-              套餐实验室<span>Bundle Lab</span>
+              <svg className="bundle-mark" viewBox="0 0 26 26" aria-hidden="true"><path d="M4 5h18v16H4zM4 11h18M15 11v10" fill="none" stroke="currentColor" strokeWidth="1.5"/><path d="M8 16h3M18 15h1M18 18h1" stroke="currentColor" strokeWidth="1.5"/></svg>套餐实验室<span>Bundle Lab</span>
             </Link>
             <Nav />
           </div>

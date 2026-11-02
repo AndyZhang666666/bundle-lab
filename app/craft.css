@@ -1,0 +1,121 @@
+/* Bundle Lab is an accountant's working paper. Product, assumptions and ledger
+   are different visual objects. 1360px canvas = 366px inputs + 24px + 970px ledger. */
+:root { --bg:#f5f2e9; --surface:#fffefa; --line:#dfddd2; --line-soft:#e5e7dc; --ink:#282820; --ink-2:#5b5c51; --ink-3:#65665a; --accent:#385c4b; --accent-soft:#ecf0e7; --bad:#9b3d2b; --good:#345c48; --radius:6px; }
+body { background:var(--bg); font-size:14px; }
+.wrap { max-width:1504px; padding-inline:32px; }
+.site-head { background:#fcfbf5; border-color:var(--line); }
+.site-head-inner { height:64px; gap:24px; }
+.brand { display:flex; align-items:center; gap:9px; font-size:16px; }
+.bundle-mark { width:27px; height:27px; flex:none; }
+.brand span { font-size:12px; margin-left:4px; }
+.nav { gap:3px; }
+.nav a { font-size:12px; padding:9px 12px; border-radius:0; min-height:40px; position:relative; }
+.nav a[data-active=true] { background:transparent; }
+.nav a[data-active=true]:after { content:''; position:absolute; height:2px; bottom:-12px; inset-inline:12px; background:var(--ink); }
+.page-head { padding:24px 0 18px; }
+.page-head h1 { font-size:28px; line-height:1.4; letter-spacing:-.035em; font-weight:600; }
+.page-head p { font-size:13px; line-height:1.8; max-width:85ch; color:var(--ink-2); }
+.desk-eyebrow { font-family:inherit; font-size:11px; letter-spacing:0; color:var(--ink-3); margin-bottom:6px; }
+.bundle-worksheet>.page-head { display:grid; grid-template-columns:1fr minmax(280px,.8fr); column-gap:70px; align-items:end; }
+.bundle-worksheet>.page-head>.desk-eyebrow { grid-column:1; }
+.bundle-worksheet>.page-head>h1 { grid-column:1; margin:0; }
+.bundle-worksheet>.page-head>p:last-child { grid-column:2; grid-row:1/3; margin:0; max-width:55ch; font-size:12px; }
+.scenario-feedback { font-size:12px; min-height:18px; margin:0 0 14px; }
+.sim-work { grid-template-columns:366px minmax(0,1fr); gap:24px; align-items:start; }
+.sim-work>.card { padding:22px; border:1px solid var(--line); border-radius:6px; background:var(--surface); box-shadow:none; }
+.sim-work>.scenario-input { background:#fbfaf3; border-top:1px solid var(--line); }
+.scenario-input .section-title { align-items:center; gap:10px; }
+.scenario-input h2.sub,.scenario-output h2.sub { font-size:17px; line-height:1.5; letter-spacing:-.02em; }
+.scenario-input .section-title>.btn { font-size:11px; border:0; color:var(--ink-3); padding:4px 0; min-height:32px; background:none; }
+.scenario-source { display:flex; border:0; border-block:1px solid var(--line); padding:12px 0; gap:24px; margin:18px 0 10px; }
+.scenario-source legend { font-size:12px; color:var(--ink-3); padding-right:10px; }
+.scenario-source label { font-size:13px; }
+.scenario-source input { accent-color:var(--ink); }
+.source-origin { font-size:11px; line-height:1.75; margin-bottom:15px; }
+.fld { font-size:12px; margin-bottom:6px; }
+#picked { min-height:40px; border-radius:4px; border-color:#cccec1; background:#fffefa; font-size:13px; }
+.add-product { font-size:12px; min-height:36px; }
+.primary-assumptions { padding-top:16px; margin-top:12px; border-top:1px solid var(--line); }
+.rate-field { position:relative; display:grid; grid-template-columns:1fr auto; gap:12px; padding:6px 0; }
+.rate-field>span { font-size:13px; align-self:center; color:var(--ink); }
+.rate-value { gap:5px; }
+.primary-assumptions .rate-value input,.rate-value input { font-family:var(--mono); font-size:21px; width:84px; min-height:42px; text-align:right; border-radius:4px; background:#f0f0e6; padding:6px 8px; border:1px solid transparent; }
+.rate-value>span { font-size:12px; color:var(--ink-3); }
+.rate-field>input[type=range] { grid-column:1/-1; min-height:22px; accent-color:#566b57; }
+.assumption-context { font-size:12px; line-height:1.75; color:var(--ink-3); margin-top:0; margin-bottom:18px; }
+.population-settings { border-color:var(--line); padding-top:8px; }
+.population-settings>summary { font-size:12px; min-height:40px; padding-block:10px; }
+.settings-peek { font-size:11px; }
+.sim-work>.scenario-output { padding:24px 30px; border-top:1px solid var(--line); }
+.scenario-output>.section-title { margin-bottom:8px; }
+.unit-note { font-size:11px; padding:0; background:none; color:var(--ink-3); margin:6px 0 14px; }
+.margin-total { padding:14px 0 16px; border-bottom:1px solid var(--line); display:grid; grid-template-columns:1fr auto; gap:6px; align-items:baseline; }
+.margin-total>span { font-size:14px; font-weight:500; }
+.margin-total .tnum { font-size:40px; font-family:var(--mono); font-weight:500; letter-spacing:-.055em; line-height:1.2; color:var(--ink); }
+.margin-total .tnum[data-negative=true] { color:var(--bad); }
+.margin-total small { grid-column:1/-1; font-size:12px; text-align:right; color:var(--ink-2); }
+.ledger { margin:0; padding:8px 0 0; border:0; }
+.ledger p { display:flex; justify-content:space-between; gap:20px; padding:10px 0; margin:0; border:0; }
+.ledger span { font-size:13px; color:var(--ink-2); }
+.ledger b { font-family:var(--mono); font-size:17px; font-weight:500; font-variant-numeric:tabular-nums; }
+.ledger .ledger-balance { border-top:1px solid var(--line); padding-top:14px; margin-top:6px; }
+.scenario-output>.small { font-size:11px; margin:8px 0 14px; }
+.break-even-meter { border:0; border-top:1px solid var(--line); background:none; padding:14px 0 12px; margin:12px 0; }
+.break-even-meter h3 { font-size:13px; }
+.break-even-meter p { font-size:12px; }
+.save-scenario-link { display:inline-block; color:var(--accent); font-size:12px; margin:10px 0; }
+.math-detail,.assumption-export { border-color:var(--line); }
+.math-detail summary,.assumption-export summary { font-size:12px; min-height:38px; }
+.btn { border-radius:4px; min-height:38px; padding:8px 13px; font-size:12px; }
+.btn[data-on=true] { background:var(--ink); border-color:var(--ink); color:white; }
+.strategy-bench,.sensitivity-desk { margin-top:26px; padding:24px; background:#fffefa; border:1px solid var(--line); border-radius:6px; }
+.strategy-bench h2,.sensitivity-desk h2 { font-size:21px; letter-spacing:-.025em; font-weight:550; }
+.unit-stamp { font-size:12px; border:0; padding:0; color:var(--ink-3); }
+.strategy-save { background:#f4f3e9; border-radius:4px; padding:16px; margin-block:18px; }
+.strategy-save label { font-size:12px; }
+.strategy-save input,.strategy-decision textarea { border-radius:4px; border-color:#d1d2c4; background:#fffefa; }
+.strategy-table-scroll { border:0; }
+.strategy-table { font-size:13px; }
+.strategy-table tr>* { padding:14px 12px; border-color:var(--line-soft); }
+.strategy-table thead th { background:none; border-color:var(--line); }
+.strategy-table tbody th { background:#fffefa; color:var(--ink-3); font-weight:400; font-size:12px; }
+.strategy-table tbody td { text-align:right; font-variant-numeric:tabular-nums; }
+.strategy-table .strategy-net td { background:#f3f3e9; font-family:var(--mono); font-size:23px; font-weight:500; }
+.strategy-table .strategy-net td[data-negative=true] { color:var(--bad); }
+.strategy-source,.strategy-position,.strategy-delta { font-size:11px; }
+.strategy-head-actions { justify-content:flex-end; }
+.strategy-assumptions summary { min-height:32px; }
+.strategy-changes { list-style:none; padding:0; }
+.strategy-export { border-color:var(--line); }
+.strategy-empty { padding:24px 0; }
+.empty-A { font-size:36px; color:#bfc1b4; }
+.sensitivity-table th { font-size:12px; font-weight:400; }
+.sensitivity-table td button { border-radius:3px; min-height:42px; font-family:var(--mono); font-size:12px; }
+.sensitivity-table td button[data-tone=positive] { background:#e8eee3; color:#345c48; }
+.sensitivity-table td button[data-tone=negative] { background:#f3eee3; color:#775440; }
+.sensitivity-table td button[data-current=true] { outline:2px solid var(--ink); outline-offset:-2px; }
+.sensitivity-preview { border-radius:4px; background:#f0f1e7; border-color:#d1d6c7; }
+:is(button,a,input,select,textarea,summary):focus-visible { outline:2px solid #365c48; outline-offset:4px; }
+button,.btn,.text-action { transition:background-color 150ms ease-out,border-color 150ms ease-out,transform 150ms ease-out; }
+button:active:not(:disabled) { transform:translateY(1px); }
+@media(hover:hover) and (pointer:fine) { .sensitivity-table td button:hover { transform:translateY(-1px); outline:1px solid #86967c; } }
+@media(max-width:1100px) { .wrap { padding-inline:24px; } .sim-work { grid-template-columns:330px minmax(0,1fr); gap:18px; } .sim-work>.card { padding:20px; } .nav a { padding-inline:8px; } .brand span { display:none; } .bundle-worksheet>.page-head { column-gap:30px; } .margin-total .tnum { font-size:34px; } }
+@media(max-width:850px) { .site-head-inner { height:auto; min-height:62px; display:block; padding-block:12px 0; } .brand { min-height:32px; } .brand span { display:inline; } .nav { margin:6px 0 0; gap:12px; overflow-x:auto; flex-wrap:nowrap; scrollbar-width:thin; } .nav a { white-space:nowrap; min-height:44px; padding:10px 0; } .nav a[data-active=true]:after { bottom:0; inset-inline:0; } .bundle-worksheet>.page-head { display:block; } .bundle-worksheet>.page-head>p:last-child { margin-top:8px; max-width:85ch; } .sim-work { grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr); gap:16px; } .margin-total { display:block; } .margin-total .tnum { display:block; margin-block:10px; text-align:left; } .margin-total small { text-align:left; } }
+@media(max-width:650px) { .wrap { padding-inline:16px; } .site-head-inner { padding-bottom:0; } .page-head { padding-top:20px; } .page-head h1 { font-size:24px; } .bundle-worksheet>.page-head>p:last-child { font-size:12px; line-height:1.8; } .sim-work { display:block; } .sim-work>.card { padding:18px; margin-bottom:18px; } .sim-work>.scenario-input { border-radius:6px; } .rate-value input,.primary-assumptions .rate-value input { font-size:24px; width:90px; min-height:44px; } .scenario-input :is(input:not([type=range]):not([type=radio]),select) { font-size:16px; } .scenario-input .section-title>.btn { min-height:44px; } .scenario-output h2.sub { font-size:18px; } .margin-total { display:grid; } .margin-total .tnum { margin:0; font-size:34px; text-align:right; } .margin-total small { text-align:right; } .ledger b { font-size:18px; } .strategy-bench,.sensitivity-desk { padding:18px; margin-top:20px; } .strategy-bench h2,.sensitivity-desk h2 { font-size:20px; } .strategy-save input,.strategy-decision textarea { font-size:16px; } .btn,.sensitivity-table td button { min-height:44px; } .strategy-export .btn { font-size:12px; } .sensitivity-preview { padding:16px; } }
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } button:active:not(:disabled),.sensitivity-table td button:hover { transform:none!important; } }
+/* Override the older worksheet's high-specificity rate spacing at this boundary. */
+.bundle-worksheet .primary-assumptions .rate-field { margin:10px 0 6px; padding:0; gap:7px 12px; }
+.bundle-worksheet .rate-value input { min-height:40px; height:40px; padding:6px 8px; }
+.bundle-worksheet .rate-field input[type=range] { height:26px; min-height:26px; padding:0; border:0; background:transparent; appearance:none; }
+.bundle-worksheet .rate-field input[type=range]::-webkit-slider-runnable-track { height:3px; background:#d2d8c8; border-radius:2px; }
+.bundle-worksheet .rate-field input[type=range]::-webkit-slider-thumb { appearance:none; width:14px; height:14px; margin-top:-5.5px; background:#506a54; border:2px solid #fffefa; box-shadow:0 0 0 1px #506a54; border-radius:50%; }
+.bundle-worksheet .rate-field input[type=range]::-moz-range-track { height:3px; background:#d2d8c8; }
+.bundle-worksheet .rate-field input[type=range]::-moz-range-thumb { width:11px; height:11px; background:#506a54; border:2px solid #fffefa; border-radius:50%; }
+.bundle-worksheet .primary-assumptions { margin-top:10px; padding-top:10px; }
+.bundle-worksheet .assumption-context { margin-bottom:14px; }
+.bundle-worksheet .scenario-output .unit-note { background:none; padding:0; margin:6px 0 10px; }
+.bundle-worksheet .scenario-output .margin-total { padding:12px 0 16px; }
+.bundle-worksheet .scenario-output .margin-total .tnum { font-size:40px; line-height:1.25; margin:0; }
+.bundle-worksheet .scenario-output .margin-total small { font-size:12px; margin:0; }
+@media(max-width:650px) { .bundle-worksheet .rate-value input { min-height:44px; height:44px; font-size:24px; } .bundle-worksheet .scenario-output .margin-total .tnum { font-size:34px; } }
+@media(max-width:850px) { .site-head .site-head-inner { display:block; } .site-head .nav { display:flex; grid-template-columns:none; flex-wrap:nowrap; overflow-x:auto; gap:20px; margin-top:5px; padding-bottom:0; scrollbar-width:thin; } .site-head .nav a { flex:none; padding:10px 0; min-height:44px; } .site-head .nav a[data-active=true]:after { bottom:0; inset-inline:0; } }

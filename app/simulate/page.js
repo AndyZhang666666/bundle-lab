@@ -30,16 +30,16 @@ export default function SimulatePage() {
   }));
 
   return (
-    <>
+    <div className="bundle-worksheet">
       <div className="page-head">
         <p className="desk-eyebrow">Bundle Lab / 收益推演</p>
-        <h1>多卖一些，也可能少赚。</h1>
+        <h1>一份套餐，算清两笔账。</h1>
         <p>
           搭一组商品，算清新增贡献与既有顾客让利。保留不同方案，找到盈亏边界，再决定先验证什么。
           内置数据为合成订单；你的输入是经营假设，结果不是业务预测。
         </p>
       </div>
       <Simulator bundles={payload} />
-    </>
+    </div>
   );
 }
