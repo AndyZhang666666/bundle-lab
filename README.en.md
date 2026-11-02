@@ -1,6 +1,6 @@
 # Bundle Lab
 
-Visual candidate (not released): [design, references and before/after screenshots](docs/VISUAL-CRAFT-20261102.md). Existing product behavior is preserved.
+Visual refresh approved after user review, 2026-11-02: [design, references and before/after screenshots](docs/VISUAL-CRAFT-20261102.md). Existing product behavior is preserved; the merge PR and Pages workflow record publication.
 
 
 [中文](README.md) · [Project index](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.en.md) · [Live demo](https://andyzhang666666.github.io/bundle-lab/)
@@ -9,7 +9,7 @@ Why can a frequently bought combination earn less after a discount?
 
 Approved release, 2026-11-02: Keep up to three immutable scenario snapshots, inspect changes relative to baseline A, record a choice reason and export comparison cards. Every discount-by-adoption cell uses the existing model; preview first, apply explicitly. Restoring defaults clears stale feedback without changing saved scenarios. Model checks, a static build and integrated browser review are complete; this release ships with the portfolio. [Implementation and checks](docs/STRATEGY-WORKBENCH.md).
 
-![Actual Bundle Lab interface](docs/assets/bundle-preview.jpg)
+![Actual Bundle Lab interface](docs/assets/visual-craft-20261102/after-desktop.jpg)
 
 <!-- github-evidence-20261031 -->
 

@@ -1,6 +1,6 @@
 # Bundle Lab · 套餐实验室
 
-本轮新视觉尚未发布：[设计取舍、官方参考与前后截图](docs/VISUAL-CRAFT-20261102.md)。当前线上版本保留。
+2026-11-02 视觉打磨已通过用户审阅，获批合并发布：[设计取舍、官方参考与前后截图](docs/VISUAL-CRAFT-20261102.md)。本次保留原有产品功能；发布记录见仓库合并 PR 与 Pages 工作流。
 
 
 [在线体验](https://andyzhang666666.github.io/bundle-lab/) · [English](README.en.md) · [作品索引](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.md)
@@ -11,7 +11,7 @@
 
 2026-11-01 更新：从[收益推演](https://andyzhang666666.github.io/bundle-lab/simulate/)进入。新增“我的算例”，支持 2–3 件商品、两类人群与独立假设草稿；每100个覆盖订单展示增量账本，可复制或导出 Markdown 假设卡。沿用原计算模型，不把归一单位当成观测订单量。[改动与验证](docs/USABLE-SCENARIOS.md)。
 
-![Bundle Lab · 套餐实验室的实际产品界面](docs/assets/bundle-preview.jpg)
+![Bundle Lab · 套餐实验室的实际产品界面](docs/assets/visual-craft-20261102/after-desktop.jpg)
 
 <!-- github-evidence-20261031 -->
 
