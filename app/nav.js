@@ -15,7 +15,7 @@ const LINKS = [
 export default function Nav() {
   const path = usePathname().replace(/\/+$/, "") || "/";
   return (
-    <nav className="nav">
+    <nav className="nav" aria-label="套餐实验室导航">
       {LINKS.map(([href, label]) => (
         <Link
           key={href}
