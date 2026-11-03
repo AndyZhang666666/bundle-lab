@@ -55,17 +55,17 @@ export default function DemoUtilities({project,name,steps,about}){
 
  return <>
    <nav className="demo-tools" aria-label="作品与使用帮助">
-     <a href="/#selected">← 返回作品集</a><span className="demo-tools-spacer"/>
+     <a href="/#selected" target="_blank" rel="noopener noreferrer" aria-label="返回作品集（新标签）">← 返回作品集 ↗</a><span className="demo-tools-spacer"/>
      <button type="button" onClick={()=>open('nav')}>其他 Demo</button>
      <button type="button" onClick={()=>open('guide')}>三步体验</button>
      <button type="button" onClick={()=>open('about')}>为什么这样做</button>
    </nav>
    <dialog ref={dialog} className="demo-help" aria-labelledby="demo-help-title" onCancel={e=>{e.preventDefault();close();}} onClick={e=>{if(e.target!==e.currentTarget)return;const r=e.currentTarget.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)close();}}>
      <div className="demo-help-heading"><div><p>{name}</p><h2 id="demo-help-title">{panel==='nav'?'继续看一件作品':panel==='guide'?'完成一次自己的判断':'为什么这样做'}</h2></div><button type="button" className="demo-help-close" autoFocus onClick={close} aria-label="关闭使用帮助">关闭 ×</button></div>
-     {panel==='nav'&&<nav className="demo-project-links" aria-label="四个主推 Demo">{projects.map(p=>p.id===project?<div key={p.id} aria-current="page"><strong>{p.name}</strong><span>当前作品 · {p.description}</span></div>:<a key={p.id} href={p.href}><strong>{p.name} ↗</strong><span>{p.description}</span></a>)}</nav>}
+     {panel==='nav'&&<nav className="demo-project-links" aria-label="四个主推 Demo">{projects.map(p=>p.id===project?<div key={p.id} aria-current="page"><strong>{p.name}</strong><span>当前作品 · {p.description}</span></div>:<a key={p.id} href={p.href} target="_blank" rel="noopener noreferrer"><strong>{p.name} ↗</strong><span>{p.description}</span></a>)}</nav>}
      {panel==='guide'&&<><p className="demo-help-intro">不必按顺序完成。定位只移动视线，不会替换内容、提交选择或写入记忆。</p><ol className="demo-guide">{steps.map((step,i)=><li key={step.title}><span>{String(i+1).padStart(2,'0')}</span><div><h3>{step.title}</h3><p>{step.description}</p>{step.target&&<button type="button" onClick={()=>jump(step.target)}>定位这个操作 →</button>}{step.href&&<a href={step.href} target="_blank" rel="noopener noreferrer">{step.target?'在新标签打开这个工作区 ↗':'打开这一步 ↗（新标签）'}</a>}</div></li>)}</ol><p role="status" className="demo-help-error">{jumpError}</p></>}
      {panel==='about'&&<div className="demo-about">{[['解决什么问题',about.problem],['产品取舍',about.choices],['当前边界',about.boundary],['投入真实使用前还需验证',about.validation]].map(([heading,body])=><section key={heading}><h3>{heading}</h3><p>{body}</p></section>)}</div>}
-     <p className="demo-help-foot">Esc 或浏览器返回均可关闭；原工作留在当前页面。</p>
+     <p className="demo-help-foot">其他作品在新标签打开，保留当前工作。Esc 或浏览器返回可关闭说明。</p>
    </dialog>
  </>;
 }

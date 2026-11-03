@@ -1,5 +1,7 @@
 # Bundle Lab
 
+2026-11-03 local review fixes: sibling tools open in new tabs; unfinished text is restored separately from confirmed results. No push, merge or publication. [Behavior and checks](docs/DRAFT-RECOVERY-20261103.md).
+
 Local iteration, 2026-11-03 — not published: Five key inputs now carry source and validation notes; synthetic and manually entered values never become certified observations. All three scenario values remain readable without relying on color. Assumption and comparison exports include the same provenance. Model/state checks (25), rule checks (21) and the build passed; actual files and phone-viewport actions were checked. [验收与边界](docs/TASK-CLARITY-20261103.md)。
 
 Visual refresh approved after user review, 2026-11-02: [design, references and before/after screenshots](docs/VISUAL-CRAFT-20261102.md). Existing product behavior is preserved; the merge commit and Pages workflow record publication.

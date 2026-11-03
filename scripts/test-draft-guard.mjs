@@ -36,3 +36,14 @@ test('blocked storage object and throwing storage property preserve usable input
     assert.deepEqual(loaded.value, f.fallback());assert.equal(writeProtectedDraft(storage, f.key, loaded.value, f.decode, false).reason, 'storage');
   }
 });
+
+
+import {readTabDraft,writeTabDraft,DRAFT_PREFIX} from '../lib/tab-drafts.js';
+test('uncommitted strategy fields stay separate from confirmed snapshots and unreadable session state',()=>{
+ const values=new Map();globalThis.sessionStorage={getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v)};
+ const draft={name:'未保留的方案名称',reason:'待确认的理由',reasonFor:'snapshot-a'};
+ writeTabDraft('strategy-qa',draft);assert.deepEqual(readTabDraft('strategy-qa',{name:'',reason:'',reasonFor:''}).value,draft);
+ values.set(DRAFT_PREFIX+'bad-qa','{broken');assert.equal(readTabDraft('bad-qa',{name:''}).saved,false);writeTabDraft('bad-qa',{name:'新草稿'});assert.equal(values.get(DRAFT_PREFIX+'bad-qa'),'{broken');
+ assert.ok(!values.has('bundle-lab:strategies:v1'),'draft does not choose or create a strategy');
+ delete globalThis.sessionStorage;
+});
