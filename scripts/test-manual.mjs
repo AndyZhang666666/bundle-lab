@@ -7,3 +7,16 @@ test('manual adapter converts incomplete-group spending into the canonical popul
 test('manual boundaries preserve loss at zero adoption, all-full and unreachable break-even',()=>{const d=initialManual();d.adoption={conservative:0,neutral:0,optimistic:0};const r=assumptionReport(manualBundle(d),d,'用户假设');assert.equal(r.resultPer100.addedMargin,0);assert.ok(r.resultPer100.marginLift<0);d.fullShare='100';const b=simulateStats(manualBundle(d),d);assert.equal(b.breakEven.rate,null);assert.equal(b.scenarios.neutral.addedMargin,0);assert.equal(assumptionReport(manualBundle(d),d,"user assumptions").bundle.incompleteSpend,null);assert.match(b.breakEven.reason,/全部订单/);d.fullShare='20';d.discount=.99;assert.equal(simulateStats(manualBundle(d),d).breakEven.rate,null);});
 test('empty, duplicate, nonfinite and overspending inputs are rejected without coercion',()=>{for(const patch of [{fullShare:''},{incompleteSpend:''},{fullShare:'101'},{incompleteSpend:'999'},{items:[{name:'a',price:'1'},{name:'a',price:'2'}]}])assert.throws(()=>manualBundle({...initialManual(),...patch}));assert.throws(()=>decodeManual('{"version":1}'));});
 test('copied scenarios reconcile with the original model and keep the assumption label',()=>{const bundles=rankedBundles(),b=bundles.find(b=>b.key==='可乐 + 鸡腿饭');assert.ok(b);const a=defaultScenario(bundles),prices={可乐:4,鸡腿饭:25};const copied=copyToManual({...b,prices:b.items.map(i=>prices[i])},a),r=simulateStats(manualBundle(copied),copied),original=simulateStats(b,a);assert.ok(Math.abs(r.scenarios.neutral.marginLift-original.scenarios.neutral.marginLift)<1e-5);assert.equal(copied.copied,true);const md=assumptionMarkdown(assumptionReport(manualBundle(copied),copied,'待核实假设'));assert.match(md,/不是观测样本量|不是观测订单/);assert.match(md,/下一步验证/);});
+
+
+import {inputBasis} from '../lib/input-basis.js';
+test('key input provenance follows source kind, never synthetic or user claims masquerading as observed',()=>{
+ const builtin=inputBasis('builtin'),manual=inputBasis('manual');
+ assert.equal(builtin.length,5);assert.equal(manual.length,5);
+ assert.match(builtin.find(x=>x.key==='fullShare').status,/合成统计/);
+ assert.ok(manual.every(x=>x.status.includes('待验证')));assert.ok(builtin.every(x=>x.verify.length>12));
+ const draft=initialManual(),b=manualBundle(draft),report=assumptionReport(b,draft,'用户声称真实已验证','manual');
+ assert.ok(report.inputBasis.every(x=>x.status.includes('待验证')));
+ assert.match(assumptionMarkdown(report),/未经真实观测核验/);assert.match(assumptionMarkdown(report),/对照/);
+ assert.throws(()=>inputBasis('observed'));
+});
