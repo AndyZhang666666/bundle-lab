@@ -164,11 +164,12 @@ export function ScenarioBars({ data, height = 170, fmt = "yuan2" }) {
           dataKey="value"
           name="Δ"
           isAnimationActive={false}
+          minPointSize={value=>typeof value==='number'&&value>0?4:0}
           radius={[3, 3, 0, 0]}
           label={({x,y,width,value})=><text x={x+width/2} y={value<0?y+17:y-8} textAnchor="middle" fill={value<0?"#fff":INK} fontSize={12}>{f(value)}</text>}
         >
           {data.map((d) => (
-            <Cell key={d.name} fill={d.value < 0 ? "#a3341f" : ACCENT} />
+            <Cell key={d.name} fill={d.value < 0 ? "var(--bad)" : "var(--chart-positive)"} />
           ))}
         </Bar>
       </BarChart>
