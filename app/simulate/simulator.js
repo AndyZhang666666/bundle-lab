@@ -10,14 +10,15 @@ import useScenario from '@/components/use-scenario';
 import { ScenarioBars } from '@/components/charts';
 import BreakEvenMeter from './break-even-meter';
 import SensitivityMap from './sensitivity-map';
+import InputBasis from "@/components/input-basis";
 import StrategyBench from './strategy-bench';
 const yuan = v => '¥' + v.toFixed(2), pct = v => v == null ? '不适用' : (v * 100).toFixed(1) + '%';
 
-function Slider({ label, value, onChange, onInvalid }) {
+function Slider({ label, value, onChange, onInvalid, basis }) {
   const [draft, setDraft] = useState(String(Math.round(value * 10000) / 100));
   useEffect(() => setDraft(String(Math.round(value * 10000) / 100)), [value]);
   const edit = raw => { setDraft(raw); const valid = raw.trim() !== '' && Number.isFinite(Number(raw)) && Number(raw) >= 0 && Number(raw) <= 100; onInvalid(label, !valid); if (valid) onChange(Number(raw) / 100); };
-  return <label className="field-stack rate-field"><span>{label}</span><div className="rate-value"><input aria-label={label + '数值'} type="number" min="0" max="100" step="0.1" value={draft} onChange={e => edit(e.target.value)} /><span>%</span></div><input aria-label={label} type="range" min="0" max="1" step="0.01" value={value} onChange={e => { onInvalid(label, false); onChange(Number(e.target.value)); }} /></label>;
+  return <label className="field-stack rate-field"><span>{label}{basis&&<small className="assumption-tag">{basis}</small>}</span><div className="rate-value"><input aria-label={label + '数值'} type="number" min="0" max="100" step="0.1" value={draft} onChange={e => edit(e.target.value)} /><span>%</span></div><input aria-label={label} type="range" min="0" max="1" step="0.01" value={value} onChange={e => { onInvalid(label, false); onChange(Number(e.target.value)); }} /></label>;
 }
 
 export default function Simulator({ bundles }) {
@@ -29,7 +30,7 @@ export default function Simulator({ bundles }) {
   const state = useMemo(() => { try { if (Object.values(invalid).some(Boolean)) throw Error('请补全 0–100% 范围内的参数数值'); const picked = isManual ? manualBundle(manual) : pickedBuiltin; return { picked, sim: simulateStats(picked, s), error: null }; } catch (e) { return { picked: null, sim: null, error: e.message }; } }, [isManual, manual, pickedBuiltin, s, invalid]);
   const { picked, sim, error } = state, n = sim?.scenarios.neutral, be = sim?.breakEven;
   const sourceLabel = isManual ? (typeof manual.provenance === 'string' ? manual.provenance.slice(0, 240) : manual.copied ? '从演示组合复制的待核实个人假设' : '用户自建假设；未经观测验证') : '内置合成订单 + 行为假设';
-  const report = sim ? assumptionReport(picked, s, sourceLabel) : null;
+  const report = sim ? assumptionReport(picked, s, sourceLabel, isManual ? 'manual' : 'builtin') : null;
   const markdown = report ? assumptionMarkdown(report) : '';
   const changeSource = v => { setSource(v); setInvalid({}); setFeedback(''); setInputEpoch(n => n + 1); };
   const onInvalid = (label, bad) => setInvalid(old => ({ ...old, [label]: bad }));
@@ -46,16 +47,17 @@ export default function Simulator({ bundles }) {
         <div className="section-title"><div><p className="desk-eyebrow">搭一组条件</p><h2 id="scenario-input-title" className="sub">卖什么，优惠多少？</h2></div><button className="btn" onClick={() => { setFeedback(''); setInvalid({}); setInputEpoch(v => v + 1); if (isManual) setManual(initialManual()); else builtin.reset(); }}>恢复本来源默认</button></div>
         <fieldset className="scenario-source"><legend>从哪里开始</legend><label><input type="radio" name="scenario-source" value="builtin" checked={!isManual} onChange={() => changeSource('builtin')} />内置订单</label><label><input type="radio" name="scenario-source" value="manual" checked={isManual} onChange={() => changeSource('manual')} />我的算例</label></fieldset>
         <p className="small source-origin">{isManual ? sourceLabel : '合成订单 · 非真实经营记录'}。本页结果均为条件推演。</p>
+        <InputBasis kind={isManual?'manual':'builtin'}/>
         {isManual ? <>
           <div className="manual-items">{manual.items.map((item, i) => <div className="manual-item" key={i}><label>商品 {i + 1}<input aria-label={`商品 ${i + 1} 名称`} maxLength={40} value={item.name} onChange={e => editItem(i, 'name', e.target.value)} /></label><label>单价 / 元<input aria-label={`商品 ${i + 1} 价格`} type="number" min="0" max="100000" step="0.01" value={item.price} onChange={e => editItem(i, 'price', e.target.value)} /></label>{manual.items.length === 3 && <button className="btn" aria-label={`移除商品 ${i + 1}`} onClick={() => setManual(old => ({ ...old, items: old.items.filter((_, j) => i !== j) }))}>移除</button>}</div>)}</div>
           {manual.items.length < 3 && <button className="text-action add-product" onClick={() => setManual(old => ({ ...old, items: [...old.items, { name: '商品 C', price: '0' }] }))}>＋ 添加第三件商品</button>}
         </> : <><label className="fld" htmlFor="picked">演示组合</label><select id="picked" value={s.pickKey} onChange={e => set(p => ({ ...p, pickKey: e.target.value }))}>{bundles.map(b => <option key={b.key} value={b.key}>{b.items.join(' + ')}</option>)}</select><button className="text-action add-product" onClick={() => { setManual(copyToManual(pickedBuiltin, s)); changeSource('manual'); setFeedback('已复制商品和当前假设；请换成自己的商品并逐项核实。'); }}>复制为我的算例 →</button></>}
         <div className="primary-assumptions"><Slider key={`${source}-${inputEpoch}-discount`} label="套餐折扣率" value={s.discount} onInvalid={onInvalid} onChange={v => set(p => ({ ...p, discount: v }))} /><p className="assumption-context">{sim ? <>原价 {yuan(sim.listPrice)} → 套餐价 <strong>{yuan(sim.bundleP)}</strong></> : '商品有效后显示折后价'}</p>
-          <Slider key={`${source}-${inputEpoch}-neutral`} label="中档采纳率" value={s.adoption.neutral} onInvalid={onInvalid} onChange={v => set(p => ({ ...p, adoption: setAdoption(p.adoption, 'neutral', v) }))} /><p className="assumption-context">只指原本未买齐的人中，预计有多少人补齐套餐。不是所有顾客的转化率。</p></div>
+          <Slider key={`${source}-${inputEpoch}-neutral`} label="中档采纳率" basis="假设 · 待验证" value={s.adoption.neutral} onInvalid={onInvalid} onChange={v => set(p => ({ ...p, adoption: setAdoption(p.adoption, 'neutral', v) }))} /><p className="assumption-context">只指原本未买齐的人中，预计有多少人补齐套餐。不是所有顾客的转化率。</p></div>
         <details className="population-settings"><summary><span>核实人群、成本与让利</span><span className="settings-peek">成本 {pct(s.costRatio)} · 领折扣 {pct(s.existingRedemption)}</span></summary>
-          {isManual ? <><div className="grid g2 manual-population"><label>原本已买齐者占比 / %<input type="number" min="0" max="100" value={manual.fullShare} onChange={e => setManual(old => ({ ...old, fullShare: e.target.value }))} /></label><label>未买齐者原有平均消费 / 元<input type="number" min="0" value={manual.incompleteSpend} onChange={e => setManual(old => ({ ...old, incompleteSpend: e.target.value }))} /></label></div><p className="small">只含这组商品。已买齐者100%时，没有未买齐人群；手动假设不产生订单样本或关联排名。</p></> : <p className="small">内置组合已买齐 {pct(pickedBuiltin.hitRate)}。人群基线来自合成订单；需要修改时，先复制为我的算例。</p>}
-          <Slider key={`${source}-${inputEpoch}-cost`} label="食材成本率" value={s.costRatio} onInvalid={onInvalid} onChange={v => set(p => ({ ...p, costRatio: v }))} />
-          <Slider key={`${source}-${inputEpoch}-redemption`} label="既有整套顾客领折扣率" value={s.existingRedemption} onInvalid={onInvalid} onChange={v => set(p => ({ ...p, existingRedemption: v }))} />
+          {isManual ? <><div className="grid g2 manual-population"><label>原本已买齐者占比 / %<small className="assumption-tag">待验证</small><input type="number" min="0" max="100" value={manual.fullShare} onChange={e => setManual(old => ({ ...old, fullShare: e.target.value }))} /></label><label>未买齐者原有平均消费 / 元<small className="assumption-tag">待验证</small><input type="number" min="0" value={manual.incompleteSpend} onChange={e => setManual(old => ({ ...old, incompleteSpend: e.target.value }))} /></label></div><p className="small">只含这组商品。已买齐者100%时，没有未买齐人群；手动假设不产生订单样本或关联排名。</p></> : <p className="small"><span className="assumption-tag">合成统计 · 非观测</span>内置组合已买齐 {pct(pickedBuiltin.hitRate)}。人群基线来自合成订单；需要修改时，先复制为我的算例。</p>}
+          <Slider key={`${source}-${inputEpoch}-cost`} label="食材成本率" basis="假设 · 待验证" value={s.costRatio} onInvalid={onInvalid} onChange={v => set(p => ({ ...p, costRatio: v }))} />
+          <Slider key={`${source}-${inputEpoch}-redemption`} label="既有整套顾客领折扣率" basis="假设 · 待验证" value={s.existingRedemption} onInvalid={onInvalid} onChange={v => set(p => ({ ...p, existingRedemption: v }))} />
         </details>
         <details className="population-settings"><summary><span>采纳率的不确定范围</span><span className="settings-peek">{pct(s.adoption.conservative)} / {pct(s.adoption.neutral)} / {pct(s.adoption.optimistic)}</span></summary><p className="small">三档是你给出的条件，不是置信区间。调整一档时自动保持低档 ≤ 中档 ≤ 高档。</p>{[['conservative', '低档采纳率'], ['optimistic', '高档采纳率']].map(([k, label]) => <Slider key={`${source}-${inputEpoch}-${k}`} label={label} value={s.adoption[k]} onInvalid={onInvalid} onChange={v => set(p => ({ ...p, adoption: setAdoption(p.adoption, k, v) }))} />)}</details>
       </section>
@@ -67,6 +69,7 @@ export default function Simulator({ bundles }) {
           <div className="ledger"><p><span>新增毛利贡献</span><b>{yuan(n.addedMargin * 100)}</b></p><p><span>既有顾客让利损失</span><b>{yuan(n.existingLoss * 100)}</b></p><p className="ledger-balance"><span>平衡采纳率</span><b>{be.rate == null ? '不可达' : pct(be.rate)}</b></p></div>
           <p className="small">毛利未扣除履约、库存与运营成本。</p><BreakEvenMeter current={s.adoption.neutral} threshold={be.rate} reason={be.reason} />
           <ScenarioBars data={['conservative', 'neutral', 'optimistic'].map((k, i) => ({ name: ['低档', '中档', '高档'][i] + ' ' + pct(s.adoption[k]), value: sim.scenarios[k].marginLift * 100 }))} fmt="yuan2" height={170} />
+          <div className="scenario-reading" aria-label="三档条件的增量毛利">{['conservative','neutral','optimistic'].map((k,i)=><div key={k}><span>{['低档','中档','高档'][i]}采纳 {pct(s.adoption[k])}</span><b>{yuan(sim.scenarios[k].marginLift*100)}</b><span>增量毛利 / 100覆盖单</span></div>)}</div>
           <a className="save-scenario-link" href="#strategy-bench">保留当前输入，和下一份方案比较 ↘</a>
           <details className="math-detail"><summary>核对人群与计算依据</summary><p>原价 {yuan(sim.listPrice)} → 套餐价 {yuan(sim.bundleP)}；原本已买齐 {pct(picked.hitRate)}。{picked.hitRate === 1 ? '没有未买齐者，原有平均消费不适用。' : <>未买齐者原有平均消费 {yuan(n.incompleteSpend)}。</>}</p><pre>新增毛利 − 既有顾客让利 = 增量毛利{'\n'}{yuan(n.addedMargin * 100)} − {yuan(n.existingLoss * 100)} = {yuan(n.marginLift * 100)}</pre><p className="small">采用既有 two-population 模型；不含价格弹性或因果效果。{!isManual && <>合成订单原始统计：已买齐 {picked.hitCount} / 覆盖 {picked.matchedCount}。账本始终按100单归一。</>}</p></details>
         </>}

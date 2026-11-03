@@ -3,6 +3,10 @@ import "./worksheet.css";
 import "./scenario-craft.css";
 import "./strategy-workbench.css";
 import "./craft.css";
+import BundleHelp from "@/components/bundle-help";
+import ExportReceipt from "@/components/export-receipt";
+import "./demo-help.css";
+import "./input-basis.css";
 import Nav from "./nav";
 import Link from "next/link";
 
@@ -23,7 +27,9 @@ export default function RootLayout({ children }) {
             <Nav />
           </div>
         </header>
+        <BundleHelp/>
         <main className="wrap">{children}</main>
+        <ExportReceipt/>
         <footer className="wrap foot">
           数据为合成订单，仅用于演示方法。所有收益数字是参数化估算，不是预测 ——
           口径与默认值来源见「方法与假设」。{" "}
