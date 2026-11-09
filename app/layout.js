@@ -13,7 +13,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "套餐实验室 · Bundle Lab",
-  description: "合成订单关联发现、两类人群收益推演与可复现实验假设。",
+  description: "用商品和订单构成建立基线，分开核对新增贡献与既有让利，比较方案并带走验证计划。",
 };
 
 export default function RootLayout({ children }) {
@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
         <main className="wrap">{children}</main>
         <ExportReceipt/>
         <footer className="wrap foot">
-          数据为合成订单，仅用于演示方法。所有收益数字是参数化估算，不是预测 ——
+          内置订单为合成；手工或CSV基线仍需核实。所有收益数字是条件估算，不是业务预测。
           口径与默认值来源见「方法与假设」。{" "}
           <a href="https://andyzhang666666.github.io/#projects">返回作品集</a> ·{" "}
           <a href="https://github.com/AndyZhang666666/bundle-lab">查看源码</a>

@@ -29,6 +29,7 @@ jobs:
         run: |
           npm run test:rules
           npm run test:simulation
+          npm run test:depth
           npm run build
 
       # This workflow never deploys Pages or invokes a paid model.

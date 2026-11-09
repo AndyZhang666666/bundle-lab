@@ -14,7 +14,7 @@
     "recall": "node scripts/recall.mjs",
     "robustness": "node scripts/robustness.mjs",
     "playbook:samples": "node scripts/playbook-samples.mjs",
-    "test:depth": "node --test scripts/test-economic-diagnosis.mjs"
+    "test:depth": "node --test scripts/test-economic-diagnosis.mjs scripts/test-csv-baseline.mjs scripts/test-validation-plans.mjs"
   },
   "dependencies": {
     "next": "15.5.3",
