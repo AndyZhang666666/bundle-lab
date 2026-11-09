@@ -56,6 +56,10 @@ These checks cover calculations and product state, not measured business returns
 
 [All projects](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.en.md)
 
+## Interface follow-up
+
+2026-11-09: sensitivity analysis directly follows the workbench; the duplicate break-even figure is removed and adoption/discount limits share a row on desktop. Calculations and state contracts are unchanged. [Before/after evidence and checks](docs/LAYOUT-POLISH-20261109.md).
+
 ## Iteration history and earlier verification
 
 <details>

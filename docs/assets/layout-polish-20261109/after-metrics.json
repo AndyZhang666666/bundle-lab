@@ -1,0 +1,187 @@
+{
+  "url": "http://127.0.0.1:8917/bundle-lab/simulate/",
+  "checkedAt": "2026-11-09T15:23:31.502Z",
+  "layouts": [
+    {
+      "width": 1280,
+      "pageHeight": 3400,
+      "overflow": false,
+      "modules": {
+        ".sim-work": {
+          "top": 273,
+          "height": 1198,
+          "width": 1216,
+          "left": 32
+        },
+        ".scenario-input": {
+          "top": 273,
+          "height": 1118,
+          "width": 340,
+          "left": 32
+        },
+        ".scenario-output": {
+          "top": 273,
+          "height": 1198,
+          "width": 852,
+          "left": 396
+        },
+        ".break-even-meter": {
+          "top": 689,
+          "height": 212,
+          "width": 391,
+          "left": 419
+        },
+        ".economic-diagnosis": {
+          "top": 689,
+          "height": 212,
+          "width": 391,
+          "left": 834
+        },
+        ".strategy-bench": {
+          "top": 2382,
+          "height": 514,
+          "width": 1216,
+          "left": 32
+        },
+        ".sensitivity-desk": {
+          "top": 1498,
+          "height": 859,
+          "width": 1216,
+          "left": 32
+        },
+        ".validation-workbench": {
+          "top": 2924,
+          "height": 270,
+          "width": 1216,
+          "left": 32
+        }
+      },
+      "boundaries": "391px 391px",
+      "cellCount": 72
+    },
+    {
+      "width": 768,
+      "pageHeight": 4734,
+      "overflow": false,
+      "modules": {
+        ".sim-work": {
+          "top": 418,
+          "height": 2366,
+          "width": 720,
+          "left": 24
+        },
+        ".scenario-input": {
+          "top": 418,
+          "height": 1109,
+          "width": 720,
+          "left": 24
+        },
+        ".scenario-output": {
+          "top": 1543,
+          "height": 1241,
+          "width": 720,
+          "left": 24
+        },
+        ".break-even-meter": {
+          "top": 2003,
+          "height": 212,
+          "width": 327,
+          "left": 45
+        },
+        ".economic-diagnosis": {
+          "top": 2003,
+          "height": 212,
+          "width": 327,
+          "left": 396
+        },
+        ".strategy-bench": {
+          "top": 3694,
+          "height": 514,
+          "width": 720,
+          "left": 24
+        },
+        ".sensitivity-desk": {
+          "top": 2810,
+          "height": 859,
+          "width": 720,
+          "left": 24
+        },
+        ".validation-workbench": {
+          "top": 4236,
+          "height": 270,
+          "width": 720,
+          "left": 24
+        }
+      },
+      "boundaries": "327px 327px",
+      "cellCount": 72
+    },
+    {
+      "width": 390,
+      "pageHeight": 5288,
+      "overflow": false,
+      "modules": {
+        ".sim-work": {
+          "top": 482,
+          "height": 2544,
+          "width": 358,
+          "left": 16
+        },
+        ".scenario-input": {
+          "top": 482,
+          "height": 1118,
+          "width": 358,
+          "left": 16
+        },
+        ".scenario-output": {
+          "top": 1617,
+          "height": 1408,
+          "width": 358,
+          "left": 16
+        },
+        ".break-even-meter": {
+          "top": 2023,
+          "height": 172,
+          "width": 320,
+          "left": 35
+        },
+        ".economic-diagnosis": {
+          "top": 2215,
+          "height": 229,
+          "width": 320,
+          "left": 35
+        },
+        ".strategy-bench": {
+          "top": 3990,
+          "height": 691,
+          "width": 358,
+          "left": 16
+        },
+        ".sensitivity-desk": {
+          "top": 3045,
+          "height": 925,
+          "width": 358,
+          "left": 16
+        },
+        ".validation-workbench": {
+          "top": 4710,
+          "height": 337,
+          "width": 358,
+          "left": 16
+        }
+      },
+      "boundaries": "320px",
+      "cellCount": 72
+    }
+  ],
+  "checks": [
+    "1280/768/390: matrix immediately follows workbench, before snapshots; no page overflow; native anchor, region and first cell keyboard reachable",
+    "Actual matrix preview leaves parameters and storage unchanged; cancel and explicit apply preserve saved snapshot",
+    "Actual freeze, Markdown/JSON downloads and reload preserve frozen plan and saved snapshot",
+    "Reduced-motion matrix stays keyboard operable with zero transition duration"
+  ],
+  "errors": [],
+  "unexpectedRequests": [],
+  "previewTitle": "折扣 10% · 中档采纳 0%",
+  "modelCalls": 0
+}

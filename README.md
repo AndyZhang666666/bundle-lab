@@ -56,6 +56,10 @@ npm run build
 
 [全部作品](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.md)
 
+## 本轮界面打磨
+
+2026-11-09：敏感性矩阵紧接主工作台、账本去重、两项经济边界在桌面并排；原计算和状态契约保持。[前后截图与实际操作记录](docs/LAYOUT-POLISH-20261109.md)。
+
 ## 迭代沿革与历史验证
 
 <details>
