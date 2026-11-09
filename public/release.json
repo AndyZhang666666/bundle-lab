@@ -1,5 +1,6 @@
 {
   "project": "bundle-lab",
   "approved_source_sha": "4cab0dc75fa70df970c016b642d294fbb8a33dde",
-  "release_date": "2026-11-09"
+  "release_date": "2026-11-09",
+  "interface_followup_sha": "ad2e30c97a84227645c3b6a8fa6067180108fdef"
 }

@@ -1,0 +1,57 @@
+{
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "pageHeight": 3612,
+  "modules": {
+    ".sim-work": {
+      "top": 273,
+      "height": 1410,
+      "width": 1216,
+      "left": 32
+    },
+    ".scenario-input": {
+      "top": 273,
+      "height": 1118,
+      "width": 340,
+      "left": 32
+    },
+    ".scenario-output": {
+      "top": 273,
+      "height": 1410,
+      "width": 852,
+      "left": 396
+    },
+    ".break-even-meter": {
+      "top": 721,
+      "height": 194,
+      "width": 806,
+      "left": 419
+    },
+    ".economic-diagnosis": {
+      "top": 1228,
+      "height": 241,
+      "width": 806,
+      "left": 419
+    },
+    ".strategy-bench": {
+      "top": 1710,
+      "height": 514,
+      "width": 1216,
+      "left": 32
+    },
+    ".sensitivity-desk": {
+      "top": 2250,
+      "height": 859,
+      "width": 1216,
+      "left": 32
+    },
+    ".validation-workbench": {
+      "top": 3136,
+      "height": 270,
+      "width": 1216,
+      "left": 32
+    }
+  }
+}

@@ -1,5 +1,7 @@
 # Bundle Lab
 
+2026-11-09 layout follow-up: bring sensitivity analysis directly below the workbench, remove the duplicate break-even figure, and pair adoption and discount limits on desktop. Calculations and state contracts are unchanged. [Before/after evidence and checks](docs/LAYOUT-POLISH-20261109.md).
+
 **Approved release batch · 2026-11-09.** Preserve the reviewed source commits and verify deployment separately. [Release scope and verification](docs/RELEASE-20261109.md)
 
 Bring your products and a basket-composition baseline, then ask whether incremental contribution can cover discounts to customers who already buy the full basket. Results use **100 covered orders as a normalized unit**, never an observed sample count.
