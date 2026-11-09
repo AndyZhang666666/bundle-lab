@@ -1,5 +1,68 @@
 # Bundle Lab
 
+A bundle can sell more and earn less. Bring your products and basket composition, separate incremental contribution from discounts to existing customers, and decide what to test next.
+
+[Open the simulation](https://andyzhang666666.github.io/bundle-lab/simulate/) · [Explore orders and associations](https://andyzhang666666.github.io/bundle-lab/) · [Design decisions](docs/DECISIONS.md) · [中文](README.md)
+
+> No model key needed. Use manual inputs or import CSV; results are conditional scenarios per 100 covered orders.
+
+![Actual Bundle Lab workspace: incremental contribution, discount leakage and net contribution change](docs/assets/product-depth-20261109/desktop-1280.png)
+
+## Try a scenario
+
+1. Open the simulation and choose an illustrative basket or enter your own 2–3 products. You can also upload or paste order CSV, inspect the composition and confirm reference prices before applying it.
+2. Adjust discount and adoption. Read incremental contribution, discount leakage and net contribution change together. Keep scenario A, change an input and keep B to compare assumptions and break-even boundaries.
+3. Freeze the current inputs in a validation plan with an audience, period, metric and guardrails. Later, append treatment/control counts, inspect missing values and differences from the assumptions, and export the comparison and plan.
+
+The condition map previews changes before applying them. Observation rates also require confirmation before a copy of the frozen plan becomes a new manual input. Existing CSV baselines, plans and saved scenarios stay unchanged.
+
+## One discount, two customer groups
+
+Customers who already buy the full basket may also claim the discount. The same ledger separates their discount cost from contribution gained through new adoption, including negative results and unreachable break-even states. Basket association helps find candidates; the next decision depends on explicit cost and behaviour assumptions.
+
+## Read inputs and results correctly
+
+Use built-in synthetic orders, a manual baseline or your CSV. Sources are saved separately; failed or cancelled imports preserve the current input. CSV accepts up to 2MB, 10,000 rows and 100 SKUs. Preview line-price distributions for 2–3 products, confirm reference prices, then apply. Quantity, payment discounts and refunds are excluded from the model.
+
+The 100-order unit is a normalised comparison basis, not an observed sample size. Contribution excludes operating and fulfilment costs. Imports and user-entered observations remain unaudited; unknown values stay unknown. Scenarios do not establish causal lift, statistical significance or optimal pricing.
+
+Markdown and JSON exports include the choice reason, assumption sources, frozen plans and subsequent observations.
+
+## Run locally
+
+Use Node.js 22 from the complete repository root:
+
+```sh
+npm ci
+npm run dev
+```
+
+Open `http://localhost:3000/bundle-lab/simulate/`. Core tasks run in the browser without a model key.
+
+Reproduce the deterministic checks and static build:
+
+```sh
+npm run test:rules
+npm run test:simulation
+npm run test:depth
+npm run build
+```
+
+These checks cover calculations and product state, not measured business returns.
+
+## Design and verification
+
+[Current release · 2026-11-09](docs/RELEASE-20261109.md) · [Feature scope and data contracts](docs/PRODUCT-DEPTH-20261109.md) · [Assumptions and formulae](docs/ASSUMPTIONS.md) · [Design decisions](docs/DECISIONS.md) · [Validation records](docs/VALIDATION.md) · [Changelog](CHANGELOG.md) · [PR checks](https://github.com/AndyZhang666666/bundle-lab/actions/workflows/checks.yml)
+
+[All projects](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.en.md)
+
+## Iteration history and earlier verification
+
+<details>
+<summary>Expand the original release notes and implementation records</summary>
+
+The notes below retain their original wording. “Local” and “unpublished” describe the stage at each recorded date. See the [2026-11-09 release record](docs/RELEASE-20261109.md) for current scope and deployment status. Earlier feature limits and validation figures keep their original context.
+
 **Approved release batch · 2026-11-09.** Preserve the reviewed source commits and verify deployment separately. [Release scope and verification](docs/RELEASE-20261109.md)
 
 Bring your products and a basket-composition baseline, then ask whether incremental contribution can cover discounts to customers who already buy the full basket. Results use **100 covered orders as a normalized unit**, never an observed sample count.
@@ -103,3 +166,5 @@ Use the repository’s existing licence and notices. This update does not change
 ## Personal inputs and portable results · 2026-11-01
 
 This update adds personal inputs and a portable result, with the reviewed implementation integrated through a release branch. Manual scenarios share the existing two-population contribution model. Outputs use 100 covered orders as a normalised comparison unit, not an observed sample size or a business forecast. Built-in and manual drafts are stored separately.
+
+</details>
