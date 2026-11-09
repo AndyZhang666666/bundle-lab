@@ -1,6 +1,6 @@
 # Bundle Lab
 
-**Development branch · 2026-11-09: locally built, awaiting integrated review; not deployed.**
+**Approved release batch · 2026-11-09.** Preserve the reviewed source commits and verify deployment separately. [Release scope and verification](docs/RELEASE-20261109.md)
 
 Bring your products and a basket-composition baseline, then ask whether incremental contribution can cover discounts to customers who already buy the full basket. Results use **100 covered orders as a normalized unit**, never an observed sample count.
 
@@ -17,7 +17,7 @@ All core tasks run in the browser without a key. Imported composition and user-e
 
 Open the simulation workspace → paste/upload a baseline or enter your own assumptions → confirm prices and population → inspect contribution, leakage and both break-even boundaries → keep A/B/C → preview conditions → write a frozen validation plan → append observations → explicitly adopt known rates into a new manual input → export the comparison and plans.
 
-Checks run locally: 26 existing model/state checks, 11 new product-depth checks, 21 existing deterministic rule checks, release-path check and static production build. Also passed 14 real Chrome task checks at 1280 and 390 widths, including downloads, invalid inputs, corrupted drafts and unavailable storage; evidence is linked above. The branch remains unpublished. Automated checks do not establish real-user task completion or business outcomes.
+Checks run locally: 26 existing model/state checks, 11 new product-depth checks, 21 existing deterministic rule checks, release-path check and static production build. Also passed 14 real Chrome task checks at 1280 and 390 widths, including downloads, invalid inputs, corrupted drafts and unavailable storage; evidence is linked above. This batch is approved for publication; the release record distinguishes source, deployment and live checks. Automated checks do not establish real-user task completion or business outcomes.
 
 <details>
 <summary>Earlier iteration and release notes (historical status)</summary>
@@ -44,7 +44,7 @@ Why can a frequently bought combination earn less after a discount?
 
 Approved release, 2026-11-02: Keep up to three immutable scenario snapshots, inspect changes relative to baseline A, record a choice reason and export comparison cards. Every discount-by-adoption cell uses the existing model; preview first, apply explicitly. Restoring defaults clears stale feedback without changing saved scenarios. Model checks, a static build and integrated browser review are complete; this release ships with the portfolio. [Implementation and checks](docs/STRATEGY-WORKBENCH.md).
 
-![Actual Bundle Lab interface](docs/assets/visual-craft-20261102/after-desktop.jpg)
+![Actual Bundle Lab interface](docs/assets/product-depth-20261109/desktop-1280.png)
 
 <!-- github-evidence-20261031 -->
 

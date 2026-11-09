@@ -1,0 +1,23 @@
+{
+  "approvedSource": "4cab0dc75fa70df970c016b642d294fbb8a33dde",
+  "rollbackSource": "466db00f6c562d779a3c358db6fc37df36a4de29",
+  "checkedAt": "2026-11-09T09:04:28.651921+00:00",
+  "checks": {
+    "coreAndDepth": {
+      "passed": 37,
+      "failed": 0
+    },
+    "originalRules": {
+      "passed": 21,
+      "failed": 0
+    },
+    "releasePathCandidates": 58,
+    "productionBuild": "passed"
+  },
+  "modelCalls": 0,
+  "notes": [
+    "Node Next CLI built the isolated publication copy using an independent clone of the already locked dependencies.",
+    "The accidental dependency-manager precheck was stopped; four moved original dependencies were restored, versions checked, and no package/lockfile/source model was changed.",
+    "Deployment and public UI remain separate post-push checks."
+  ]
+}
