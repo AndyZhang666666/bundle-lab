@@ -13,7 +13,8 @@
     "test:simulation": "node --test scripts/test-simulation.mjs scripts/test-manual.mjs scripts/test-strategies.mjs scripts/test-draft-guard.mjs",
     "recall": "node scripts/recall.mjs",
     "robustness": "node scripts/robustness.mjs",
-    "playbook:samples": "node scripts/playbook-samples.mjs"
+    "playbook:samples": "node scripts/playbook-samples.mjs",
+    "test:depth": "node --test scripts/test-economic-diagnosis.mjs"
   },
   "dependencies": {
     "next": "15.5.3",

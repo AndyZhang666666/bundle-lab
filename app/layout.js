@@ -3,6 +3,7 @@ import "./worksheet.css";
 import "./scenario-craft.css";
 import "./strategy-workbench.css";
 import "./craft.css";
+import "./product-depth.css";
 import BundleHelp from "@/components/bundle-help";
 import ExportReceipt from "@/components/export-receipt";
 import "./demo-help.css";

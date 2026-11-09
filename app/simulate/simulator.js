@@ -12,6 +12,7 @@ import BreakEvenMeter from './break-even-meter';
 import SensitivityMap from './sensitivity-map';
 import InputBasis from "@/components/input-basis";
 import StrategyBench from './strategy-bench';
+import { discountBoundaryLabel } from '@/lib/economic-diagnosis';
 const yuan = v => '¥' + v.toFixed(2), pct = v => v == null ? '不适用' : (v * 100).toFixed(1) + '%';
 
 function Slider({ label, value, onChange, onInvalid, basis }) {
@@ -71,6 +72,7 @@ export default function Simulator({ bundles }) {
           <ScenarioBars data={['conservative', 'neutral', 'optimistic'].map((k, i) => ({ name: ['低档', '中档', '高档'][i] + ' ' + pct(s.adoption[k]), value: sim.scenarios[k].marginLift * 100 }))} fmt="yuan2" height={170} />
           <p className="small">墨绿为正、红褐为负；微小正值以 4px 标记，金额以标签为准。</p>
           <div className="scenario-reading" aria-label="三档条件的增量毛利">{['conservative','neutral','optimistic'].map((k,i)=><div key={k}><span>{['低档','中档','高档'][i]}采纳 {pct(s.adoption[k])}</span><b>{yuan(sim.scenarios[k].marginLift*100)}</b><span>增量毛利 / 100覆盖单</span></div>)}</div>
+          <section className="economic-diagnosis" aria-label="经营取舍诊断"><h3>折扣最多让到哪里？</h3><p className="boundary-number">{discountBoundaryLabel(report.diagnosis.discountBoundary)}<span>固定当前采纳与成本的边界</span></p><p>{report.diagnosis.text}</p><p className="small">{report.diagnosis.limits}</p></section>
           <a className="save-scenario-link" href="#strategy-bench">保留当前输入，和下一份方案比较 ↘</a>
           <details className="math-detail"><summary>核对人群与计算依据</summary><p>原价 {yuan(sim.listPrice)} → 套餐价 {yuan(sim.bundleP)}；原本已买齐 {pct(picked.hitRate)}。{picked.hitRate === 1 ? '没有未买齐者，原有平均消费不适用。' : <>未买齐者原有平均消费 {yuan(n.incompleteSpend)}。</>}</p><pre>新增毛利 − 既有顾客让利 = 增量毛利{'\n'}{yuan(n.addedMargin * 100)} − {yuan(n.existingLoss * 100)} = {yuan(n.marginLift * 100)}</pre><p className="small">采用既有 two-population 模型；不含价格弹性或因果效果。{!isManual && <>合成订单原始统计：已买齐 {picked.hitCount} / 覆盖 {picked.matchedCount}。账本始终按100单归一。</>}</p></details>
         </>}
