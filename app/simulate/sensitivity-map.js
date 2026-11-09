@@ -9,7 +9,7 @@ export default function SensitivityMap({ bundle, assumptions, onApply }) {
   const grid = useMemo(() => sensitivityGrid(bundle, assumptions), [bundle, assumptions]);
   const preview = candidate?.point ?? null, fresh = sensitivityPreviewIsCurrent(candidate, bundle, assumptions);
   const current = sensitivityPoint(bundle, assumptions, assumptions.discount, assumptions.adoption.neutral);
-  return <section className="sensitivity-desk" aria-labelledby="sensitivity-title">
+  return <section id="sensitivity-map" className="sensitivity-desk" aria-labelledby="sensitivity-title" tabIndex={-1}>
     <div className="section-title"><div><p className="desk-eyebrow">条件边界</p><h2 id="sensitivity-title">折扣更大，不一定赚得更多。</h2></div><span className="unit-stamp">Δ 毛利 / 100覆盖单</span></div>
     <p className="small">横向改折扣，纵向改未买齐者采纳。其余人群与成本假设固定；每格来自同一个收益模型。</p>
     <div className="sensitivity-legend"><span><i data-tone="profit"/> 正向</span><span><i data-tone="loss"/> 亏损</span><span><i data-tone="balanced"/> 持平</span><span className="map-current-key">描边：当前输入</span></div>
