@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "id": "f4345f68-a126-4f64-a740-6b7871688984",
+  "createdAt": "2026-11-09T07:23:45.946Z",
+  "modelVersion": "two-population-v2-2026-10-25",
+  "inputSignature": "{\"items\":[\"可乐\",\"鸡腿饭\"],\"prices\":[5,24],\"listPrice\":29,\"hitRate\":0.2747524752475248,\"partialSpend\":18.389851485148515,\"assumptions\":{\"discount\":0.12,\"costRatio\":0.4,\"adoption\":{\"conservative\":0.05,\"neutral\":0.12,\"optimistic\":0.25},\"existingRedemption\":1},\"modelVersion\":\"two-population-v2-2026-10-25\"}",
+  "bundle": {
+    "key": "可乐 + 鸡腿饭",
+    "items": [
+      "可乐",
+      "鸡腿饭"
+    ],
+    "prices": [
+      5,
+      24
+    ],
+    "listPrice": 29,
+    "hitRate": 0.2747524752475248,
+    "partialSpend": 18.389851485148515,
+    "matchedCount": 100
+  },
+  "assumptions": {
+    "discount": 0.12,
+    "costRatio": 0.4,
+    "adoption": {
+      "conservative": 0.05,
+      "neutral": 0.12,
+      "optimistic": 0.25
+    },
+    "existingRedemption": 1
+  },
+  "source": {
+    "kind": "builtin",
+    "label": "内置合成订单 + 行为假设"
+  },
+  "fields": {
+    "title": "可乐＋鸡腿饭试行",
+    "baselinePeriod": "仅验证存储禁用回退",
+    "audience": "仅验证存储禁用回退",
+    "allocation": "仅验证存储禁用回退",
+    "duration": "仅验证存储禁用回退",
+    "primaryMetric": "覆盖订单口径的增量毛利；需明确两组成本口径",
+    "guardrails": "退款、履约异常、既有顾客让利和跨订单蚕食"
+  },
+  "diagnosis": {
+    "discountBoundary": {
+      "rate": 0.07281297774757937,
+      "state": "bounded",
+      "reason": "固定当前采纳、人群和成本；不是价格弹性或最优折扣"
+    },
+    "currentPerOrder": {
+      "addedMargin": 0.46106732673267303,
+      "existingLoss": 0.9561386138613863,
+      "marginLift": -0.4950712871287133
+    },
+    "cause": "既有顾客让利超过新增贡献",
+    "text": "既有顾客让利超过新增贡献。原本已买齐者27.5%；每覆盖单新增贡献+¥0.46，既有让利−¥0.96，净变化−¥0.50。固定中档采纳12.0%时，折扣边界7.28%（不高于此值才不为负）。当前折扣下需采纳至少24.9%。",
+    "limits": "条件边界，非最优定价；未扣履约、库存与运营成本。"
+  },
+  "pendingVerification": [
+    "核实基线期间、商品参考价与成本",
+    "分开记录未买齐者新增采纳与原已买齐者领折扣",
+    "检查退款、履约、库存、运营成本及跨订单影响"
+  ],
+  "observations": []
+}

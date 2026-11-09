@@ -1,0 +1,83 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {simulateStats} from '../lib/simulate.js';
+const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
+const url=process.env.TEST_URL||'http://127.0.0.1:3000/bundle-lab/';
+const evidence=process.env.EVIDENCE_DIR||'output/playwright/product-depth-20261109';
+await fs.mkdir(evidence,{recursive:true});
+const browser=await chromium.launch({channel:'chrome',headless:true});
+const context=await browser.newContext({viewport:{width:1280,height:960},acceptDownloads:true});
+const page=await context.newPage();const errors=[];const checks=[];
+page.on('pageerror',error=>errors.push(error.message));
+const check=(name)=>checks.push(name);
+async function openDetails(selector){const item=page.locator(selector).first();if(!await item.getAttribute('open')){if(!await item.evaluate(e=>e.open))await item.locator(':scope > summary').click();}}
+async function download(name,file,scope=page){const pending=page.waitForEvent('download');await scope.getByRole('button',{name,exact:true}).click();const result=await pending;await result.saveAs(path.join(evidence,file));return fs.readFile(path.join(evidence,file),'utf8');}
+async function stored(key){return page.evaluate(key=>localStorage.getItem(key),key);}
+async function ready(){await page.waitForFunction(()=>!document.querySelector('.strategy-save button').disabled);}
+async function noOverflow(width){await page.setViewportSize({width,height:960});await page.waitForFunction(()=>document.documentElement.scrollWidth<=innerWidth);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`no overflow at ${width}`);}
+try{
+ await page.goto(url+'simulate/');await ready();check('1280: hydrated default ledger and snapshot controls available');
+ assert.match(await page.locator('.economic-diagnosis').innerText(),/7.28%/);
+ await openDetails('.csv-import');
+ const csv='order_id,sku,unit_price,qty\r\n1,饭,20,2\r\n1,饭,20,1\r\n1,茶,5,1\r\n2,饭,25,1\r\n3,茶,5,1\r\n4,其他,1,1';
+ await page.locator('input[type=file]').setInputFiles({name:'personal-baseline.csv',mimeType:'text/csv',buffer:Buffer.from(csv)});
+ await page.getByText('4 个导入订单',{exact:true}).waitFor();
+ await page.locator('.csv-product-list').getByRole('checkbox',{name:'饭',exact:true}).check();await page.locator('.csv-product-list').getByRole('checkbox',{name:'茶',exact:true}).check();
+ assert.match(await page.locator('.csv-preview').innerText(),/¥20.00（2行）.*¥25.00（1行）/);
+ const apply=page.getByRole('button',{name:'应用为独立CSV基线',exact:true});assert.ok(await apply.isDisabled());
+ await page.getByRole('spinbutton',{name:/饭 · 确认参考单价/}).fill('22');assert.ok(await apply.isDisabled());
+ await page.getByRole('checkbox',{name:/我确认商品、参考价/}).check();await apply.click();
+ await page.waitForFunction(()=>!!localStorage.getItem('bundle-lab:csv-baseline:v1'));
+ assert.ok(await page.getByRole('radio',{name:'CSV基线',exact:true}).isChecked());
+ assert.match(await page.locator('.csv-active-baseline').innerText(),/导入 4 单，覆盖 3 单，已买齐 1 单/);check('CSV upload: deduplicated presence, displayed mixed-price counts, explicit reference-price confirmation, covered 3 vs imported 4 vs normalized 100');
+ const goodCSV=await stored('bundle-lab:csv-baseline:v1'),ledger=await page.locator('.margin-total').innerText();
+ await page.getByLabel('订单CSV内容',{exact:true}).fill('order_id,sku\n1,"bad');await page.getByRole('button',{name:'预览并检查',exact:true}).click();
+ assert.match(await page.locator('.csv-import [role=status]').innerText(),/第2行.*引号/);assert.equal(await stored('bundle-lab:csv-baseline:v1'),goodCSV);assert.equal(await page.locator('.margin-total').innerText(),ledger);
+ await page.getByRole('button',{name:'填入示例订单',exact:true}).click();await page.getByRole('button',{name:'取消预览',exact:true}).click();assert.equal(await stored('bundle-lab:csv-baseline:v1'),goodCSV);check('bad CSV and cancel leave active baseline and ledger unchanged');
+ await page.locator('.csv-import > summary').click();
+ await page.getByLabel('给当前输入命名',{exact:true}).fill('参考价基线 A');await page.getByRole('button',{name:'保留当前方案',exact:true}).click();
+ await page.getByRole('spinbutton',{name:'中档采纳率数值',exact:true}).fill('40');await page.getByLabel('给当前输入命名',{exact:true}).fill('采纳假设 B');await page.getByRole('button',{name:'保留当前方案',exact:true}).click();
+ const strategies=await stored('bundle-lab:strategies:v1');assert.equal(JSON.parse(strategies).snapshots.length,2);
+ const frozenCSV=await stored('bundle-lab:csv-baseline:v1');
+ const beforePreview=await page.locator('.margin-total').innerText();await page.getByRole('button',{name:/^折扣 10%，采纳 40%，/}).click();assert.equal(await page.locator('.margin-total').innerText(),beforePreview);await page.getByRole('button',{name:'取消预演',exact:true}).click();assert.equal(await stored('bundle-lab:strategies:v1'),strategies);check('A/B snapshots stay frozen; sensitivity click previews without applying');
+ await openDetails('.plan-editor');
+ for(const [name,value] of [['计划名称（可选）','验收用套餐试行'],['基线期间','示例基线周，不是真实经营数据'],['试验对象与覆盖口径','包含饭或茶的同口径覆盖订单'],['分流与对照方式','按用户分流；保留未展示套餐对照组'],['观察时长','一周后检查完整性']])await page.getByLabel(name,{exact:true}).fill(value);
+ await page.getByRole('button',{name:'冻结当前输入与计划',exact:true}).click();await page.locator('.frozen-plan').waitFor();
+ const frozenPlan=JSON.parse(await stored('bundle-lab:validation-plans:v1')).plans[0];assert.equal(frozenPlan.assumptions.adoption.neutral,.4);
+ await openDetails('.observation-editor');
+ for(const [name,value] of [['试验组覆盖人数','100'],['试验组原本未买齐人数','80'],['试验组补齐人数','24'],['试验组原本已买齐且领折扣人数','10'],['对照组覆盖人数','100'],['对照组原本未买齐人数','80'],['对照组补齐人数','8'],['对照组原本已买齐且领折扣人数','0']])await page.getByRole('spinbutton',{name,exact:true}).fill(value);
+ await page.getByLabel('观察成本来源',{exact:true}).fill('合成验收计数；成本没有真实凭据');await page.getByLabel('观察说明',{exact:true}).fill('仅验证界面和分母，不是真实试验');await page.getByRole('button',{name:'追加保存这次观察',exact:true}).click();
+ await page.getByRole('heading',{name:'已记录 1 次观察',exact:true}).waitFor();const recordedPlan=await stored('bundle-lab:validation-plans:v1');await page.getByRole('spinbutton',{name:'试验组补齐人数',exact:true}).fill('81');await page.getByRole('button',{name:'追加保存这次观察',exact:true}).click();assert.match(await page.locator('.plan-notice').innerText(),/补齐人数不能超过/);assert.equal(await stored('bundle-lab:validation-plans:v1'),recordedPlan);await page.getByRole('spinbutton',{name:'试验组补齐人数',exact:true}).fill('24');assert.match(await page.locator('.observation-history').innerText(),/-10.0个百分点/);assert.match(await page.locator('.observation-history').innerText(),/缺失字段：无/);check('plan freezes inputs; valid treatment/control rates/deltas display; inconsistent counts do not overwrite observations');
+ await page.getByRole('button',{name:'预览复制试验组比例为新假设',exact:true}).click();assert.equal(await page.getByRole('spinbutton',{name:'中档采纳率数值',exact:true}).inputValue(),'40');
+ await page.getByRole('button',{name:'采用并替换我的算例输入',exact:true}).click();assert.ok(await page.getByRole('radio',{name:'我的算例',exact:true}).isChecked());assert.equal(await page.getByRole('spinbutton',{name:'中档采纳率数值',exact:true}).inputValue(),'30');
+ assert.equal(await stored('bundle-lab:strategies:v1'),strategies);assert.equal(await stored('bundle-lab:csv-baseline:v1'),frozenCSV);const plans=JSON.parse(await stored('bundle-lab:validation-plans:v1'));assert.deepEqual(plans.plans[0].bundle,frozenPlan.bundle);assert.deepEqual(plans.plans[0].assumptions,frozenPlan.assumptions);check('observation preview is inert; explicit apply copies frozen plan with known trial rates without editing CSV, plans or snapshots');
+ await openDetails('.assumption-export');
+ const ownReport=JSON.parse(await download('导出 JSON','assumptions.json',page.locator('.assumption-export')));assert.equal(ownReport.assumptions.adoption.neutral,.3);assert.equal(ownReport.assumptions.existingRedemption,.5);
+ const b={...ownReport.bundle,hitRate:ownReport.bundle.fullShare,partialSpend:ownReport.bundle.fullShare*ownReport.bundle.listPrice+(1-ownReport.bundle.fullShare)*(ownReport.bundle.incompleteSpend||0),matchedCount:100};const expected=simulateStats(b,ownReport.assumptions);assert.ok(Math.abs(ownReport.resultPer100.marginLift-expected.scenarios.neutral.marginLift*100)<1e-7);
+ const md=await download('下载 Markdown','assumptions.md',page.locator('.assumption-export'));assert.match(md,/经营取舍诊断/);assert.match(md,/验证计划：验收用套餐试行/);assert.match(md,/-10.0个百分点/);
+ const compare=JSON.parse(await download('导出比较 JSON','comparison.json',page.locator('.strategy-export')));assert.equal(compare.validationPlans.length,1);assert.equal(compare.snapshots[0].source.baseline.coveredOrders,3);const planMD=await download('下载计划与观察','plan.md',page.locator('.plan-actions'));assert.match(planMD,/覆盖3单/);assert.match(planMD,/未买齐.*80/);check('downloaded current JSON matches original engine; assumption/comparison/plan exports preserve diagnosis, frozen source and observations');
+ await page.reload();await ready();assert.equal(await page.getByRole('spinbutton',{name:'中档采纳率数值',exact:true}).inputValue(),'30');assert.equal(JSON.parse(await stored('bundle-lab:strategies:v1')).snapshots.length,2);assert.equal(JSON.parse(await stored('bundle-lab:validation-plans:v1')).plans[0].observations.length,1);check('reload restores working scenario, CSV baseline, A/B and plan observations independently');
+ await openDetails('.population-settings');await page.getByRole('spinbutton',{name:'覆盖订单数',exact:true}).fill('200');await page.getByRole('spinbutton',{name:'原本已买齐订单数',exact:true}).fill('40');await page.getByRole('button',{name:'应用计数得到比例',exact:true}).click();assert.match(await page.locator('.count-baseline').innerText(),/200单中已买齐40单/);
+ await page.getByRole('textbox',{name:'商品 1 名称',exact:true}).fill('新的饭');await page.getByText('尚无计数基线，当前占比是待验证假设。',{exact:true}).waitFor();check('count-assisted population and metadata invalidation follow product changes');
+ await page.getByRole('spinbutton',{name:'商品 1 价格',exact:true}).fill('');await page.locator('.input-error').waitFor();await openDetails('.assumption-export');assert.ok(await page.locator('.assumption-export').getByRole('button',{name:'导出 JSON',exact:true}).isDisabled());await page.getByRole('spinbutton',{name:'商品 1 价格',exact:true}).fill('22');await ready();check('invalid working input removes current ledger and blocks stale exports while preserving prior valid drafts');
+ await noOverflow(1280);await page.locator('.population-settings > summary').first().click();await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:path.join(evidence,'desktop-1280.png'),fullPage:false});
+ await noOverflow(390);await page.locator('.csv-import > summary').focus();await page.keyboard.press('Enter');assert.ok(await page.locator('.csv-import').evaluate(e=>e.open));await page.keyboard.press('Enter');
+ await page.getByRole('spinbutton',{name:'中档采纳率数值',exact:true}).fill('35');assert.equal(await page.getByRole('spinbutton',{name:'中档采纳率数值',exact:true}).inputValue(),'35');await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:path.join(evidence,'mobile-390.png'),fullPage:false});
+ await page.locator('.validation-workbench').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(evidence,'mobile-plan-390.png'),fullPage:false});
+ const smallButtons=await page.locator('main button:visible').evaluateAll(items=>items.filter(e=>e.getBoundingClientRect().height<43.9).map(e=>({label:e.textContent.trim(),height:e.getBoundingClientRect().height})));assert.deepEqual(smallButtons,[]);check('390: no page overflow; keyboard disclosure works; numeric task and all visible button targets >=44px');
+ await page.emulateMedia({reducedMotion:'reduce'});assert.ok(await page.evaluate(()=>matchMedia('(prefers-reduced-motion: reduce)').matches));
+ assert.deepEqual(errors,[]);check('no page errors; reduced-motion media available');
+ const guarded=await browser.newContext({viewport:{width:1280,height:960},acceptDownloads:true});
+ await guarded.addInitScript(()=>{localStorage.setItem('bundle-lab:csv-baseline:v1','{bad csv');localStorage.setItem('bundle-lab:validation-plans:v1','{bad plans');});
+ const gp=await guarded.newPage();gp.on('pageerror',e=>errors.push(e.message));await gp.goto(url+'simulate/');await gp.waitForFunction(()=>!document.querySelector('.strategy-save button').disabled);
+ assert.match(await gp.locator('.draft-recovery').innerText(),/旧CSV基线无法恢复/);assert.match(await gp.locator('.plan-notice').innerText(),/旧值未覆盖/);
+ await gp.locator('.plan-editor > summary').click();for(const label of ['基线期间','试验对象与覆盖口径','分流与对照方式','观察时长'])await gp.getByLabel(label,{exact:true}).fill('合成验收说明，未真实观测');await gp.getByRole('button',{name:'冻结当前输入与计划',exact:true}).click();await gp.locator('.frozen-plan').waitFor();
+ assert.equal(await gp.evaluate(()=>localStorage.getItem('bundle-lab:validation-plans:v1')),'{bad plans');assert.equal(await gp.evaluate(()=>localStorage.getItem('bundle-lab:csv-baseline:v1')),'{bad csv');
+ await gp.getByRole('button',{name:'用当前计划替换旧值并恢复保存',exact:true}).click();assert.equal(await gp.evaluate(()=>JSON.parse(localStorage.getItem('bundle-lab:validation-plans:v1')).version),1);await guarded.close();check('corrupt CSV/plan values remain protected; creating an in-memory plan does not overwrite them; explicit plan recovery works');
+ const blocked=await browser.newContext({viewport:{width:390,height:960},acceptDownloads:true});await blocked.addInitScript(()=>Object.defineProperty(window,'localStorage',{configurable:true,get(){throw new DOMException('blocked','SecurityError');}}));
+ const bp=await blocked.newPage();bp.on('pageerror',e=>errors.push(e.message));await bp.goto(url+'simulate/');await bp.waitForFunction(()=>!document.querySelector('.strategy-save button').disabled);await bp.locator('.plan-editor > summary').click();for(const label of ['基线期间','试验对象与覆盖口径','分流与对照方式','观察时长'])await bp.getByLabel(label,{exact:true}).fill('仅验证存储禁用回退');await bp.getByRole('button',{name:'冻结当前输入与计划',exact:true}).click();await bp.locator('.frozen-plan').waitFor();assert.match(await bp.locator('.plan-notice').innerText(),/尚未写入本机/);
+ const bd=bp.waitForEvent('download');await bp.getByRole('button',{name:'导出计划JSON',exact:true}).click();const bfile=await bd;await bfile.saveAs(path.join(evidence,'storage-blocked-plan.json'));const bdata=JSON.parse(await fs.readFile(path.join(evidence,'storage-blocked-plan.json'),'utf8'));assert.equal(bdata.version,1);assert.equal(bdata.observations.length,0);await blocked.close();check('390 with localStorage unavailable: working ledger, frozen in-memory plan and JSON download remain usable with explicit notice');
+ assert.deepEqual(errors,[]);
+ await fs.writeFile(path.join(evidence,'summary.json'),JSON.stringify({at:new Date().toISOString(),url,viewports:[1280,390],checks,errors,limits:['Synthetic inspection fixtures only; not merchant/user outcomes.','No paid/model/network API calls.','Existing browser script selectors are historically stale and were not rewritten.']},null,2));console.log(JSON.stringify({passed:checks.length,checks,evidence},null,2));
+}catch(error){await page.screenshot({path:path.join(evidence,'failure.png'),fullPage:true});await fs.writeFile(path.join(evidence,'failure.txt'),error.stack);console.error(error);process.exitCode=1;}finally{await context.close();await browser.close();}

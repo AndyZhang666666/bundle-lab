@@ -1,5 +1,27 @@
 # Bundle Lab
 
+**Development branch · 2026-11-09: locally built, awaiting integrated review; not deployed.**
+
+Bring your products and a basket-composition baseline, then ask whether incremental contribution can cover discounts to customers who already buy the full basket. Results use **100 covered orders as a normalized unit**, never an observed sample count.
+
+- **Personal baselines:** count-assisted manual inputs or UTF-8 CSV (2MB, 10,000 rows, 100 SKUs). Preview 2–3 products, inspect line-price distributions, confirm one reference price for each, then apply. Quantity, payment discounts and refunds are excluded.
+- **Explain the limit:** query the existing two-population model for the highest break-even discount. The ledger, diagnosis and Markdown/JSON exports share that engine; no revised profit formula or price-elasticity claim.
+- **Freeze a validation plan:** record the audience, baseline period, allocation/control, duration, metric and guardrails. Append treatment/control counts and cost provenance; show missing values and differences from the frozen assumptions.
+- **Adopt deliberately:** preview known observation rates before replacing the manual working input with a copy of the frozen plan. Existing CSV baselines, plans and up to three scenario snapshots remain unchanged. Exports include provenance, plans and observations.
+
+All core tasks run in the browser without a key. Imported composition and user-entered observations remain unaudited. Unknown or zero-denominator rates are not filled with zero; the tool does not infer causal lift, significance or optimal pricing.
+
+[Design, data contracts and review path](docs/PRODUCT-DEPTH-20261109.md) · [Changelog](CHANGELOG.md) · [中文](README.md)
+
+## New task path
+
+Open the simulation workspace → paste/upload a baseline or enter your own assumptions → confirm prices and population → inspect contribution, leakage and both break-even boundaries → keep A/B/C → preview conditions → write a frozen validation plan → append observations → explicitly adopt known rates into a new manual input → export the comparison and plans.
+
+Checks run locally: 26 existing model/state checks, 11 new product-depth checks, 21 existing deterministic rule checks, release-path check and static production build. Also passed 14 real Chrome task checks at 1280 and 390 widths, including downloads, invalid inputs, corrupted drafts and unavailable storage; evidence is linked above. The branch remains unpublished. Automated checks do not establish real-user task completion or business outcomes.
+
+<details>
+<summary>Earlier iteration and release notes (historical status)</summary>
+
 2026-11-03 release batch: verified task clarity, draft recovery and final display/export details. [Release scope and validation limits](docs/RELEASE-20261103.md). Earlier local-only notes remain as history.
 
 Final display/export polish verified locally; calculation and persistence contracts retained. Unpublished. [Changes and checks](docs/FINAL-DETAIL-20261103.md).
@@ -12,6 +34,9 @@ Local iteration, 2026-11-03 — not published: Five key inputs now carry source 
 
 Visual refresh approved after user review, 2026-11-02: [design, references and before/after screenshots](docs/VISUAL-CRAFT-20261102.md). Existing product behavior is preserved; the merge commit and Pages workflow record publication.
 
+
+
+</details>
 
 [中文](README.md) · [Project index](https://github.com/AndyZhang666666/AndyZhang666666/blob/main/PROJECTS.en.md) · [Live demo](https://andyzhang666666.github.io/bundle-lab/)
 
