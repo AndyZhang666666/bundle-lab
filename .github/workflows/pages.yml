@@ -25,6 +25,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run test:rules && npm run test:simulation
+      - name: Verify current CSV, discount and frozen-plan contracts
+        run: npm run test:depth
       - run: npm run build
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
