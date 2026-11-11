@@ -1,5 +1,19 @@
 # 更新记录
 
+## 2026-11-11 · 定向触达、预演直存与冻结条件核对（仅开发分支）
+
+- 公开菜单100%、人工发券50%、结账加购15%和自定义比例复用原`existingRedemption`参数。都是行为假设，15%仍有既有让利；不推断顾客隔离或采纳提升。
+- 矩阵预演直接经原快照构造与存储进入实际A／B／C位置，冻结精确参数、模型与来源。输入、名称／理由草稿和旧方案不改，满位明确提示。
+- 描述性观察与计划自己的冻结保本采纳比较，输出达到／尚差／暂不能判断及有条件的下一步；当前输入变更不影响旧判断。未知与零分母、全部已买齐、非正新增贡献或不可达边界均不误判为通过。计划、比较和假设导出带冻结核对结果。
+- 保留原37项核心／状态断言、21项规则与58项发布守卫；新增独立任务测试和1280／768／390本地Chrome操作证据。[详细说明](docs/TASK-LOOP-20261111.md)。未合并、未部署。
+
+### Development branch only — targeting and frozen validation loop
+
+- Reach presets and custom input change only existing discount take-up, through the unchanged two-population model. Values are estimates; checkout add-on still has leakage.
+- Save exact matrix previews through the existing snapshot constructor/storage into the actual next comparison position, preserving current inputs and drafts.
+- Compare descriptive adoption with the plan’s frozen break-even threshold. Unknown/zero denominators and unavailable boundaries stay undecided. Crossing a model condition does not establish causal lift, significance or launch approval.
+- Original assertions remain intact; separate deterministic and local browser evidence accompanies this branch. No production merge or deployment.
+
 ## 2026-11-09 · 收益账本与矩阵布局打磨
 
 - 合并重复平衡采纳率，桌面并排显示回本采纳率与折扣边界；手机完整堆叠。
