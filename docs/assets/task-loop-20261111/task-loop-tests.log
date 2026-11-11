@@ -1,0 +1,16 @@
+✔ real cola+rice presets use canonical arithmetic: -49.51, -1.70, +31.76 with nonzero leakage (143.114792ms)
+✔ all-full baskets and zero adoption still lose existing discounts under every preset (0.315792ms)
+✔ presets preserve all other assumptions, custom values and independent source drafts (0.95425ms)
+✔ direct preview save reuses snapshot constructor; exact preview and CSV provenance survive reload without draft mutation (4.976292ms)
+✔ direct-save uses actual A/B/C capacity, rejects stale provenance/input and never mutates full state (3.907792ms)
+✔ frozen break-even check separates below/equal/above and states conditional next action (0.880583ms)
+✔ unknown/zero denominators and unavailable or flat break-even never pass as zero (0.47675ms)
+✔ live input changes do not alter frozen check; report and Markdown persist the exact threshold on reload (0.920417ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 226.546584

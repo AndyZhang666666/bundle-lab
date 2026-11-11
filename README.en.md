@@ -16,6 +16,14 @@ A bundle can sell more and earn less. Bring your products and basket composition
 
 The condition map previews changes before applying them. Observation rates also require confirmation before a copy of the frozen plan becomes a new manual input. Existing CSV baselines, plans and saved scenarios stay unchanged.
 
+## 2026-11-11 development branch: connect the next decision
+
+Three targeting assumptions set existing full-basket discount take-up to public menu 100%, manual coupon 50% or checkout add-on 15%; a custom rate remains available. Only `existingRedemption` changes. Adoption and provenance stay intact. These are estimates, not demonstrated customer isolation, and 15% still leaks discounts. The original model gives −49.51, −1.70 and +31.76 per 100 covered orders for the default cola/rice scenario.
+
+Save a matrix preview directly into the next actual A/B/C comparison position, keeping exact assumptions and CSV provenance while preserving the working input and uncommitted name. Full capacity explains how to export and free a position. Observation checks use **the selected plan’s frozen break-even adoption**, show a percentage-point shortfall below it, and remain undecided for unknown/zero denominators or unavailable thresholds. Crossing the condition still requires cost, discount and baseline checks; it does not authorize a launch.
+
+This work is on a development branch only, without merge or deployment. [Implementation, conditions and synthetic local evidence](docs/TASK-LOOP-20261111.md). Additional checks: `npm run test:loops`.
+
 ## One discount, two customer groups
 
 Customers who already buy the full basket may also claim the discount. The same ledger separates their discount cost from contribution gained through new adoption, including negative results and unreachable break-even states. Basket association helps find candidates; the next decision depends on explicit cost and behaviour assumptions.
@@ -116,6 +124,14 @@ Approved release, 2026-11-02: Keep up to three immutable scenario snapshots, ins
 <!-- github-evidence-20261031 -->
 
 [Design decisions](docs/DECISIONS.md) · [Validation records](docs/VALIDATION.md) · [PR core checks](https://github.com/AndyZhang666666/bundle-lab/actions/workflows/checks.yml)
+
+## 2026-11-11 development branch: connect the next decision
+
+Three targeting assumptions set existing full-basket discount take-up to public menu 100%, manual coupon 50% or checkout add-on 15%; a custom rate remains available. Only `existingRedemption` changes. Adoption and provenance stay intact. These are estimates, not demonstrated customer isolation, and 15% still leaks discounts. The original model gives −49.51, −1.70 and +31.76 per 100 covered orders for the default cola/rice scenario.
+
+Save a matrix preview directly into the next actual A/B/C comparison position, keeping exact assumptions and CSV provenance while preserving the working input and uncommitted name. Full capacity explains how to export and free a position. Observation checks use **the selected plan’s frozen break-even adoption**, show a percentage-point shortfall below it, and remain undecided for unknown/zero denominators or unavailable thresholds. Crossing the condition still requires cost, discount and baseline checks; it does not authorize a launch.
+
+This work is on a development branch only, without merge or deployment. [Implementation, conditions and synthetic local evidence](docs/TASK-LOOP-20261111.md). Additional checks: `npm run test:loops`.
 
 ## One discount, two customer groups
 

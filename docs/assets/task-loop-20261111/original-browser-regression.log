@@ -1,0 +1,20 @@
+{
+  "passed": 14,
+  "checks": [
+    "1280: hydrated default ledger and snapshot controls available",
+    "CSV upload: deduplicated presence, displayed mixed-price counts, explicit reference-price confirmation, covered 3 vs imported 4 vs normalized 100",
+    "bad CSV and cancel leave active baseline and ledger unchanged",
+    "A/B snapshots stay frozen; sensitivity click previews without applying",
+    "plan freezes inputs; valid treatment/control rates/deltas display; inconsistent counts do not overwrite observations",
+    "observation preview is inert; explicit apply copies frozen plan with known trial rates without editing CSV, plans or snapshots",
+    "downloaded current JSON matches original engine; assumption/comparison/plan exports preserve diagnosis, frozen source and observations",
+    "reload restores working scenario, CSV baseline, A/B and plan observations independently",
+    "count-assisted population and metadata invalidation follow product changes",
+    "invalid working input removes current ledger and blocks stale exports while preserving prior valid drafts",
+    "390: no page overflow; keyboard disclosure works; numeric task and all visible button targets >=44px",
+    "no page errors; reduced-motion media available",
+    "corrupt CSV/plan values remain protected; creating an in-memory plan does not overwrite them; explicit plan recovery works",
+    "390 with localStorage unavailable: working ledger, frozen in-memory plan and JSON download remain usable with explicit notice"
+  ],
+  "evidence": "/tmp/bundle-original-depth-browser-20261111"
+}

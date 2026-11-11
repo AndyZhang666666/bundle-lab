@@ -1,0 +1,45 @@
+✔ CSV quotes, BOM, line breaks, duplicates and unused fields preserve explicit presence baseline (4.579292ms)
+✔ CSV rejects malformed data and requires explicit selected prices, never coercing missing values (1.760625ms)
+✔ count-assisted manual baseline validates its denominator (0.13275ms)
+✔ reference-price distribution and imported metadata survive exports without becoming a sample size (21.411333ms)
+✔ corrupt and incompatible drafts remain untouched through load and edits until explicit replacement permission (1.897917ms)
+✔ normal first visits autosave, valid drafts restore, and invalid replacements never overwrite a prior draft (0.6175ms)
+✔ blocked storage object and throwing storage property preserve usable inputs without throwing (0.225375ms)
+✔ uncommitted strategy fields stay separate from confirmed snapshots and unreadable session state (0.237875ms)
+✔ discount boundary is a root of the original engine, with no change to its ledger (1.892625ms)
+✔ zero adoption/all full/zero redemption/zero cost do not invent unreachable or infinite values (1.447042ms)
+✔ manual adapter converts incomplete-group spending into the canonical population mean (0.998875ms)
+✔ manual boundaries preserve loss at zero adoption, all-full and unreachable break-even (1.512417ms)
+✔ empty, duplicate, nonfinite and overspending inputs are rejected without coercion (0.63225ms)
+✔ copied scenarios reconcile with the original model and keep the assumption label (161.524375ms)
+✔ key input provenance follows source kind, never synthetic or user claims masquerading as observed (0.260292ms)
+✔ 发现与建议使用全部候选，不被旧50/8条展示上限截断 (525.380792ms)
+✔ 两类人群手算：增量毛利1.6减让利0.4 = 1.2 (0.221041ms)
+✔ 平衡点与模拟使用完全相同的分母和损失 (0.108583ms)
+✔ 采纳为0仍有老顾客让利，领折扣为0则无固定损失 (0.079167ms)
+✔ 全部已买齐没有增量；免费与100%成本保持有限和负收益 (0.100208ms)
+✔ 无覆盖订单不生成假想收益 (0.316375ms)
+✔ 逐订单聚合和浏览器统计入口结果一致 (0.232459ms)
+✔ 非法数值、比例、缺价格与人群统计明确拒绝 (0.122584ms)
+✔ 采纳率三档调整维持单调，允许零和全量 (0.455167ms)
+✔ 草稿恢复白名单、版本、组合上限和损坏数据 (0.280458ms)
+✔ 报告沿用当前假设，导出与页面相同计算，亏损无推荐 (0.626458ms)
+✔ 收益排序按毛利而非收入，报告不承诺共购因果 (0.133125ms)
+✔ snapshots are independent, max three, and duplicate input is not saved twice (28.731334ms)
+✔ selection, removal, reload and reports preserve provenance and exact source model results (1.283083ms)
+✔ corrupt, oversized, version-drifted and untrusted snapshots reject without altering valid state (0.546166ms)
+✔ every sensitivity cell uses canonical model, exact current input is included, preview does not mutate assumptions (2.270666ms)
+✔ sensitivity preview freezes its result and requires the full baseline to stay current through confirmation (0.443833ms)
+✔ plans freeze inputs and append observations without modifying a snapshot (3.447291ms)
+✔ observation unknowns and zero denominators remain unknown, invalid counts reject (10.205167ms)
+✔ corrupt or tampered plan storage rejects before any write (0.610041ms)
+✔ observations compare with frozen assumptions while unknown or disjoint counts stay bounded (0.571125ms)
+✔ CSV provenance remains bound across assumptions, snapshots, plans and both Markdown exports (10.425166ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 633.5195

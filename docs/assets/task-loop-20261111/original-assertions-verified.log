@@ -1,0 +1,12 @@
+scripts/test-simulation.mjs: OK
+scripts/test-manual.mjs: OK
+scripts/test-strategies.mjs: OK
+scripts/test-draft-guard.mjs: OK
+scripts/test-economic-diagnosis.mjs: OK
+scripts/test-csv-baseline.mjs: OK
+scripts/test-validation-plans.mjs: OK
+scripts/test-rules.mjs: OK
+scripts/check-release.mjs: OK
+scripts/test-product-depth-browser.mjs: OK
+scripts/test-browser.mjs: OK
+lib/simulate.js: OK

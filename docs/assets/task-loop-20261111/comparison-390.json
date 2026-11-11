@@ -1,0 +1,311 @@
+{
+  "version": 1,
+  "snapshots": [
+    {
+      "id": "59456664-d9e7-44f7-888e-25d03efac4f1",
+      "name": "方案 A",
+      "createdAt": "2026-11-11T07:05:28.712Z",
+      "modelVersion": "two-population-v2-2026-10-25",
+      "source": {
+        "kind": "builtin",
+        "label": "内置合成订单 + 行为假设"
+      },
+      "bundle": {
+        "key": "可乐 + 鸡腿饭",
+        "items": [
+          "可乐",
+          "鸡腿饭"
+        ],
+        "prices": [
+          5,
+          24
+        ],
+        "listPrice": 29,
+        "hitRate": 0.2747524752475248,
+        "partialSpend": 18.389851485148515,
+        "matchedCount": 100,
+        "unit": "normalized-covered-orders"
+      },
+      "assumptions": {
+        "discount": 0.05,
+        "costRatio": 0.4,
+        "adoption": {
+          "conservative": 0.05,
+          "neutral": 0.4,
+          "optimistic": 0.4
+        },
+        "existingRedemption": 0.15
+      },
+      "inputBasis": [
+        {
+          "key": "adoption",
+          "label": "未买齐者采纳率",
+          "status": "行为假设 · 待验证",
+          "verify": "分层小流量试验记录未买齐人群的补齐率，保留未展示优惠的对照。"
+        },
+        {
+          "key": "fullShare",
+          "label": "原本已买齐占比",
+          "status": "合成统计 · 非真实观测",
+          "verify": "用同口径优惠前订单核对已买齐人数与覆盖分母，不能用领券后人群反推。"
+        },
+        {
+          "key": "costRatio",
+          "label": "商品成本率",
+          "status": "成本假设 · 待验证",
+          "verify": "核对采购与损耗口径；本模型没有扣履约、库存和运营成本。"
+        },
+        {
+          "key": "incompleteSpend",
+          "label": "未买齐者原有消费",
+          "status": "合成统计 · 非真实观测",
+          "verify": "只统计这组商品、只统计原本未买齐者，保持与覆盖人群一致。"
+        },
+        {
+          "key": "existingRedemption",
+          "label": "原买齐者领折扣率",
+          "status": "行为假设 · 待验证",
+          "verify": "分别记录原买齐与未买齐人群的领折扣行为，不用总转化率替代。"
+        }
+      ],
+      "resultPer100": {
+        "addedMargin": 212.57920792079196,
+        "existingLoss": 5.9758663366336755,
+        "marginLift": 206.60334158415824,
+        "breakEven": {
+          "rate": 0.011244498265061393,
+          "requiredRate": 0.011244498265061393,
+          "incrementalMargin": 7.327815699658698,
+          "giveaway": 1.4500000000000028,
+          "reason": null
+        }
+      },
+      "diagnosis": {
+        "discountBoundary": {
+          "rate": 0.26503162314994905,
+          "state": "bounded",
+          "reason": "固定当前采纳、人群和成本；不是价格弹性或最优折扣"
+        },
+        "currentPerOrder": {
+          "addedMargin": 2.1257920792079195,
+          "existingLoss": 0.059758663366336756,
+          "marginLift": 2.0660334158415825
+        },
+        "cause": "新增贡献覆盖了既有让利，但行为假设仍需验证",
+        "text": "新增贡献覆盖了既有让利，但行为假设仍需验证。原本已买齐者27.5%；每覆盖单新增贡献+¥2.13，既有让利−¥0.06，净变化+¥2.07。固定中档采纳40.0%时，折扣边界26.50%（不高于此值才不为负）。当前折扣下需采纳至少1.1%。",
+        "limits": "条件边界，非最优定价；未扣履约、库存与运营成本。"
+      },
+      "changesFromA": []
+    },
+    {
+      "id": "2c8558d9-95d5-4b48-974c-1543893fb0a4",
+      "name": "方案 B",
+      "createdAt": "2026-11-11T07:05:28.779Z",
+      "modelVersion": "two-population-v2-2026-10-25",
+      "source": {
+        "kind": "builtin",
+        "label": "内置合成订单 + 行为假设"
+      },
+      "bundle": {
+        "key": "可乐 + 鸡腿饭",
+        "items": [
+          "可乐",
+          "鸡腿饭"
+        ],
+        "prices": [
+          5,
+          24
+        ],
+        "listPrice": 29,
+        "hitRate": 0.2747524752475248,
+        "partialSpend": 18.389851485148515,
+        "matchedCount": 100,
+        "unit": "normalized-covered-orders"
+      },
+      "assumptions": {
+        "discount": 0.1,
+        "costRatio": 0.4,
+        "adoption": {
+          "conservative": 0.05,
+          "neutral": 0.6,
+          "optimistic": 0.6
+        },
+        "existingRedemption": 0.15
+      },
+      "inputBasis": [
+        {
+          "key": "adoption",
+          "label": "未买齐者采纳率",
+          "status": "行为假设 · 待验证",
+          "verify": "分层小流量试验记录未买齐人群的补齐率，保留未展示优惠的对照。"
+        },
+        {
+          "key": "fullShare",
+          "label": "原本已买齐占比",
+          "status": "合成统计 · 非真实观测",
+          "verify": "用同口径优惠前订单核对已买齐人数与覆盖分母，不能用领券后人群反推。"
+        },
+        {
+          "key": "costRatio",
+          "label": "商品成本率",
+          "status": "成本假设 · 待验证",
+          "verify": "核对采购与损耗口径；本模型没有扣履约、库存和运营成本。"
+        },
+        {
+          "key": "incompleteSpend",
+          "label": "未买齐者原有消费",
+          "status": "合成统计 · 非真实观测",
+          "verify": "只统计这组商品、只统计原本未买齐者，保持与覆盖人群一致。"
+        },
+        {
+          "key": "existingRedemption",
+          "label": "原买齐者领折扣率",
+          "status": "行为假设 · 待验证",
+          "verify": "分别记录原买齐与未买齐人群的领折扣行为，不用总转化率替代。"
+        }
+      ],
+      "resultPer100": {
+        "addedMargin": 255.77227722772275,
+        "existingLoss": 11.951732673267323,
+        "marginLift": 243.82054455445547,
+        "breakEven": {
+          "rate": 0.02803681337823713,
+          "requiredRate": 0.02803681337823713,
+          "incrementalMargin": 5.8778156996587025,
+          "giveaway": 2.8999999999999986,
+          "reason": null
+        }
+      },
+      "diagnosis": {
+        "discountBoundary": {
+          "rate": 0.2764963582121643,
+          "state": "bounded",
+          "reason": "固定当前采纳、人群和成本；不是价格弹性或最优折扣"
+        },
+        "currentPerOrder": {
+          "addedMargin": 2.5577227722772276,
+          "existingLoss": 0.11951732673267322,
+          "marginLift": 2.4382054455445545
+        },
+        "cause": "新增贡献覆盖了既有让利，但行为假设仍需验证",
+        "text": "新增贡献覆盖了既有让利，但行为假设仍需验证。原本已买齐者27.5%；每覆盖单新增贡献+¥2.56，既有让利−¥0.12，净变化+¥2.44。固定中档采纳60.0%时，折扣边界27.64%（不高于此值才不为负）。当前折扣下需采纳至少2.8%。",
+        "limits": "条件边界，非最优定价；未扣履约、库存与运营成本。"
+      },
+      "changesFromA": [
+        "折扣率：5% → 10%",
+        "中档采纳率：40% → 60%",
+        "高档采纳率：40% → 60%"
+      ]
+    },
+    {
+      "id": "d8b129d0-37c5-4526-a359-b963c5f73f8b",
+      "name": "方案 C",
+      "createdAt": "2026-11-11T07:05:28.845Z",
+      "modelVersion": "two-population-v2-2026-10-25",
+      "source": {
+        "kind": "builtin",
+        "label": "内置合成订单 + 行为假设"
+      },
+      "bundle": {
+        "key": "可乐 + 鸡腿饭",
+        "items": [
+          "可乐",
+          "鸡腿饭"
+        ],
+        "prices": [
+          5,
+          24
+        ],
+        "listPrice": 29,
+        "hitRate": 0.2747524752475248,
+        "partialSpend": 18.389851485148515,
+        "matchedCount": 100,
+        "unit": "normalized-covered-orders"
+      },
+      "assumptions": {
+        "discount": 0.15,
+        "costRatio": 0.4,
+        "adoption": {
+          "conservative": 0.05,
+          "neutral": 1,
+          "optimistic": 1
+        },
+        "existingRedemption": 0.15
+      },
+      "inputBasis": [
+        {
+          "key": "adoption",
+          "label": "未买齐者采纳率",
+          "status": "行为假设 · 待验证",
+          "verify": "分层小流量试验记录未买齐人群的补齐率，保留未展示优惠的对照。"
+        },
+        {
+          "key": "fullShare",
+          "label": "原本已买齐占比",
+          "status": "合成统计 · 非真实观测",
+          "verify": "用同口径优惠前订单核对已买齐人数与覆盖分母，不能用领券后人群反推。"
+        },
+        {
+          "key": "costRatio",
+          "label": "商品成本率",
+          "status": "成本假设 · 待验证",
+          "verify": "核对采购与损耗口径；本模型没有扣履约、库存和运营成本。"
+        },
+        {
+          "key": "incompleteSpend",
+          "label": "未买齐者原有消费",
+          "status": "合成统计 · 非真实观测",
+          "verify": "只统计这组商品、只统计原本未买齐者，保持与覆盖人群一致。"
+        },
+        {
+          "key": "existingRedemption",
+          "label": "原买齐者领折扣率",
+          "status": "行为假设 · 待验证",
+          "verify": "分别记录原买齐与未买齐人群的领折扣行为，不用总转化率替代。"
+        }
+      ],
+      "resultPer100": {
+        "addedMargin": 321.1262376237621,
+        "existingLoss": 17.927599009900995,
+        "marginLift": 303.19863861386114,
+        "breakEven": {
+          "rate": 0.05582726326742982,
+          "requiredRate": 0.05582726326742982,
+          "incrementalMargin": 4.4278156996587,
+          "giveaway": 4.350000000000001,
+          "reason": null
+        }
+      },
+      "diagnosis": {
+        "discountBoundary": {
+          "rate": 0.2864079021364499,
+          "state": "bounded",
+          "reason": "固定当前采纳、人群和成本；不是价格弹性或最优折扣"
+        },
+        "currentPerOrder": {
+          "addedMargin": 3.211262376237621,
+          "existingLoss": 0.17927599009900996,
+          "marginLift": 3.031986386138611
+        },
+        "cause": "新增贡献覆盖了既有让利，但行为假设仍需验证",
+        "text": "新增贡献覆盖了既有让利，但行为假设仍需验证。原本已买齐者27.5%；每覆盖单新增贡献+¥3.21，既有让利−¥0.18，净变化+¥3.03。固定中档采纳100.0%时，折扣边界28.64%（不高于此值才不为负）。当前折扣下需采纳至少5.6%。",
+        "limits": "条件边界，非最优定价；未扣履约、库存与运营成本。"
+      },
+      "changesFromA": [
+        "折扣率：5% → 15%",
+        "中档采纳率：40% → 100%",
+        "高档采纳率：40% → 100%"
+      ]
+    }
+  ],
+  "selectedId": null,
+  "reason": "",
+  "validationPlans": [],
+  "unit": "每100个覆盖订单（归一比较单位，不是观测样本量）",
+  "modelVersion": "two-population-v2-2026-10-25",
+  "limits": [
+    "不同方案为独立条件推演，不能把收益相加",
+    "改变折扣不会自动推断采纳变化，不是价格弹性预测",
+    "毛利不含履约、库存、运营成本，不是实际利润"
+  ]
+}
