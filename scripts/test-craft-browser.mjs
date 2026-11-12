@@ -1,0 +1,51 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
+const base=process.env.TEST_URL||'http://127.0.0.1:8863/bundle-lab/';
+const evidence=process.env.EVIDENCE_DIR||'docs/assets/craft-20261112';
+await fs.mkdir(evidence,{recursive:true});
+const browser=await chromium.launch({channel:'chrome',headless:true});
+const checks=[],errors=[];
+try {
+ for(const width of [1440,1024,390]) {
+  const context=await browser.newContext({viewport:{width,height:1000},acceptDownloads:true,reducedMotion:width===390?'reduce':'no-preference'});
+  const p=await context.newPage();p.on('pageerror',e=>errors.push(e.message));
+  await p.goto(base+'simulate/');await p.waitForLoadState('networkidle');
+  await p.getByRole('textbox',{name:'给当前输入命名',exact:true}).waitFor();await p.waitForFunction(()=>!document.querySelector('.strategy-save input')?.disabled);
+  assert.equal(await p.getByRole('textbox',{name:'给当前输入命名',exact:true}).isEnabled(),true);
+  const input=p.getByRole('spinbutton',{name:'中档采纳率数值',exact:true});
+  assert.equal(await input.inputValue(),'12');
+  await p.getByRole('button',{name:'中档采纳率增加0.1个百分点',exact:true}).click();
+  assert.equal(await input.inputValue(),'12.1');
+  await p.getByRole('slider',{name:'中档采纳率',exact:true}).focus();await p.keyboard.press('ArrowRight');
+  assert.equal(await input.inputValue(),'13');
+  const valid=await p.evaluate(()=>localStorage.getItem('bundle-lab:scenario:v2'));
+  await input.fill('');await p.getByRole('heading',{name:'新增贡献，抵得过让利吗？',exact:true}).click();
+  assert.equal(await input.inputValue(),'');assert.equal(await p.locator('.input-error').count(),1);
+  assert.equal(await p.evaluate(()=>localStorage.getItem('bundle-lab:scenario:v2')),valid);
+  await p.locator('.assumption-export>summary').click();assert.equal(await p.locator('.assumption-export').getByRole('button',{name:'导出 JSON',exact:true}).isDisabled(),true);
+  await input.fill('101');await p.getByRole('heading',{name:'新增贡献，抵得过让利吗？',exact:true}).click();
+  assert.equal(await input.inputValue(),'101');assert.equal(await p.locator('.input-error').count(),1);
+  assert.equal(await p.evaluate(()=>localStorage.getItem('bundle-lab:scenario:v2')),valid);
+  await input.fill('12');assert.equal(await p.locator('.input-error').count(),0);
+  assert.equal(await p.locator('.margin-bridge svg').count(),1);assert.match(await p.locator('.margin-bridge svg').getAttribute('aria-label'),/新增贡献\+¥46\.11.*既有让利¥95\.61.*增量毛利−¥49\.51/);
+  await p.locator('.baseline-strip').getByRole('button',{name:/食材成本/}).click();assert.equal(await p.locator('#population-settings').evaluate(e=>e.open),true);
+  await p.locator('#population-settings>summary').click();
+  await p.locator('.baseline-strip').getByRole('button',{name:/既有者领折扣/}).click();assert.equal(await p.locator('#targeting-settings').evaluate(e=>e.open),true);
+  await p.locator('#targeting-settings>summary').click();
+  assert.match(await p.locator('#sensitivity-map>.section-title').innerText(),/9列折扣 × 8行采纳/);
+  const before=await p.evaluate(()=>({...localStorage}));await p.getByRole('button',{name:/^折扣 5%，采纳 40%，/}).click();
+  assert.deepEqual(await p.evaluate(()=>({...localStorage})),before);assert.equal(await p.locator('.sensitivity-preview').getAttribute('data-active'),'true');
+  await p.getByRole('button',{name:'取消预演',exact:true}).click();assert.deepEqual(await p.evaluate(()=>({...localStorage})),before);
+  assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`no page overflow ${width}`);
+  await p.evaluate(()=>scrollTo(0,0));await p.screenshot({path:path.join(evidence,`workspace-${width}.png`)});
+  await p.locator('#sensitivity-map').scrollIntoViewIfNeeded();await p.screenshot({path:path.join(evidence,`matrix-${width}.png`)});
+  if(width===390)assert.equal(await p.locator('.sensitivity-table button').first().evaluate(e=>getComputedStyle(e).transitionDuration),'0s');
+  checks.push(`${width}: precise increment, keyboard slider, empty/out-of-range blur protection, unchanged valid draft, blocked stale export, true-output bridge, click-through baseline summaries, data-derived matrix dimensions, inert preview, no page overflow`);
+  await context.close();
+ }
+ assert.deepEqual(errors,[]);
+ await fs.writeFile(path.join(evidence,'craft-browser.json'),JSON.stringify({at:new Date().toISOString(),base,checks,pageErrors:errors,limits:['Local Chrome synthetic tasks, not merchant or user outcomes.','No model or paid service calls.']},null,2));
+ console.log(`PASS ${checks.length} craft workflow groups; 1440/1024/390; no page errors`);
+} finally {await browser.close();}

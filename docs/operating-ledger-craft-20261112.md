@@ -20,4 +20,25 @@
 ## 验证记录
 
 - 首轮：现有45个计算、草稿、方案、CSV、验证计划与任务闭环检查通过；58项发布边界检查通过。
-- 完整浏览器、构建及最终截图在本分支后续提交补充。这里不代表业务试验、真实商户数据或收益证据。
+- 生产静态构建通过，原21项规则和58项发布边界通过。
+- 新控件实际操作：1440、1024、390宽度，精确加减、键盘滑杆、空值和101%越界的失焦保护、保持有效草稿、阻止旧导出、摘要展开、桥接金额、矩阵尺寸、取消预演与页面无横向溢出。
+- 复用原任务闭环浏览器检查：同三种宽度完成触达预设、自定义和来源切换、A/B/C精确直存与满位、真实Markdown/JSON下载、冻结计划与观察、输入变化不移动冻结门槛、刷新恢复。另完成CSV上传与参考价确认后的直存来源核对。所有原断言保留，只改变展开新披露层的导航；没有放宽计算或存储断言。
+- 没有页面脚本错误。手机减少动态效果验证通过。这些是合成任务检查，不是业务试验、真实商户数据、真实参与者可用性测试或收益证据。
+
+### 实际截图与下载证据
+
+![桌面工作区](assets/craft-20261112/workspace-1440.jpg)
+
+[平板](assets/craft-20261112/workspace-1024.jpg) · [手机](assets/craft-20261112/workspace-390.jpg) · [矩阵](assets/craft-20261112/matrix-1440.jpg)
+
+[新增交互记录](assets/craft-20261112/craft-browser.json) · [完整任务记录](assets/craft-20261112/task-loop-browser.json) · [原计算检查](assets/craft-20261112/core-tests.txt) · [规则检查](assets/craft-20261112/rule-checks.txt) · [构建](assets/craft-20261112/build.txt)
+
+[实际下载的冻结比较JSON](assets/craft-20261112/example-frozen-comparison.json) · [实际下载的计划与观察Markdown](assets/craft-20261112/example-frozen-plan.md)
+
+可复现：`npm run test:simulation`、`npm run test:depth`、`npm run test:loops`、`npm run test:rules`、`npm run check:release`、`npm run build`。本机浏览器脚本为`scripts/test-craft-browser.mjs`与`scripts/test-task-loop-browser.mjs`，使用`TEST_URL`指定已构建的审阅地址；后者的`REVIEW_WIDTHS=1440,1024,390`仅改变视口，不改变断言。
+
+### 依赖与限制
+
+React Aria Components精确锁定1.22.1，Apache-2.0；许可保留在[本地副本](licenses/react-aria-components-1.22.1.txt)。Recharts沿用现有3.1.2。没有新增后端、模型、在线字体或商用素材。
+
+数值编辑使用原生受控字符串输入适配原校验，RAC NumberField仅承担精确步进，避免库的失焦规范化覆盖非法草稿；RAC Slider负责拖动与键盘，值仍来自同一假设。界面状态不写业务记录。

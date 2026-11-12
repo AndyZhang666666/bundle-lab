@@ -6,7 +6,15 @@ A bundle can sell more and earn less. Bring your products and basket composition
 
 > No model key needed. Use manual inputs or import CSV; results are conditional scenarios per 100 covered orders.
 
-![Actual Bundle Lab workspace: incremental contribution, discount leakage and net contribution change](docs/assets/product-depth-20261109/desktop-1280.png)
+![Actual Bundle Lab workspace: incremental contribution, discount leakage and net contribution change](docs/assets/craft-20261112/workspace-1440.jpg)
+
+## 2026-11-12 review branch: an operating ledger
+
+This branch refines the input slip, ledger and preview interactions. **It is not merged or deployed**; live links above still open the published baseline. The model, storage keys, CSV definitions, frozen comparisons and validation plans are unchanged.
+
+Baseline summaries open the original fields. Precise numbers, step controls and keyboard sliders share the validated assumption; empty or out-of-range text remains visible without overwriting the last valid draft. A bridge reads the engine’s contribution, existing-customer discount cost and net change directly. The discount×adoption matrix labels its actual nine columns and eight rows; working inputs, previews, frozen A/B/C, a choice and a validation plan remain separate states.
+
+[Design decisions, verification and screenshots](docs/operating-ledger-craft-20261112.md). Evidence uses synthetic local workflows, not merchant or user outcomes.
 
 ## Try a scenario
 
@@ -16,13 +24,13 @@ A bundle can sell more and earn less. Bring your products and basket composition
 
 The condition map previews changes before applying them. Observation rates also require confirmation before a copy of the frozen plan becomes a new manual input. Existing CSV baselines, plans and saved scenarios stay unchanged.
 
-## 2026-11-11 development branch: connect the next decision
+## Published 2026-11-11 baseline: connect the next decision
 
 Three targeting assumptions set existing full-basket discount take-up to public menu 100%, manual coupon 50% or checkout add-on 15%; a custom rate remains available. Only `existingRedemption` changes. Adoption and provenance stay intact. These are estimates, not demonstrated customer isolation, and 15% still leaks discounts. The original model gives −49.51, −1.70 and +31.76 per 100 covered orders for the default cola/rice scenario.
 
 Save a matrix preview directly into the next actual A/B/C comparison position, keeping exact assumptions and CSV provenance while preserving the working input and uncommitted name. Full capacity explains how to export and free a position. Observation checks use **the selected plan’s frozen break-even adoption**, show a percentage-point shortfall below it, and remain undecided for unknown/zero denominators or unavailable thresholds. Crossing the condition still requires cost, discount and baseline checks; it does not authorize a launch.
 
-This work is on a development branch only, without merge or deployment. [Implementation, conditions and synthetic local evidence](docs/TASK-LOOP-20261111.md). Additional checks: `npm run test:loops`.
+These task-loop features are part of merged baseline `062b656`; the 11-12 visual work above remains on its review branch. [Implementation, conditions and synthetic local evidence](docs/TASK-LOOP-20261111.md). Additional checks: `npm run test:loops`.
 
 ## One discount, two customer groups
 
@@ -125,13 +133,13 @@ Approved release, 2026-11-02: Keep up to three immutable scenario snapshots, ins
 
 [Design decisions](docs/DECISIONS.md) · [Validation records](docs/VALIDATION.md) · [PR core checks](https://github.com/AndyZhang666666/bundle-lab/actions/workflows/checks.yml)
 
-## 2026-11-11 development branch: connect the next decision
+## Published 2026-11-11 baseline: connect the next decision
 
 Three targeting assumptions set existing full-basket discount take-up to public menu 100%, manual coupon 50% or checkout add-on 15%; a custom rate remains available. Only `existingRedemption` changes. Adoption and provenance stay intact. These are estimates, not demonstrated customer isolation, and 15% still leaks discounts. The original model gives −49.51, −1.70 and +31.76 per 100 covered orders for the default cola/rice scenario.
 
 Save a matrix preview directly into the next actual A/B/C comparison position, keeping exact assumptions and CSV provenance while preserving the working input and uncommitted name. Full capacity explains how to export and free a position. Observation checks use **the selected plan’s frozen break-even adoption**, show a percentage-point shortfall below it, and remain undecided for unknown/zero denominators or unavailable thresholds. Crossing the condition still requires cost, discount and baseline checks; it does not authorize a launch.
 
-This work is on a development branch only, without merge or deployment. [Implementation, conditions and synthetic local evidence](docs/TASK-LOOP-20261111.md). Additional checks: `npm run test:loops`.
+These task-loop features are part of merged baseline `062b656`; the 11-12 visual work above remains on its review branch. [Implementation, conditions and synthetic local evidence](docs/TASK-LOOP-20261111.md). Additional checks: `npm run test:loops`.
 
 ## One discount, two customer groups
 

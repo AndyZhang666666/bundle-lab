@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-12T14:46:09.770Z",
+  "base": "http://127.0.0.1:8868/bundle-lab/",
+  "checks": [
+    "1440: precise increment, keyboard slider, empty/out-of-range blur protection, unchanged valid draft, blocked stale export, true-output bridge, click-through baseline summaries, data-derived matrix dimensions, inert preview, no page overflow",
+    "1024: precise increment, keyboard slider, empty/out-of-range blur protection, unchanged valid draft, blocked stale export, true-output bridge, click-through baseline summaries, data-derived matrix dimensions, inert preview, no page overflow",
+    "390: precise increment, keyboard slider, empty/out-of-range blur protection, unchanged valid draft, blocked stale export, true-output bridge, click-through baseline summaries, data-derived matrix dimensions, inert preview, no page overflow"
+  ],
+  "pageErrors": [],
+  "limits": [
+    "Local Chrome synthetic tasks, not merchant or user outcomes.",
+    "No model or paid service calls."
+  ]
+}

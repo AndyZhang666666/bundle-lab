@@ -35,8 +35,7 @@ export default function SimulatePage() {
         <p className="desk-eyebrow">Bundle Lab / 收益推演</p>
         <h1>一份套餐，算清两笔账。</h1>
         <p>
-          用自己的商品与订单构成，核对新增贡献和既有让利。比较方案，找到盈亏边界，再带走验证计划。
-          也可以先试合成订单；导入基线未经审计，行为与成本仍是待验证假设。
+          核对新增贡献和既有让利，比较方案，再带走验证计划。支持自有商品与CSV；订单基线、行为和成本仍需验证。
         </p>
       </div>
       <Simulator bundles={payload} />

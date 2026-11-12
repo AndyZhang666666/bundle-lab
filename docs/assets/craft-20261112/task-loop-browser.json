@@ -1,0 +1,11 @@
+{
+  "url": "http://127.0.0.1:8868/bundle-lab/",
+  "checks": [
+    "1440: keyboard presets/custom/source switching; cancel and exact direct A/B/C saves preserve drafts; capacity; real Markdown/JSON downloads; frozen below/above/zero denominator with live edits; reload; reduced motion; no overflow",
+    "1024: keyboard presets/custom/source switching; cancel and exact direct A/B/C saves preserve drafts; capacity; real Markdown/JSON downloads; frozen below/above/zero denominator with live edits; reload; reduced motion; no overflow",
+    "390: keyboard presets/custom/source switching; cancel and exact direct A/B/C saves preserve drafts; capacity; real Markdown/JSON downloads; frozen below/above/zero denominator with live edits; reload; reduced motion; no overflow",
+    "CSV upload/reference confirmation → preset → exact direct snapshot keeps source counts, prices and provenance; current CSV discount unchanged"
+  ],
+  "pageErrors": [],
+  "scope": "Synthetic local Chrome workflows; no model calls or business evidence"
+}
