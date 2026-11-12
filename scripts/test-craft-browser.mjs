@@ -29,7 +29,7 @@ try {
   assert.equal(await input.inputValue(),'101');assert.equal(await p.locator('.input-error').count(),1);
   assert.equal(await p.evaluate(()=>localStorage.getItem('bundle-lab:scenario:v2')),valid);
   await input.fill('12');assert.equal(await p.locator('.input-error').count(),0);
-  assert.equal(await p.locator('.margin-bridge svg').count(),1);assert.match(await p.locator('.margin-bridge svg').getAttribute('aria-label'),/新增贡献\+¥46\.11.*既有让利¥95\.61.*增量毛利−¥49\.51/);
+  assert.equal(await p.locator('.margin-bridge svg').count(),1);assert.match(await p.locator('.margin-bridge>p').innerText(),/独立四舍五入.*模型原值.*¥0\.01/);assert.match(await p.locator('.margin-bridge svg').getAttribute('aria-label'),/新增贡献\+¥46\.11.*既有让利¥95\.61.*增量毛利−¥49\.51/);
   await p.locator('.baseline-strip').getByRole('button',{name:/食材成本/}).click();assert.equal(await p.locator('#population-settings').evaluate(e=>e.open),true);
   await p.locator('#population-settings>summary').click();
   await p.locator('.baseline-strip').getByRole('button',{name:/既有者领折扣/}).click();assert.equal(await p.locator('#targeting-settings').evaluate(e=>e.open),true);

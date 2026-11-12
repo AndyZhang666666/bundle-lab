@@ -19,7 +19,7 @@ export default function MarginBridge({ result }) {
   const money = value => `${value < 0 ? '−' : value > 0 ? '+' : ''}¥${Math.abs(value).toFixed(2)}`;
   return <figure className="margin-bridge">
     <figcaption><span>从贡献到净增量</span><small>同一模型 · 每100覆盖单</small></figcaption>
-    <svg viewBox="0 0 552 212" role="img" aria-label={`新增贡献${money(contribution)}，减去既有让利¥${loss.toFixed(2)}，增量毛利${money(net)}。每100覆盖单，条件推演。`}>
+    <svg viewBox="0 0 552 212" role="img" aria-label={`新增贡献${money(contribution)}，减去既有让利¥${loss.toFixed(2)}，增量毛利${money(net)}。每100覆盖单，条件推演。各项独立四舍五入，净额按模型原值计算，显示合计可能相差一分钱。`}>
       <line className="bridge-zero" x1="20" x2="532" y1={zero} y2={zero}/>
       <text className="bridge-zero-label" x="17" y={zero - 6}>0</text>
       <path className="bridge-connector" d={`M 148 ${y(contribution)} H 240 M 316 ${y(net)} H 408`}/>
@@ -32,6 +32,6 @@ export default function MarginBridge({ result }) {
         </g>;
       })}
     </svg>
-    <p>桥接图只解释账目关系；精确金额与下方账本一致。</p>
+    <p>各项独立四舍五入；净额按模型原值计算，显示合计可能相差¥0.01。</p>
   </figure>;
 }
