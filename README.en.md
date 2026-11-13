@@ -8,9 +8,9 @@ A bundle can sell more and earn less. Bring your products and basket composition
 
 ![Actual Bundle Lab workspace: incremental contribution, discount leakage and net contribution change](docs/assets/craft-20261112/workspace-1440.jpg)
 
-## 2026-11-12 review branch: an operating ledger
+## Operating-ledger refinement — published 2026-11-13
 
-This branch refines the input slip, ledger and preview interactions. **It is not merged or deployed**; live links above still open the published baseline. The model, storage keys, CSV definitions, frozen comparisons and validation plans are unchanged.
+The input slip, ledger and preview refinements were merged normally through [PR #5](https://github.com/AndyZhang666666/bundle-lab/pull/5) and deployed. Numeric and keyboard controls, ledger, matrix previews and draft protection were checked separately on the live HTTPS site. The model, storage keys, CSV definitions, frozen comparisons and validation plans are unchanged. [Release and live evidence](docs/RELEASE-20261113.md).
 
 Baseline summaries open the original fields. Precise numbers, step controls and keyboard sliders share the validated assumption; empty or out-of-range text remains visible without overwriting the last valid draft. A bridge reads the engine’s contribution, existing-customer discount cost and net change directly. The discount×adoption matrix labels its actual nine columns and eight rows; working inputs, previews, frozen A/B/C, a choice and a validation plan remain separate states.
 
@@ -30,7 +30,7 @@ Three targeting assumptions set existing full-basket discount take-up to public 
 
 Save a matrix preview directly into the next actual A/B/C comparison position, keeping exact assumptions and CSV provenance while preserving the working input and uncommitted name. Full capacity explains how to export and free a position. Observation checks use **the selected plan’s frozen break-even adoption**, show a percentage-point shortfall below it, and remain undecided for unknown/zero denominators or unavailable thresholds. Crossing the condition still requires cost, discount and baseline checks; it does not authorize a launch.
 
-These task-loop features are part of merged baseline `062b656`; the 11-12 visual work above remains on its review branch. [Implementation, conditions and synthetic local evidence](docs/TASK-LOOP-20261111.md). Additional checks: `npm run test:loops`.
+These task-loop features are part of merged baseline `062b656`; the visual work above was published on 2026-11-13. [Implementation, conditions and synthetic local evidence](docs/TASK-LOOP-20261111.md). Additional checks: `npm run test:loops`.
 
 ## One discount, two customer groups
 
@@ -139,7 +139,7 @@ Three targeting assumptions set existing full-basket discount take-up to public 
 
 Save a matrix preview directly into the next actual A/B/C comparison position, keeping exact assumptions and CSV provenance while preserving the working input and uncommitted name. Full capacity explains how to export and free a position. Observation checks use **the selected plan’s frozen break-even adoption**, show a percentage-point shortfall below it, and remain undecided for unknown/zero denominators or unavailable thresholds. Crossing the condition still requires cost, discount and baseline checks; it does not authorize a launch.
 
-These task-loop features are part of merged baseline `062b656`; the 11-12 visual work above remains on its review branch. [Implementation, conditions and synthetic local evidence](docs/TASK-LOOP-20261111.md). Additional checks: `npm run test:loops`.
+These task-loop features are part of merged baseline `062b656`; the visual work above was published on 2026-11-13. [Implementation, conditions and synthetic local evidence](docs/TASK-LOOP-20261111.md). Additional checks: `npm run test:loops`.
 
 ## One discount, two customer groups
 

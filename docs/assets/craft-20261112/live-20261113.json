@@ -1,0 +1,19 @@
+{
+  "verified_at": "2026-11-13T05:32:59.907Z",
+  "scope": "Live HTTPS UI checks in isolated local Chrome contexts; synthetic inputs only.",
+  "url": "https://andyzhang666666.github.io/bundle-lab/simulate/",
+  "pull_request": "https://github.com/AndyZhang666666/bundle-lab/pull/5",
+  "feature_merge_sha": "835bc065207ac652b72051ecab779783eae29b64",
+  "feature_pages_run": 43372218902,
+  "pages_conclusion": "success",
+  "checks": [
+    "1440: precise increment, keyboard slider, empty/out-of-range blur protection, unchanged valid draft, blocked stale export, true-output bridge, click-through baseline summaries, data-derived matrix dimensions, inert preview, no page overflow",
+    "1024: precise increment, keyboard slider, empty/out-of-range blur protection, unchanged valid draft, blocked stale export, true-output bridge, click-through baseline summaries, data-derived matrix dimensions, inert preview, no page overflow",
+    "390: precise increment, keyboard slider, empty/out-of-range blur protection, unchanged valid draft, blocked stale export, true-output bridge, click-through baseline summaries, data-derived matrix dimensions, inert preview, no page overflow"
+  ],
+  "pageErrors": [],
+  "limits": [
+    "No model or paid-service calls.",
+    "Not merchant/user outcome evidence; local pre-release deep workflows are separate."
+  ]
+}
