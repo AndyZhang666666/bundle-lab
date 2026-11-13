@@ -8,16 +8,17 @@ const evidence=process.env.EVIDENCE_DIR||'docs/assets/task-loop-20261111';
 await fs.mkdir(evidence,{recursive:true});
 const browser=await chromium.launch({channel:'chrome',headless:true});
 const checks=[],errors=[];
+const widths=process.env.REVIEW_WIDTHS?process.env.REVIEW_WIDTHS.split(',').map(Number):[1280,768,390];
 const keys={scenario:'bundle-lab:scenario:v2',manual:'bundle-lab:manual:v1',csv:'bundle-lab:csv-baseline:v1',strategies:'bundle-lab:strategies:v1',plans:'bundle-lab:validation-plans:v1'};
-async function open(p,selector){const item=p.locator(selector).first();if(!await item.evaluate(e=>e.open))await item.locator(':scope > summary').click();}
+async function open(p,selector){const item=p.locator(selector).first(); const ancestors=await item.evaluate(e=>{const result=[];for(let p=e.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS'&&!p.open)result.unshift(p.className);return result;});for(const name of ancestors){const parent=p.locator('details.'+name.trim().split(/\s+/).join('.')).first();if(!await parent.evaluate(e=>e.open))await parent.locator(':scope > summary').click();}if(!await item.evaluate(e=>e.open))await item.locator(':scope > summary').click();}
 async function stores(p){return p.evaluate(()=>({local:{...localStorage},session:{...sessionStorage}}));}
 async function shot(p,selector,file){await p.evaluate(()=>scrollTo(0,0));const box=await p.locator(selector).boundingBox();await p.screenshot({path:path.join(evidence,file),fullPage:true,clip:box});}
 async function stored(p,key){return p.evaluate(k=>JSON.parse(localStorage.getItem(k)),key);}
 async function choose(p,discount,adoption){await p.getByRole('button',{name:new RegExp(`^折扣 ${discount}%，采纳 ${adoption}%，`)}).click();}
 async function download(p,name,file){const pending=p.waitForEvent('download');await p.getByRole('button',{name,exact:true}).click();const d=await pending;await d.saveAs(path.join(evidence,file));return fs.readFile(path.join(evidence,file),'utf8');}
-async function ready(p){const input=p.getByLabel('给当前输入命名',{exact:true});await input.waitFor({state:'visible'});for(let i=0;i<120 && await input.isDisabled();i++)await p.waitForTimeout(250);if(await input.isDisabled()){console.log('Readiness failure',await p.locator('.strategy-notice').innerText(),await p.locator('.scenario-feedback').innerText(),await stores(p));await p.screenshot({path:path.join(evidence,'readiness-failure.png'),fullPage:true});}assert.equal(await input.isEnabled(),true);}
+async function ready(p){const input=p.getByLabel('给当前输入命名',{exact:true});await input.waitFor({state:'visible'});for(let i=0;i<120 && await input.isDisabled();i++)await p.waitForTimeout(250);if(await input.isDisabled()){console.log('Readiness failure',await p.locator('.strategy-notice').innerText(),await p.locator('.scenario-feedback').innerText(),await stores(p));await p.screenshot({path:path.join(evidence,'readiness-failure.png'),fullPage:true});}assert.equal(await input.isEnabled(),true);await open(p,'.targeting-disclosure');}
 try{
- for(const width of [1280,768,390]){console.log('Checking width',width);
+ for(const width of widths){console.log('Checking width',width);
   const context=await browser.newContext({viewport:{width,height:960},acceptDownloads:true,reducedMotion:'reduce'}),p=await context.newPage();p.on('pageerror',e=>{errors.push(e.message);console.error(e.message);});
   await p.goto(url+'simulate/');await p.waitForLoadState('networkidle');await ready(p);
   assert.match(await p.locator('.margin-total').innerText(),/-49.51/);
@@ -72,5 +73,5 @@ try{
  const original=await stored(p,keys.csv);await p.getByRole('button',{name:/^结账加购 /}).click();assert.deepEqual((await stored(p,keys.csv)).baseline,original.baseline);assert.equal((await stored(p,keys.csv)).provenance,original.provenance);
  await choose(p,5,40);await p.getByRole('button',{name:'直接存为对比方案（A）',exact:true}).click();const snapshot=(await stored(p,keys.strategies)).snapshots[0];assert.equal(snapshot.source.kind,'csv');assert.deepEqual(snapshot.source.baseline,original.baseline);assert.equal(snapshot.assumptions.existingRedemption,.15);assert.equal((await stored(p,keys.csv)).discount,.12);
  await download(p,'导出比较 JSON','comparison-csv.json');checks.push('CSV upload/reference confirmation → preset → exact direct snapshot keeps source counts, prices and provenance; current CSV discount unchanged');await context.close();
- assert.deepEqual(errors,[]);await fs.writeFile(path.join(evidence,'browser-checks.json'),JSON.stringify({url,checks,pageErrors:errors,scope:'Synthetic local Chrome workflows; no model calls or business evidence'},null,2));console.log(`PASS: ${checks.length} workflow groups, 1280/768/390, no page errors`);
+ assert.deepEqual(errors,[]);await fs.writeFile(path.join(evidence,'browser-checks.json'),JSON.stringify({url,checks,pageErrors:errors,scope:'Synthetic local Chrome workflows; no model calls or business evidence'},null,2));console.log(`PASS: ${checks.length} workflow groups, ${widths.join('/')}, no page errors`);
 }finally{await browser.close();}
