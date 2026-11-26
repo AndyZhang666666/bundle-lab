@@ -30,6 +30,11 @@ export default function Simulator({ bundles }) {
   const builtin = useScenario(bundles), [source, setSource] = useState('builtin'), [manual, setManual] = useState(initialManual), [ready, setReady] = useState(false), [manualWriteLocked, setManualWriteLocked] = useState(false), [storage, setStorage] = useState(''), [feedback, setFeedback] = useState(''), [invalid, setInvalid] = useState({}), [inputEpoch, setInputEpoch] = useState(0);
   const [trapOpen,setTrapOpen]=useState(false);
   const [aboveThreshold,setAboveThreshold]=useState(false);
+  const [linkedRate,setLinkedRate]=useState(null);
+  useEffect(()=>{
+    const value=new URLSearchParams(window.location.search).get('adoption');
+    if(value && /^(?:0(?:\.\d+)?|1(?:\.0+)?)$/.test(value)){setLinkedRate(Number(value));setTrapOpen(true);}
+  },[]);
   const [validationPlans,setValidationPlans]=useState([]),[redemptionEpoch,setRedemptionEpoch]=useState(0);
   const [csvDraft,setCsvDraft]=useState(null),[csvLocked,setCsvLocked]=useState(false);
   const [counts,setCounts,countStatus]=useTabDraft('baseline-counts',EMPTY_COUNTS);
@@ -61,12 +66,22 @@ export default function Simulator({ bundles }) {
   const canReplay=threshold!=null && threshold>0 && threshold<1;
   const trapRate=canReplay?Math.max(0,Math.floor(threshold*500)/1000):0;
   const upperRate=canReplay?Math.min(1,threshold+(1-threshold)*.15):0;
-  const previewRate=aboveThreshold?upperRate:trapRate;
+  const previewRate=linkedRate??(aboveThreshold?upperRate:trapRate);
   const trapResult=trapOpen&&canReplay?simulateStats(trapBundle,{...trapBase, adoption:setAdoption(trapBase.adoption,'neutral',previewRate)}).scenarios.neutral:null;
+  useEffect(()=>{
+    if(!trapResult){document.dispatchEvent(new CustomEvent('demo-insight',{detail:null}));return;}
+    const gain=yuan(trapResult.addedMargin*100),loss=yuan(trapResult.existingLoss*100),net=yuan(trapResult.marginLift*100);
+    const explain=()=>document.dispatchEvent(new CustomEvent('demo-insight',{detail:[
+      `采纳率 ${pct(previewRate)}。每 100 单新增贡献 ${gain} − 既有让利 ${loss} = 净增毛利 ${net}。`,
+      `At ${pct(previewRate)} adoption per 100 orders: ${gain} in added margin minus ${loss} in existing discounts gives ${net} net.`
+    ]}));
+    explain();document.addEventListener('demo-shell-ready',explain);return ()=>document.removeEventListener('demo-shell-ready',explain);
+  },[previewRate,trapResult?.addedMargin,trapResult?.existingLoss,trapResult?.marginLift]);
+
   return <>
     <section className="trap-entry"><div><strong>销量增加，套餐还会亏吗？</strong><p>{currentCrossable?'用当前成本和折扣，试一次低采纳率。':'当前条件没有可跨越的平衡点，可用独立示例试算。'}</p></div>
-    {canReplay&&<button className="btn" aria-expanded={trapOpen} onClick={()=>{setAboveThreshold(false);setTrapOpen(!trapOpen);}}>{trapOpen?'收起预演':'试一次盈利陷阱 →'}</button>}
-    {trapResult&&<div className="trap-ledger" data-profit={trapResult.marginLift>0} role="status"><p>{currentCrossable?'当前算例预演':'独立示例'} · 采纳率 {pct(previewRate)}，平衡点 {pct(threshold)}</p><strong>每 100 覆盖单净增毛利 {yuan(trapResult.marginLift*100)}</strong><BreakEvenMeter current={previewRate} threshold={threshold}/><button className="btn" onClick={()=>setAboveThreshold(!aboveThreshold)}>{aboveThreshold?'回到低采纳率':'跨过平衡点 →'}</button><MarginBridge result={trapResult}/>{currentCrossable&&<button className="btn" onClick={()=>{set(p=>({...p,adoption:setAdoption(p.adoption,'neutral',previewRate)}));setInputEpoch(v=>v+1);setTrapOpen(false);}}>应用到当前输入</button>}</div>}</section>
+    {canReplay&&<button className="btn" aria-expanded={trapOpen} onClick={()=>{setLinkedRate(null);setAboveThreshold(false);setTrapOpen(!trapOpen);}}>{trapOpen?'收起预演':'试一次盈利陷阱 →'}</button>}
+    {trapResult&&<div className="trap-ledger" data-profit={trapResult.marginLift>0} role="status"><p>{currentCrossable?'当前算例预演':'独立示例'} · 采纳率 {pct(previewRate)}，平衡点 {pct(threshold)}</p><strong>每 100 覆盖单净增毛利 {yuan(trapResult.marginLift*100)}</strong><p>{linkedRate!==null?'链接带入的采纳率，仅作预演。':''}每 100 个覆盖订单，新增贡献 {yuan(trapResult.addedMargin*100)}，既有顾客让利 {yuan(trapResult.existingLoss*100)}。只有新增贡献超过让利，净毛利才转正。</p><BreakEvenMeter current={previewRate} threshold={threshold}/><button className="btn" onClick={()=>{setLinkedRate(null);setAboveThreshold(previewRate<=threshold);}}>{previewRate>threshold?'回到低采纳率':'跨过平衡点 →'}</button><MarginBridge result={trapResult}/>{currentCrossable&&<button className="btn" onClick={()=>{set(p=>({...p,adoption:setAdoption(p.adoption,'neutral',previewRate)}));setInputEpoch(v=>v+1);setTrapOpen(false);}}>应用到当前输入</button>}</div>}</section>
     <p className="scenario-feedback" role="status">{feedback || storage || builtin.notice}</p>
     {(builtin.writeLocked||manualWriteLocked||csvLocked)&&<div className="draft-recovery" role="group" aria-label="恢复草稿自动保存"><p>检测到无法恢复的旧草稿，当前计算和导出可用。只有点击对应按钮，才会用本页输入替换该来源的旧值。</p>{builtin.writeLocked&&<button className="btn" onClick={()=>builtin.resumeSaving()}>用当前内置输入替换旧草稿并恢复保存</button>}{manualWriteLocked&&<button className="btn" onClick={()=>{setManualWriteLocked(false);setStorage('已选择用当前有效自建输入替换旧草稿。');}}>用当前自建输入替换旧草稿并恢复保存</button>}{csvLocked&&(csvDraft?<button className="btn" onClick={()=>setCsvLocked(false)}>用当前CSV基线替换旧值并恢复保存</button>:<p>旧CSV基线无法恢复，原值仍保留；重新导入有效基线后，再明确确认是否替换。</p>)}</div>}
     <a className="scenario-result-jump" href="#scenario-result">{n ? <>当前中档增量毛利 <strong>{yuan(n.marginLift * 100)}</strong> / 100覆盖单</> : '输入补全后可查看增量账本'}<span>查看账本 ↓</span></a>
