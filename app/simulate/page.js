@@ -33,7 +33,7 @@ export default function SimulatePage() {
     <div className="bundle-worksheet">
       <div className="page-head">
         <p className="desk-eyebrow">Bundle Lab / 收益推演</p>
-        <h1>一份套餐，算清两笔账。</h1>
+        <details className="runtime-badge"><summary>LOCAL ENGINE</summary><p>内置合成订单或自有基线。收益按当前经营假设计算。</p></details><h1>一份套餐，算清两笔账。</h1>
         <p>
           核对新增贡献和既有让利，比较方案，再带走验证计划。支持自有商品与CSV；订单基线、行为和成本仍需验证。
         </p>
